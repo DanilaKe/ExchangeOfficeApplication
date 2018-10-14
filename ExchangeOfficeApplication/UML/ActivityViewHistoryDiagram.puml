@@ -1,0 +1,40 @@
+@startuml
+|Cashier|
+    start
+    :Enter customer name;
+    :Request\nto Application;
+|Application|
+    if (Data Correctly) then (Invalid Data)
+      :Print error\n message;
+      stop
+    else (Valid Data)
+      :Request to\n     Bank;
+|Bank|
+    :Request to\n Database;
+|Database|
+    :Add data\nin logfile;
+    if (Is this a new customer?) then (Yes)
+      :Send error\n message;
+|Bank|
+        :Send message\n to Application;
+|Application|
+        :Print message;
+      stop
+|Database|
+    else (No)
+    :\n\n       Send full\ncustomer history\n\n;
+|Bank|
+        :Send message\n to Application;
+|Application|
+        :Print full history;
+|Cashier|
+        if (Do I need a detailed history?) then (No)
+        stop
+|Cashier|           
+        else (Yes)
+        :Enter the time span;
+        |Application|
+            :Print ditailed history;
+        endif
+        stop
+@enduml

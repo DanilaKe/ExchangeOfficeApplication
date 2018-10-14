@@ -1,5 +1,5 @@
 @startuml
-|Unauthenticated\nUser:|
+|Unauthenticated\nUser|
     start
     :Enter Login & \n    Password;
     :Try to Login\nin Application;
