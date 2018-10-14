@@ -9,10 +9,10 @@ rectangle ExchangeOffice {
   :Unauthenticated\nUser: --> (Login)
   (Login) <. (Wrong Password) : ""extend""
   
-  (Transaction) <-- :Cashier:
+      (Transaction) <-- :Cashier:
   (Purchase\n Currency) --|> (Transaction)
   (Sale\n Currency) --|> (Transaction)
-  (View Custumer\n History) --|> (Transaction)
+  (View Custumer\n History) <-- :Cashier:
   (View Custumer\n History) <.. (Get Analytical\n Information) : ""extend""
   (View Custumer\n History) <.. (Check Current\n Daily Limit) : ""extend""
   

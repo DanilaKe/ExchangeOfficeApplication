@@ -1,0 +1,32 @@
+@startuml
+|Cashier|
+    start
+    :Choose type of transaction,
+    Enter Amount & customer name;
+    :Request\nto Application;
+|Application|
+    if (Data Correctly) then (Invalid Data)
+      :Print error\n message;
+      stop
+    else (Valid Data)
+      :Request to\n     Bank;
+|Bank|
+    :Request to\n Database;
+|Database|
+    :Add data\nin logfile;
+    if (Is this a new customer?) then (Yes)
+      :Register a new customer;
+    else (No)
+    endif
+    if (Check daily limit) then (Amount < Limit)
+    :Send successful\nmessage to Bank;
+    else (Amount > Limit)
+    |Database|
+    :Send error\n message;
+    endif
+    |Bank|
+        :Send message\n to Application;
+        |Application|
+        :Print message;
+stop
+@enduml
