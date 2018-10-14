@@ -1,0 +1,32 @@
+@startuml
+|Unauthenticated\nUser:|
+    start
+    :Enter Login & \n    Password;
+    :Try to Login\nin Application;
+|Application|
+    if (Data Correctly) then (Invalid Data)
+      :Print error\n message;
+      stop
+    else (Valid Data)
+      :Request to\n     Bank;
+|Bank|
+    :Request to\n Database;
+|Database|
+    :Add data\nin logfile;
+    if (Check Login & Password) then (Valid Login\n& Password)
+      :Sends a
+      Successful
+      login message;
+      |Bank|
+        :User Authentication;
+    |Database| 
+    else (Invalid Login\n& Password)
+      :Sends a Error 
+          message;
+    |Bank|
+    endif
+    :Send message\nto Application;
+    |Application|
+    :Print message;
+stop
+@enduml

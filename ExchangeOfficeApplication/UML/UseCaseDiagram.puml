@@ -1,0 +1,26 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+actor :Unauthenticated\nUser:
+actor Cashier
+actor :Bank Administrator:
+rectangle ExchangeOffice {
+  :Unauthenticated\nUser: --> (Login)
+  (Login) <. (Wrong Password) : ""extend""
+  
+  (Transaction) <-- :Cashier:
+  (Purchase\n Currency) --|> (Transaction)
+  (Sale\n Currency) --|> (Transaction)
+  (View Custumer\n History) --|> (Transaction)
+  (View Custumer\n History) <.. (Get Analytical\n Information) : ""extend""
+  (View Custumer\n History) <.. (Check Current\n Daily Limit) : ""extend""
+  
+  (Read\n Log) <-- :Bank Administrator:
+  (Currency\nExchange Update) <-- :Bank Administrator:
+  (Change User\n Daily Limit) <-- :Bank Administrator:
+  (Cancel Last\n Transaction) <-- :Bank Administrator:
+  :Cashier: <|-:Bank Administrator:
+}
+
+@enduml
