@@ -1,0 +1,13 @@
+@startuml
+|Bank Administrator|
+    start
+    :Request to Application;
+|Application|
+    :Request to\n Database;
+|Database|
+    :Add data\nin logfile;
+    :Send Logfile\nto Application;
+|Application|
+    :Print Logfile;
+stop
+@enduml
