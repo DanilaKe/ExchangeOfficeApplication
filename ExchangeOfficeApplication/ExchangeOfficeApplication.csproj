@@ -48,7 +48,9 @@
     <Content Include="..\README.md">
       <Link>README.md</Link>
     </Content>
+    <Content Include="UML\ActivityAdministratorDiagram.puml" />
     <Content Include="UML\ActivityLoginDiagram.puml" />
+    <Content Include="UML\ActivityReadLogDiagram.puml" />
     <Content Include="UML\ActivityTransactionDiagram.puml" />
     <Content Include="UML\ActivityViewHistoryDiagram.puml" />
     <Content Include="UML\UseCaseDiagram.puml" />

@@ -1,0 +1,41 @@
+@startuml
+|Bank Administrator|
+    start
+    :Choose type of activity;
+    :Request\nto Application;
+|Application|
+    if (Data Correctly) then (Invalid Data)
+      :Print error\n message;
+      stop
+    else (Valid Data)
+    :Request to\n Database;
+|Database|
+    :Add data\nin logfile;
+    if (Is this the “Undo the last transaction” activity?) then (Yes)
+      :Send info about\nlast transaction;
+|Application|
+      :Print message;
+|Bank Administrator|
+      if (Cancel Last\n Transaction) then (No)
+      stop
+|Application|
+      else (Yes)
+      :Request to\n Database;
+|Database|
+      :Add data in\nLogfile;
+      :Delete last transaction;   
+      stop
+      endif
+|Database|
+    else (No)
+    if (Check daily limit) then (Amount < Limit)
+    :Send successful\nmessage to Bank;
+    else (Amount > Limit)
+    |Database|
+    :Send error\n message;
+    endif
+        :Send message\n to Application;
+        |Application|
+        :Print message;
+stop
+@enduml
