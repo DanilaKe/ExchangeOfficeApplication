@@ -8,25 +8,18 @@
       :Print error\n message;
       stop
     else (Valid Data)
-      :Request to\n     Bank;
-|Bank|
     :Request to\n Database;
 |Database|
     :Add data\nin logfile;
+    :Sends data with\nlogins and passwords;
+|Application|
     if (Check Login & Password) then (Valid Login\n& Password)
-      :Sends a
-      Successful
-      login message;
-      |Bank|
-        :User Authentication;
-    |Database| 
+      :User is authorized;
+      :Sends a\nSuccessful\nlogin message; 
     else (Invalid Login\n& Password)
       :Sends a Error 
           message;
-    |Bank|
     endif
-    :Send message\nto Application;
-    |Application|
     :Print message;
 stop
 @enduml

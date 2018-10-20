@@ -1,30 +1,28 @@
 @startuml
 |Cashier|
-    start
-    :Enter customer name;
-    :Request\nto Application;
-|Application|
-    if (Data Correctly) then (Invalid Data)
-      :Print error\n message;
-      stop
-    else (Valid Data)
-      :Request to\n     Bank;
-|Bank|
-    :Request to\n Database;
-|Database|
-    :Add data\nin logfile;
-    if (Is this a new customer?) then (Yes)
-      :Send error\n message;
-|Bank|
-        :Send message\n to Application;
+     start
+        :Enter customer name;
+        :Request\nto Application;
+    |Application|
+        if (Data Correctly) then (Invalid Data)
+          :Print error\n message;
+          stop
+        else (Valid Data)
+          :Request to\n     Bank;
+        :Request to\n Database;
+    |Database|
+        :Add data\nin logfile;
+        :Sends a list\nwith the names\nof all users;
+    |Application|
+        if (Is this a new customer?) then (Yes)
+          :Send error\n message;
 |Application|
         :Print message;
       stop
-|Database|
     else (No)
-    :\n\n       Send full\ncustomer history\n\n;
-|Bank|
-        :Send message\n to Application;
+    :Database query : user history?;
+|Database|
+    :Send full\ncustomer history;
 |Application|
         :Print full history;
 |Cashier|
@@ -38,3 +36,23 @@
         endif
         stop
 @enduml
+
+    start
+    :Enter customer name;
+    :Request\nto Application;
+|Application|
+    if (Data Correctly) then (Invalid Data)
+      :Print error\n message;
+      stop
+    else (Valid Data)
+      :Request to\n     Bank;
+    :Request to\n Database;
+|Database|
+    :Add data\nin logfile;
+    :Sends a list\nwith the names\nof all users;
+|Application|
+    if (Is this a new customer?) then (No)
+    :;
+|Application|
+        :Print message;
+      stop

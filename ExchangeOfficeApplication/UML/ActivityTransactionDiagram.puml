@@ -10,23 +10,46 @@
       stop
     else (Valid Data)
       :Request to\n     Bank;
-|Bank|
     :Request to\n Database;
 |Database|
     :Add data\nin logfile;
-    if (Is this a new customer?) then (Yes)
+    :Sends a list\nwith the names\nof all users;
+|Application|
+    if (Is this a new customer?) then (No)
+    :;
+|Application|
+    else (Yes)
       :Register a new customer;
-    else (No)
+|Database|
+      :Create new custumer;     
     endif
-    if (Check daily limit) then (Amount < Limit)
+|Application|
+    :Database query :\nuser limit & exchange rate?;
+|Database|
+    :Send data about custumer limit\n & exchange rate;
+|Application|
+    if (Check daily limit) then (Amount > Limit)
+      :Send error\n message;
+    else (Amount > Limit)
+      :Exchange in accordance\nwith the exchange rate;
+|Database|
+      :Completes user\nhistory;
+|Application|
+      :Send successful\nmessage;
+    endif
+    :Print message;
+    :Print a receipt;
+stop
+@enduml
+
+  if (Check daily limit) then (Amount < Limit)
+    :Exchange in accordance\nwith the course;
+    :Completes user\nhistory;
     :Send successful\nmessage to Bank;
     else (Amount > Limit)
-    |Database|
     :Send error\n message;
     endif
-    |Bank|
         :Send message\n to Application;
         |Application|
         :Print message;
-stop
-@enduml
+        :print a receipt;
