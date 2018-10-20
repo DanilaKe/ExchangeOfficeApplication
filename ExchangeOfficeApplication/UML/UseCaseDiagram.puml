@@ -7,20 +7,16 @@ actor Cashier
 actor :Bank Administrator:
 rectangle ExchangeOffice {
   :Unauthenticated\nUser: --> (Login)
-  (Login) <. (Wrong Password) : ""extend""
   
-      (Transaction) <-- :Cashier:
-  (Purchase\n Currency) --|> (Transaction)
-  (Sale\n Currency) --|> (Transaction)
+      (Currency exchange) <-- :Cashier:
+  (Purchase\n Currency) --|> (Currency exchange)
+  (Sale\n Currency) --|> (Currency exchange)
   (View Custumer\n History) <-- :Cashier:
   (View Custumer\n History) <.. (Get Analytical\n Information) : ""extend""
   (View Custumer\n History) <.. (Check Current\n Daily Limit) : ""extend""
   
-  (Read\n Log) <-- :Bank Administrator:
-  (Currency\nExchange Update) <-- :Bank Administrator:
-  (Change User\n Daily Limit) <-- :Bank Administrator:
-  (Cancel Last\n Transaction) <-- :Bank Administrator:
-  :Cashier: <|-:Bank Administrator:
+  (Read\n Log) <--- :Bank Administrator:
+  (Currency\nExchange Update) <--- :Bank Administrator:
 }
 
 @enduml
