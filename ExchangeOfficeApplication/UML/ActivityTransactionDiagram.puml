@@ -1,0 +1,44 @@
+@startuml
+    |Cashier|
+        start
+            :Choose type of transaction,
+            Enter Amount & customer name;
+            :Request\nto Application;
+    |Application|
+            if (Data Correctly) then (Invalid Data)
+                :Print error\n message;
+                stop
+            else (Valid Data)
+                :Request to\n     Bank;
+                :Request to\n Database;
+    |Database|
+                :Add data\nin logfile;
+                :Sends a list\nwith the names\nof all users;
+            endif
+    |Application|
+            if (Is this a new customer?) then (No)
+            :;
+    |Application|
+            else (Yes)
+                :Register a new customer;
+    |Database|
+                :Create new custumer;     
+            endif
+    |Application|
+            :Database query :\nuser limit & exchange rate?;
+    |Database|
+            :Send data about custumer limit\n & exchange rate;
+    |Application|
+            if (Check daily limit) then (Amount > Limit)
+                :Send error\n message;
+            else (Amount < Limit)
+                :Exchange in accordance\nwith the exchange rate;
+    |Database|
+                :Completes user\nhistory;
+    |Application|
+                :Send successful\nmessage;
+            endif
+            :Print message;
+            :Print a receipt;
+        stop
+@enduml
