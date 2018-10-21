@@ -1,18 +1,19 @@
 @startuml
-|Bank Administrator|
-    start
-    :Write Currency\nExchange;
-    :Request\nto Application;
-|Application|
-    if (Data Correctly) then (Invalid Data)
-      :Print error\n message;
-      stop
-    else (Valid Data)
-    :Request to\n Database;
-|Database|
-    :Add data\nin logfile;
-    :Edit Currency\nExchange in database;
-|Application|
-      :Print message;
-stop
+    |Bank Administrator|
+        start
+            :Write Currency\nExchange;
+            :Request\nto Application;
+    |Application|
+            if (Data Correctly) then (Invalid Data)
+                :Print error\n message;
+                stop
+            else (Valid Data)
+                :Request to\n Database;
+    |Database|
+                :Add data\nin logfile;
+                :Edit Currency\nExchange in database;
+    |Application|
+                :Print message;
+            endif
+        stop
 @enduml

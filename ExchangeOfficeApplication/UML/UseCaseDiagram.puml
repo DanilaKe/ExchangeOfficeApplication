@@ -1,22 +1,20 @@
 @startuml
-
-left to right direction
-skinparam packageStyle rectangle
-actor :Unauthenticated\nUser:
-actor Cashier
-actor :Bank Administrator:
-rectangle ExchangeOffice {
-  :Unauthenticated\nUser: --> (Login)
-  
-      (Currency exchange) <-- :Cashier:
-  (Purchase\n Currency) --|> (Currency exchange)
-  (Sale\n Currency) --|> (Currency exchange)
-  (View Custumer\n History) <-- :Cashier:
-  (View Custumer\n History) <.. (Get Analytical\n Information) : ""extend""
-  (View Custumer\n History) <.. (Check Current\n Daily Limit) : ""extend""
-  
-  (Read\n Log) <--- :Bank Administrator:
-  (Currency\nExchange Update) <--- :Bank Administrator:
-}
-
+    left to right direction
+    skinparam packageStyle rectangle
+    actor :Unauthenticated\nUser:
+    actor Cashier
+    actor :Bank Administrator:
+    rectangle ExchangeOffice {
+        :Unauthenticated\nUser: --> (Login)
+      
+        (Currency\nexchange) <-- :Cashier:
+        (Purchase\n Currency) --|> (Currency\nexchange)
+        (Sale\n Currency) --|> (Currency\nexchange)
+        (View Custumer\n History) <-- :Cashier:
+        (View Custumer\n History) <.. (Get Analytical\n Information) : ""extend""
+        (View Custumer\n History) <.. (Check Current\n Daily Limit) : ""extend""
+      
+        (Read\n Log) <--- :Bank Administrator:
+        (Currency\nExchange Update) <--- :Bank Administrator:
+    }
 @enduml

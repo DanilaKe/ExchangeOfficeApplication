@@ -1,25 +1,25 @@
 @startuml
-|Unauthenticated\nUser|
-    start
-    :Enter Login & \n    Password;
-    :Try to Login\nin Application;
-|Application|
-    if (Data Correctly) then (Invalid Data)
-      :Print error\n message;
-      stop
-    else (Valid Data)
-    :Request to\n Database;
-|Database|
-    :Add data\nin logfile;
-    :Sends data with\nlogins and passwords;
-|Application|
-    if (Check Login & Password) then (Valid Login\n& Password)
-      :User is authorized;
-      :Sends a\nSuccessful\nlogin message; 
-    else (Invalid Login\n& Password)
-      :Sends a Error 
-          message;
-    endif
-    :Print message;
-stop
+    |Unauthenticated\nUser|
+        start
+            :Enter Login & \n    Password;
+            :Try to Login\nin Application;
+    |Application|
+            if (Data Correctly) then (Invalid Data)
+                :Print error\n message;
+                stop
+            else (Valid Data)
+                :Request to\n Database;
+    |Database|
+                :Add data\nin logfile;
+                :Sends data with\nlogins and passwords;
+            endif
+    |Application|
+            if (Check Login & Password) then (Valid Login\n& Password)
+                :User is\nauthorized;
+                :Sends a\nSuccessful\nlogin message; 
+            else (Invalid Login\n& Password)
+                :Sends a Error\nmessage;
+            endif
+            :Print message;
+        stop
 @enduml
