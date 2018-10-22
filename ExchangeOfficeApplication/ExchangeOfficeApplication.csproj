@@ -82,10 +82,12 @@
     </Content>
 =======
     <Compile Include="EntryPoint.cs" />
+    <Compile Include="GUI\CashierWindow.cs" />
     <Compile Include="GUI\Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GUI\CashierWindow.glade" />
     <Content Include="GUI\LoginWindow.glade" />
 >>>>>>> Skeleton LoginWindow was added.
     <Content Include="UML\ActivityAdministratorDiagram.puml" />
