@@ -9,10 +9,13 @@ namespace ExchangeOfficeApplication.GUI
     /// </summary>
     public class CashierWindow
     {
-        [Builder.Object] private Label LoginLable;
-        [Builder.Object] private Label PasswordLable;
-        [Builder.Object] private Entry LoginEntry;
-        [Builder.Object] private Entry PasswordEntry;
+        [Builder.Object] private TextBuffer TodayCourse;
+        [Builder.Object] private TextBuffer ExchangeResult;
+        [Builder.Object] private Entry FirstName;
+        [Builder.Object] private Entry LastName;
+        [Builder.Object] private ComboBoxText ContributedСurrency;
+        [Builder.Object] private ComboBoxText TargetCurrency;
+        [Builder.Object] private Entry ContributedAmount;
         [Builder.Object] private Window Cashier;
         
         private Builder GuiBuilder;
@@ -33,10 +36,45 @@ namespace ExchangeOfficeApplication.GUI
                 Console.WriteLine(e.Message);
             }
         }
+
+        protected void ClickedApplyButton(object sender, EventArgs a)
+        {
+            //TODO    
+        }
         
-        protected void  ExitButton(object sender, EventArgs a)
+        protected void ClickedClearButton(object sender, EventArgs a)
+        {
+            //TODO
+        }
+        
+        protected void ClickedRefreshButton(object sender, EventArgs a)
+        {
+            //TODO
+        }
+        
+        protected void ClickedCloseButton(object sender, EventArgs a)
         {
             Application.Quit();
+        }
+        
+        protected void ClickedAboutButton(object sender, EventArgs a)
+        {
+            //TODO
+        }
+        
+        protected void ExitButton(object sender, EventArgs a)
+        {
+            Application.Quit();
+        }
+        
+        protected void ClickedQuitButton(object sender, EventArgs a)
+        {
+            //TODO
+        }
+        
+        protected void ActivatePurchaseButton(object sender, EventArgs a)
+        {
+            //TODO
         }
     }
 }

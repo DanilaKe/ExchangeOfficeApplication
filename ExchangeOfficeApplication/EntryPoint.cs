@@ -1,4 +1,5 @@
-﻿using ExchangeOfficeApplication.GUI;
+﻿using System;
+using ExchangeOfficeApplication.GUI;
 using Gtk;
 
 namespace ExchangeOfficeApplication
@@ -9,7 +10,14 @@ namespace ExchangeOfficeApplication
         {
             static void Main(string[] args)
             {
-                new Login();
+                try
+                {
+                    new Login();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         
         }

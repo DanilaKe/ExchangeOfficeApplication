@@ -9,8 +9,6 @@ namespace ExchangeOfficeApplication.GUI
     /// </summary>
     public class Login
     {
-        [Builder.Object] private Label LoginLable;
-        [Builder.Object] private Label PasswordLable;
         [Builder.Object] private Entry LoginEntry;
         [Builder.Object] private Entry PasswordEntry;
         [Builder.Object] private Window LoginWindow;
