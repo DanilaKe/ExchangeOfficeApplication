@@ -14,6 +14,8 @@ namespace ExchangeOfficeApplication.GUI
         [Builder.Object] private Entry LoginEntry;
         [Builder.Object] private Entry PasswordEntry;
         [Builder.Object] private Window LoginWindow;
+
+        private bool adminFlag;
         
         private Builder GuiBuilder;
         
@@ -46,13 +48,14 @@ namespace ExchangeOfficeApplication.GUI
         protected void  ExitButtonClicked(object sender, EventArgs a)
         {
             Console.WriteLine("Exit");
+            Application.Quit();
             // TODO
         }
         
         protected void  AdministratorSwitchActivate(object sender, ButtonReleaseEventArgs a)
         {
-            Console.WriteLine("Admin");
-            // TODO
+            adminFlag = !adminFlag;
+            Console.WriteLine($"Admin : {adminFlag}");
         }
         
         protected void  ExitButton(object sender, EventArgs a)
