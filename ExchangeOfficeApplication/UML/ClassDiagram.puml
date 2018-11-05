@@ -1,0 +1,111 @@
+@startuml
+abstract class Account
+class Unauthenticated\nUser
+class Cashier
+class Bank\nAdministrator
+class Exchange
+class ViewingHistory
+class Login
+class CurrenceExchangeUpdate
+class GetLog
+class Bank
+interface ICommand
+
+enum Currency 
+{
+    EUR
+    USD
+    RUB
+    BYR
+}
+
+interface ICommand
+{
+    Execute()
+}
+
+class ViewingHistory
+{
+    int customerID
+    
+    Execute()
+}
+
+class Exchange
+{
+    Bank bank
+    int customerID
+    Currency TargetCurrency
+    Currency ContributedCurrency
+    double amount
+    
+    Exchange(Bank bank, int customerID,\nCurrency TargetCurrency,\nCurrency ContributedCurrency, double amount)
+    Execute()
+}
+
+class GetLog
+{
+    Bank bank
+    
+    ReadLog(Bank bank)
+    Execute()
+}
+
+class CurrenceExchangeUpdate
+{
+    Bank bank
+    Currency TargetCurrency
+    Currency ContributedCurrency
+    double newPurchaseRate
+    double newSaleRate
+    
+    CurrenceExchangeUpdate(Bank bank, Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
+    Execute()
+}
+
+class Login
+{
+    Bank bank
+    string login
+    string password
+    
+    Login(Bank bank, string login, string password)
+    Execute()
+}
+
+abstract class Account
+{
+    ICommand Сommand
+}
+
+Account --> ICommand
+
+Account <|-- Unauthenticated\nUser
+Account <|-- Cashier
+Account <|-- Bank\nAdministrator
+
+ICommand <|.. Login
+ICommand <|.. CurrenceExchangeUpdate
+ICommand <|.. GetLog
+ICommand <|.. Exchange
+ICommand <|.. ViewingHistory
+
+Login o---> Bank
+CurrenceExchangeUpdate o---> Bank
+GetLog o---> Bank
+Exchange o---> Bank
+ViewingHistory o---> Bank
+
+@enduml
+
+List <|-- AbstractList
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+Object[] elementData
+size()
+}

@@ -95,6 +95,7 @@
     <Content Include="UML\ActivityReadLogDiagram.puml" />
     <Content Include="UML\ActivityTransactionDiagram.puml" />
     <Content Include="UML\ActivityViewHistoryDiagram.puml" />
+    <Content Include="UML\ClassDiagram.puml" />
     <Content Include="UML\UseCaseDiagram.puml" />
   </ItemGroup>
 <<<<<<< HEAD
