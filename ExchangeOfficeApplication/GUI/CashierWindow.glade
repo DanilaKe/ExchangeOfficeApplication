@@ -2,33 +2,33 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkTextBuffer" id="textbuffer1">
-    <property name="text">-------------------------------------------------------------------------
-Валюта %CurrencyName%
--------------------------------------------------------------------------
-Продажа %SaleRate1%
-Покупка %PurchaseRate1%
--------------------------------------------------------------------------
-Валюта %CurrencyName2%
--------------------------------------------------------------------------
-Продажа %SaleRate2%
-Покупка %PurchaseRate2%
--------------------------------------------------------------------------</property>
-  </object>
-  <object class="GtkTextBuffer" id="textbuffer2">
-    <property name="text" translatable="yes">Дата 
+  <object class="GtkTextBuffer" id="ExchangeResult">
+    <property name="text" translatable="yes">Дата : %Date%
 Счет : %AccountNumber%
 
 Имя : %FirstName%
 Фамилия : %LastName%
 
-Валюта операции :
-Целевая валюта : 
-Курс :
+Валюта операции : %ContributedСurrency%
+Целевая валюта : %TargetCurrency%
+Курс : %ExchangeRates%
 Внесенная сумма : %ContributedAmount%
-Полученная сумма :
+Полученная сумма : %IssuedAmount%
 
-Сегодняшний лимит :</property>
+Сегодняшний лимит : %TodayLimit%</property>
+  </object>
+  <object class="GtkTextBuffer" id="TodayСourse.">
+    <property name="text">---------------------------------------------------------------------
+Валюта %CurrencyName1%
+---------------------------------------------------------------------
+Продажа %SaleRate1%
+Покупка %PurchaseRate1%
+---------------------------------------------------------------------
+Валюта %CurrencyName2%
+---------------------------------------------------------------------
+Продажа %SaleRate2%
+Покупка %PurchaseRate2%
+---------------------------------------------------------------------</property>
   </object>
   <object class="GtkWindow" id="Cashier">
     <property name="can_focus">False</property>
@@ -65,6 +65,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
+                        <signal name="activate" handler="ClickedRefreshButton" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -76,6 +77,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
+                        <signal name="activate" handler="ClickedQuitButton" swapped="no"/>
                       </object>
                     </child>
                     <child>
@@ -93,6 +95,7 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
+                        <signal name="activate" handler="ClickedCloseButton" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -115,8 +118,10 @@
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
+                        <signal name="activate" handler="ClickedAboutButton" swapped="no"/>
                       </object>
                     </child>
                   </object>
@@ -179,7 +184,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
+          <object class="GtkLabel" id="CashierName">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">%CashierName%</property>
@@ -303,7 +308,7 @@
                 <property name="margin_bottom">15</property>
                 <property name="editable">False</property>
                 <property name="cursor_visible">False</property>
-                <property name="buffer">textbuffer2</property>
+                <property name="buffer">ExchangeResult</property>
               </object>
             </child>
           </object>
@@ -322,8 +327,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="editable">False</property>
+                <property name="left_margin">7</property>
                 <property name="cursor_visible">False</property>
-                <property name="buffer">textbuffer1</property>
+                <property name="buffer">TodayСourse.</property>
                 <property name="accepts_tab">False</property>
               </object>
             </child>
@@ -405,23 +411,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkRadioButton" id="radiobutton1">
-                    <property name="label" translatable="yes">Покупка</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">23</property>
-                    <property name="margin_right">25</property>
-                    <property name="active">True</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton">
+                  <object class="GtkRadioButton" id="Sale">
                     <property name="label" translatable="yes">Продажа</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -430,7 +420,7 @@
                     <property name="margin_right">24</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
-                    <property name="group">radiobutton1</property>
+                    <property name="group">Purchase</property>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -475,6 +465,23 @@
                   <packing>
                     <property name="left_attach">2</property>
                     <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkRadioButton" id="Purchase">
+                    <property name="label" translatable="yes">Покупка</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="margin_left">23</property>
+                    <property name="margin_right">25</property>
+                    <property name="active">True</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="ActivatePurchaseButton" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
                   </packing>
                 </child>
               </object>
@@ -576,7 +583,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEntry">
+                  <object class="GtkEntry" id="FirstName">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">26</property>
@@ -589,7 +596,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEntry">
+                  <object class="GtkEntry" id="LastName">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">26</property>
@@ -602,33 +609,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkEntry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="max_length">26</property>
-                    <property name="width_chars">26</property>
-                    <property name="max_width_chars">26</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">4</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="max_length">26</property>
-                    <property name="width_chars">26</property>
-                    <property name="max_width_chars">26</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">6</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry">
+                  <object class="GtkEntry" id="ContributedAmount">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="max_length">26</property>
@@ -662,6 +643,7 @@
                         <property name="receives_default">True</property>
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
+                        <signal name="clicked" handler="ClickedApplyButton" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -676,6 +658,7 @@
                         <property name="receives_default">True</property>
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
+                        <signal name="clicked" handler="ClickedClearButton" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -686,6 +669,38 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">9</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="ContributedСurrency">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <items>
+                      <item id="RUB" translatable="yes">RUB</item>
+                      <item id="USD" translatable="yes">USD</item>
+                      <item id="EUR" translatable="yes">EUR</item>
+                      <item id="BYR" translatable="yes">BYR</item>
+                    </items>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkComboBoxText" id="TargetCurrency">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <items>
+                      <item id="RUB" translatable="yes">RUB</item>
+                      <item id="USD" translatable="yes">USD</item>
+                      <item id="EUR" translatable="yes">EUR</item>
+                      <item id="BYR" translatable="yes">BYR</item>
+                    </items>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">6</property>
                   </packing>
                 </child>
                 <child>
@@ -745,19 +760,24 @@
         <child>
           <placeholder/>
         </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
       </object>
     </child>
+  </object>
+  <object class="GtkListStore" id="liststore1">
+    <columns>
+      <!-- column-name GtkArrowType1 -->
+      <column type="GtkArrowType"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0">up</col>
+      </row>
+      <row>
+        <col id="0">up</col>
+      </row>
+      <row>
+        <col id="0">up</col>
+      </row>
+    </data>
   </object>
 </interface>
