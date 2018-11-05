@@ -9,6 +9,12 @@ class Login
 class CurrenceExchangeUpdate
 class GetLog
 class Bank
+class EntryPoint
+class Application
+class LoginWindow
+class CashierWindow
+class AdminWindow
+class DialogWindow
 interface ICommand
 
 enum Currency 
@@ -78,7 +84,62 @@ abstract class Account
     ICommand Сommand
 }
 
-Account --> ICommand
+class Application
+{
+    LoginWindow loginWindow
+    CashierWindow cashierWindow
+    AdminWindow adminWindow
+    DialogWindow dialogWindow
+    Account account
+    Run()
+}
+
+class Unauthenticated\nUser
+{
+    UnauthenticatedUser(ICommand)
+}
+
+class Cashier
+{
+    Cashier(ICommand)
+}
+
+class Bank\nAdministrator
+{
+    BankAdministrator(ICommand  )
+}
+
+class LoginWindow
+{
+    -Label LoginLable
+    -Label PasswordLable
+    -Entry LoginEntry
+    -Entry PasswordEntry
+    -Window LoginWindow
+    -Builder GuiBuilder
+    -bool adminFlag
+    
+    +Login()
+    #OkButtonClicked(object sender, EventArgs a)
+    #ExitButtonClicked(object sender, EventArgs a)
+    #AdministratorSwitchActivate(object sender, ButtonReleaseEventArgs a)
+    #ExitButton(object sender, EventArgs a)
+}
+
+class CashierWindow
+{
+            -Label LoginLable
+            -Label PasswordLable
+            -Entry LoginEntry
+            -Entry PasswordEntry
+            -Window Cashier
+            -Builder GuiBuilder
+            
+            +CashierWindow()
+            #ExitButton(object sender, EventArgs a)
+}   
+
+Account ..> ICommand
 
 Account <|-- Unauthenticated\nUser
 Account <|-- Cashier
@@ -95,6 +156,16 @@ CurrenceExchangeUpdate o---> Bank
 GetLog o---> Bank
 Exchange o---> Bank
 ViewingHistory o---> Bank
+
+EntryPoint --> Application
+Application *--> LoginWindow 
+Application *--> AdminWindow
+Application *--> DialogWindow
+Application *--> CashierWindow
+
+CashierWindow ---> Cashier 
+LoginWindow ---> Unauthenticated\nUser
+AdminWindow ---> Bank\nAdministrator
 
 @enduml
 
