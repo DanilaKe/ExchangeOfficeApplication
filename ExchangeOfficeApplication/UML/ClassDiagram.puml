@@ -2,20 +2,28 @@
 abstract class Account
 class Unauthenticated\nUser
 class Cashier
-class Bank\nAdministrator
+class Administrator
 class Exchange
 class ViewingHistory
 class Login
 class CurrenceExchangeUpdate
 class GetLog
-class Bank
+class ExecutorCommands
 class EntryPoint
 class Application
 class LoginWindow
 class CashierWindow
 class AdminWindow
 class DialogWindow
+class ExchangeService
+class HistoryService
+class LoginService
+class GetLogService
+class CurrenceExchangeUpdateService
+class DataSourceAccess
 interface ICommand
+interface IService
+interface IExecutorCommands
 
 enum Currency 
 {
@@ -25,6 +33,14 @@ enum Currency
     BYR
 }
 
+class EntryPoint
+{
+    Application Gui
+    IExecutorCommands executorCommands
+    
+    main()
+}
+
 interface ICommand
 {
     Execute()
@@ -32,50 +48,52 @@ interface ICommand
 
 class ViewingHistory
 {
+    IExecutorCommands executorCommands
     int customerID
     
+    ViewingHistory(ExecutorCommands executorCommands, int customerID)
     Execute()
 }
 
 class Exchange
 {
-    Bank bank
+    IExecutorCommands executorCommands
     int customerID
     Currency TargetCurrency
     Currency ContributedCurrency
     double amount
     
-    Exchange(Bank bank, int customerID,\nCurrency TargetCurrency,\nCurrency ContributedCurrency, double amount)
+    Exchange(ExecutorCommands executorCommands, int customerID,\nCurrency TargetCurrency,\nCurrency ContributedCurrency, double amount)
     Execute()
 }
 
 class GetLog
 {
-    Bank bank
+    IExecutorCommands executorCommands.
     
-    ReadLog(Bank bank)
+    ReadLog(ExecutorCommands executorCommands)
     Execute()
 }
 
 class CurrenceExchangeUpdate
 {
-    Bank bank
+    IExecutorCommands executorCommands
     Currency TargetCurrency
     Currency ContributedCurrency
     double newPurchaseRate
     double newSaleRate
     
-    CurrenceExchangeUpdate(Bank bank, Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
+    CurrenceExchangeUpdate(ExecutorCommands executorCommands, Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
     Execute()
 }
 
 class Login
 {
-    Bank bank
+    IExecutorCommands executorCommands
     string login
     string password
     
-    Login(Bank bank, string login, string password)
+    Login(ExecutorCommands executorCommands, string login, string password)
     Execute()
 }
 
@@ -91,22 +109,26 @@ class Application
     AdminWindow adminWindow
     DialogWindow dialogWindow
     Account account
+    IExecutorCommands executorCommands
     Run()
 }
 
 class Unauthenticated\nUser
 {
     UnauthenticatedUser(ICommand)
+    CreateCommand()
 }
 
 class Cashier
 {
     Cashier(ICommand)
+    CreateCommand()
 }
 
-class Bank\nAdministrator
+class Administrator
 {
-    BankAdministrator(ICommand  )
+    Administrator(ICommand)
+    CreateCommand()
 }
 
 class LoginWindow
@@ -128,22 +150,64 @@ class LoginWindow
 
 class CashierWindow
 {
-            -Label LoginLable
-            -Label PasswordLable
-            -Entry LoginEntry
-            -Entry PasswordEntry
-            -Window Cashier
-            -Builder GuiBuilder
-            
-            +CashierWindow()
-            #ExitButton(object sender, EventArgs a)
-}   
+    -Label LoginLable
+    -Label PasswordLable
+    -Entry LoginEntry
+    -Entry PasswordEntry
+    -Window Cashier
+    -Builder GuiBuilder
+    
+    +CashierWindow()
+    #ExitButton(object sender, EventArgs a)
+}
+
+interface IService
+{
+    +Implement()
+}
+
+class ExecutorCommands
+{
+    IService Service
+}
+
+interface IExecutorCommands
+{
+    +DataSourceHandler event Exchanged
+    +DataSourceHandler event HistortViewed
+    +DataSourceHandler event LoginIn
+    +DataSourceHandler event LogReceived
+    +DataSourceHandler event CurrenceExchangeUpdated
+    
+    -CallEvent(DataSourceEventArgs e,\nDataSourceHandler handler)
+    +Exchange(int customerID, Currency TargetCurrency,\nCurrency ContributedCurrency, double amount)
+    +ViewingHistory(int customerID)
+    +Login(string login, string password)
+    +CurrenceExchangeUpdate(Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
+    +GetLog()
+}
+
+IExecutorCommands <|.. ExecutorCommands
+
+ExecutorCommands --> IService
 
 Account ..> ICommand
 
+IService <|.. ExchangeService
+IService <|.. HistoryService
+IService <|.. LoginService
+IService <|.. GetLogService
+IService <|.. CurrenceExchangeUpdateService
+
+ExchangeService o--> DataSourceAccess
+HistoryService o--> DataSourceAccess
+LoginService o--> DataSourceAccess
+GetLogService o--> DataSourceAccess
+CurrenceExchangeUpdateService o--> DataSourceAccess
+
 Account <|-- Unauthenticated\nUser
 Account <|-- Cashier
-Account <|-- Bank\nAdministrator
+Account <|-- Administrator
 
 ICommand <|.. Login
 ICommand <|.. CurrenceExchangeUpdate
@@ -151,13 +215,14 @@ ICommand <|.. GetLog
 ICommand <|.. Exchange
 ICommand <|.. ViewingHistory
 
-Login o---> Bank
-CurrenceExchangeUpdate o---> Bank
-GetLog o---> Bank
-Exchange o---> Bank
-ViewingHistory o---> Bank
+Login o--> IExecutorCommands
+CurrenceExchangeUpdate o--> IExecutorCommands
+GetLog o--> IExecutorCommands
+Exchange o--> IExecutorCommands
+ViewingHistory o--> IExecutorCommands
 
 EntryPoint --> Application
+Application o-> IExecutorCommands
 Application *--> LoginWindow 
 Application *--> AdminWindow
 Application *--> DialogWindow
@@ -165,18 +230,6 @@ Application *--> CashierWindow
 
 CashierWindow ---> Cashier 
 LoginWindow ---> Unauthenticated\nUser
-AdminWindow ---> Bank\nAdministrator
+AdminWindow ---> Administrator
 
 @enduml
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
-}
