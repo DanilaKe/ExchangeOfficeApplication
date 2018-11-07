@@ -38,7 +38,14 @@ namespace ExchangeOfficeApplication.GUI
         protected void  OkButtonClicked(object sender, EventArgs a)
         {
             LoginWindow.Visible = false;
-            new CashierWindow();
+            if (adminFlag)
+            {
+                new AdminWindow();
+            }
+            else
+            {
+                new CashierWindow();
+            }
             Console.WriteLine("OK");
             // TODO
         }
