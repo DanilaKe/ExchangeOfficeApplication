@@ -7,28 +7,28 @@ namespace ExchangeOfficeApplication.GUI
     /// Class Login
     /// 
     /// </summary>
-    public class CashierWindow
+    public class AdminWindow
     {
-        [Builder.Object] private TextBuffer TodayCourse;
-        [Builder.Object] private TextBuffer ExchangeResult;
-        [Builder.Object] private Entry FirstName;
+        [Builder.Object] private TextBuffer Log;
         [Builder.Object] private ComboBoxText ContributedСurrency;
         [Builder.Object] private ComboBoxText TargetCurrency;
-        [Builder.Object] private Entry ContributedAmount;
-        [Builder.Object] private Window Cashier;
+        [Builder.Object] private Entry PurchaseRate;
+        [Builder.Object] private Entry SellingRate;
+        [Builder.Object] private Window Admin;
         [Builder.Object] private AboutDialog AboutDialog;
+        
         private Builder GuiBuilder;
         
-        public CashierWindow()
+        public AdminWindow()
         {
             Gtk.Application.Init();
             GuiBuilder = new Builder();
             try
             {
                 GuiBuilder.AddFromFile(
-                    "./GUI/CashierWindow.glade");
+                    "./GUI/AdminWindow.glade");
                 GuiBuilder.Autoconnect(this);
-                Cashier.Visible = true;
+                Admin.Visible = true;
             }
             catch (Exception e)
             {
@@ -79,7 +79,7 @@ namespace ExchangeOfficeApplication.GUI
         protected void CloseAboutWindow(object sender, EventArgs a)
         {
             GuiBuilder.AddFromFile(
-                "./GUI/CashierWindow.glade");
+                "./GUI/AdminWindow.glade");
             GuiBuilder.Autoconnect(this);
         }
         

@@ -37,37 +37,31 @@
       </object>
     </child>
   </object>
-  <object class="GtkTextBuffer" id="ExchangeResult">
-    <property name="text" translatable="yes">Дата : %Date%
-Счет : %AccountNumber%
-
-Имя : %FirstName%
-Фамилия : %LastName%
-
-Валюта операции : %ContributedСurrency%
-Целевая валюта : %TargetCurrency%
-Курс : %ExchangeRates%
-Внесенная сумма : %ContributedAmount%
-Полученная сумма : %IssuedAmount%
-
-Сегодняшний лимит : %TodayLimit%</property>
+  <object class="GtkTextBuffer" id="Дщп">
+    <property name="text" translatable="yes">------------------------------------------------------------------------------------------
+Операция : %OperationID%
+Дата : %Data%
+Время : %Time%
+Детали %Details%
+------------------------------------------------------------------------------------------
+Операция : %OperationID%
+Дата : %Data%
+Время : %Time%
+Детали %Details%
+------------------------------------------------------------------------------------------
+Операция : %OperationID%
+Дата : %Data%
+Время : %Time%
+Детали %Details%
+------------------------------------------------------------------------------------------
+Операция : %OperationID%
+Дата : %Data%
+Время : %Time%
+Детали %Details%</property>
   </object>
-  <object class="GtkTextBuffer" id="TodayСourse.">
-    <property name="text">---------------------------------------------------------------------
-Валюта %CurrencyName1%
----------------------------------------------------------------------
-Продажа %SaleRate1%
-Покупка %PurchaseRate1%
----------------------------------------------------------------------
-Валюта %CurrencyName2%
----------------------------------------------------------------------
-Продажа %SaleRate2%
-Покупка %PurchaseRate2%
----------------------------------------------------------------------</property>
-  </object>
-  <object class="GtkWindow" id="Cashier">
+  <object class="GtkWindow" id="Admin">
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Обменный пункт</property>
+    <property name="title" translatable="yes">Обменный пункт (Администратор)</property>
     <property name="resizable">False</property>
     <property name="window_position">center</property>
     <signal name="destroy" handler="ClickedCloseButton" swapped="no"/>
@@ -97,7 +91,7 @@
                         <property name="label">gtk-refresh</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Обновить курс валют.</property>
+                        <property name="tooltip_text" translatable="yes">Обновить лог операции.</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
@@ -178,7 +172,7 @@
             <property name="margin_right">20</property>
             <property name="margin_top">20</property>
             <property name="margin_bottom">20</property>
-            <property name="label" translatable="yes">Текущий кассир : </property>
+            <property name="label" translatable="yes">Администратор : </property>
             <attributes>
               <attribute name="font-desc" value="DejaVu Sans Ultra-Light 12"/>
               <attribute name="weight" value="normal"/>
@@ -205,16 +199,6 @@
             <property name="can_focus">False</property>
           </object>
           <packing>
-            <property name="left_attach">2</property>
-            <property name="top_attach">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
             <property name="left_attach">3</property>
             <property name="top_attach">3</property>
           </packing>
@@ -223,7 +207,7 @@
           <object class="GtkLabel" id="CashierName">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">%CashierName%</property>
+            <property name="label" translatable="yes">%AdminName%</property>
             <property name="width_chars">50</property>
             <property name="max_width_chars">50</property>
             <attributes>
@@ -246,31 +230,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_bottom">152</property>
-            <property name="label" translatable="yes">Сегодняшний курс :</property>
-            <attributes>
-              <attribute name="font-desc" value="DejaVu Sans Ultra-Light 8"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
-            <property name="left_attach">2</property>
-            <property name="top_attach">4</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -298,36 +257,6 @@
           <packing>
             <property name="left_attach">3</property>
             <property name="top_attach">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">5</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
-            <property name="left_attach">2</property>
-            <property name="top_attach">5</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-          </object>
-          <packing>
-            <property name="left_attach">3</property>
-            <property name="top_attach">5</property>
           </packing>
         </child>
         <child>
@@ -344,35 +273,13 @@
                 <property name="margin_bottom">15</property>
                 <property name="editable">False</property>
                 <property name="cursor_visible">False</property>
-                <property name="buffer">ExchangeResult</property>
+                <property name="buffer">Дщп</property>
               </object>
             </child>
           </object>
           <packing>
             <property name="left_attach">3</property>
             <property name="top_attach">7</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="shadow_type">in</property>
-            <child>
-              <object class="GtkTextView">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="editable">False</property>
-                <property name="left_margin">7</property>
-                <property name="cursor_visible">False</property>
-                <property name="buffer">TodayСourse.</property>
-                <property name="accepts_tab">False</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="left_attach">3</property>
-            <property name="top_attach">4</property>
           </packing>
         </child>
         <child>
@@ -386,22 +293,11 @@
           </packing>
         </child>
         <child>
-          <object class="GtkSeparator">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_top">190</property>
-          </object>
-          <packing>
-            <property name="left_attach">2</property>
-            <property name="top_attach">7</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">
-Новая операция обмена
+Обновление курса валют
 </property>
             <attributes>
               <attribute name="font-desc" value="DejaVu Sans Ultra-Light 9"/>
@@ -417,7 +313,7 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">
-Результат последний операции обмена
+Лог всех операции
 </property>
             <attributes>
               <attribute name="font-desc" value="DejaVu Sans Ultra-Light 9"/>
@@ -446,193 +342,6 @@
               <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkRadioButton" id="Sale">
-                    <property name="label" translatable="yes">Продажа</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">24</property>
-                    <property name="margin_right">24</property>
-                    <property name="active">True</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="group">Purchase</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">2</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">2</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="Purchase">
-                    <property name="label" translatable="yes">Покупка</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">23</property>
-                    <property name="margin_right">25</property>
-                    <property name="active">True</property>
-                    <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="ActivatePurchaseButton" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkGrid">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Имя :</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Внесенная
-   валюта</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">4</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Целевая
- валюта</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">6</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Внесенная
-   сумма</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">8</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">5</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="FirstName">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="max_length">26</property>
-                    <property name="width_chars">26</property>
-                    <property name="max_width_chars">26</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="ContributedAmount">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="max_length">26</property>
-                    <property name="width_chars">26</property>
-                    <property name="max_width_chars">26</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">8</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">7</property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkGrid">
                     <property name="visible">True</property>
@@ -674,6 +383,18 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Вносимая
+   валюта</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkComboBoxText" id="ContributedСurrency">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -686,7 +407,29 @@
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
-                    <property name="top_attach">4</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">Целевая
+ валюта</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
                   </packing>
                 </child>
                 <child>
@@ -702,8 +445,71 @@
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
+                    <property name="top_attach">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparator">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">    Курс
+продажи</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
                     <property name="top_attach">6</property>
                   </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="SellingRate">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="max_length">26</property>
+                    <property name="width_chars">26</property>
+                    <property name="max_width_chars">26</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">6</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">   Курс
+покупки</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="PurchaseRate">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="max_length">26</property>
+                    <property name="width_chars">26</property>
+                    <property name="max_width_chars">26</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
                 </child>
                 <child>
                   <placeholder/>
@@ -735,9 +541,84 @@
                 <property name="top_attach">2</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="left_attach">1</property>
+            <property name="top_attach">7</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">4</property>
+            <property name="width">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="left_attach">1</property>
+            <property name="top_attach">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="left_attach">3</property>
+            <property name="top_attach">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
+            <property name="top_attach">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">190</property>
+          </object>
+          <packing>
+            <property name="left_attach">2</property>
             <property name="top_attach">7</property>
           </packing>
         </child>
@@ -771,24 +652,10 @@
         <child>
           <placeholder/>
         </child>
+        <child>
+          <placeholder/>
+        </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="liststore1">
-    <columns>
-      <!-- column-name GtkArrowType1 -->
-      <column type="GtkArrowType"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0">up</col>
-      </row>
-      <row>
-        <col id="0">up</col>
-      </row>
-      <row>
-        <col id="0">up</col>
-      </row>
-    </data>
   </object>
 </interface>
