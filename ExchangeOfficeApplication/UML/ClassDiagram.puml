@@ -36,82 +36,88 @@ enum Currency
 
 class EntryPoint
 {
-    Application Gui
-    IExecutorCommands executorCommands
+    -Application Gui
+    -IExecutorCommands executorCommands
     
-    main()
+    +main()
 }
 
 interface ICommand
 {
-    Execute()
+    +Execute()
 }
 
 class ViewingHistory
 {
-    IExecutorCommands executorCommands
-    int customerID
+    -IExecutorCommands executorCommands
+    -int customerID
     
-    ViewingHistory(ExecutorCommands executorCommands, int customerID)
-    Execute()
+    +ViewingHistory(ExecutorCommands executorCommands, int customerID)
+    +Execute()
 }
 
 class Exchange
 {
-    IExecutorCommands executorCommands
-    int customerID
-    Currency TargetCurrency
-    Currency ContributedCurrency
-    double amount
+    -IExecutorCommands executorCommands
+    -int customerID
+    -Currency TargetCurrency
+    -Currency ContributedCurrency
+    -double amount
     
-    Exchange(ExecutorCommands executorCommands, int customerID,\nCurrency TargetCurrency,\nCurrency ContributedCurrency, double amount)
-    Execute()
+    +Exchange(ExecutorCommands executorCommands, int customerID,\nCurrency TargetCurrency,\nCurrency ContributedCurrency, double amount)
+    +Execute()
 }
 
 class GetLog
 {
-    IExecutorCommands executorCommands.
+    -IExecutorCommands executorCommands.
     
-    ReadLog(ExecutorCommands executorCommands)
-    Execute()
+    +GetLog(ExecutorCommands executorCommands)
+    +Execute()
 }
 
 class CurrenceExchangeUpdate
 {
-    IExecutorCommands executorCommands
-    Currency TargetCurrency
-    Currency ContributedCurrency
-    double newPurchaseRate
-    double newSaleRate
+    -IExecutorCommands executorCommands
+    -Currency TargetCurrency
+    -Currency ContributedCurrency
+    -double newPurchaseRate
+    -double newSaleRate
     
-    CurrenceExchangeUpdate(ExecutorCommands executorCommands, Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
-    Execute()
+    +CurrenceExchangeUpdate(ExecutorCommands executorCommands, Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
+    +Execute()
 }
 
 class Login
 {
-    IExecutorCommands executorCommands
-    string login
-    string password
+    -IExecutorCommands executorCommands
+    -string login
+    -string password
     
-    Login(ExecutorCommands executorCommands, string login, string password)
-    Execute()
+    +Login(ExecutorCommands executorCommands, string login, string password)
+    +Execute()
 }
 
 abstract class Account
 {
-    ICommand Сommand
+    +ICommand Сommand
 }
 
 class Application
 {
-    LoginWindow loginWindow
-    CashierWindow cashierWindow
-    AdminWindow adminWindow
-    DialogWindow dialogWindow
-    Account account
-    IExecutorCommands executorCommands
-    Run()
+    -LoginWindow loginWindow
+    -CashierWindow cashierWindow
+    -AdminWindow adminWindow
+    -DialogWindow dialogWindow
+    -Account account
+    -IExecutorCommands executorCommands
+    
+    +Run (object sender, DataSourceEventArgs e)
+    +LoginHandler (object sender, DataSourceEventArgs e)
+    +ViewingHistoryHandler (object sender, DataSourceEventArgs e)
+    +CurrenceExchangeUpdateHandler (object sender, DataSourceEventArgs e)
+    +GetLogHandler (object sender, DataSourceEventArgs e)
+    +ExchangeHandler (object sender, DataSourceEventArgs e)
 }
 
 class Unauthenticated\nUser
@@ -133,16 +139,14 @@ class Administrator
 }
 
 class LoginWindow
-{
-    -Label LoginLable
-    -Label PasswordLable
-    -Entry LoginEntry
-    -Entry PasswordEntry
-    -Window LoginWindow
-    -Builder GuiBuilder
-    -bool adminFlag
+{        
+    -Entry LoginEntry;
+    -Entry PasswordEntry;
+    -Window LoginWindow;
+    -adminFlag;
+    -Builder GuiBuilder;
     
-    +Login()
+    +LoginWindow()
     #OkButtonClicked(object sender, EventArgs a)
     #ExitButtonClicked(object sender, EventArgs a)
     #AdministratorSwitchActivate(object sender, ButtonReleaseEventArgs a)
@@ -151,15 +155,60 @@ class LoginWindow
 
 class CashierWindow
 {
-    -Label LoginLable
-    -Label PasswordLable
-    -Entry LoginEntry
-    -Entry PasswordEntry
-    -Window Cashier
-    -Builder GuiBuilder
+    -TextBuffer TodayCourse;
+    -TextBuffer ExchangeResult;
+    -Entry FirstName;
+    -ComboBoxText ContributedСurrency;
+    -ComboBoxText TargetCurrency;
+    -Entry ContributedAmount;
+    -Window Cashier;
+    -AboutDialog AboutDialog;
+    -Dialog HistoryDialog;
+    -Entry Client;
+    -Window CustumerHistory;
+    -TextBuffer History;
+    -Builder GuiBuilder;
     
     +CashierWindow()
+    #ClickedApplyButton(object sender, EventArgs a)
+    #ClickedClearButton(object sender, EventArgs a)
+    #ClickedRefreshButton(object sender, EventArgs a) 
+    #ClickedCloseButton(object sender, EventArgs a)
+    #ClickedAboutButton(object sender, EventArgs a)
     #ExitButton(object sender, EventArgs a)
+    #ClickedQuitButton(object sender, EventArgs a)
+    #ActivatePurchaseButton(object sender, EventArgs a)
+    #CloseAboutWindow(object sender, EventArgs a)   
+    #CloseAboutWindow(object sender, ResponseArgs a)   
+    #ClickedCloseHistoryButton(object sender, EventArgs a)    
+    #ClickedHistoryButton(object sender, EventArgs a)    
+    #ClickedSearchButton(object sender, EventArgs a)    
+    #CloseHistoryButton(object sender, EventArgs a)    
+    #CloseHistory(object sender, EventArgs a)
+}
+
+class AdminWindow
+{
+    -TextBuffer Log;
+    -ComboBoxText ContributedСurrency;
+    -ComboBoxText TargetCurrency;
+    -Entry PurchaseRate;
+    -Entry SellingRate;
+    -Window Admin;
+    -AboutDialog AboutDialog;
+    -Builder GuiBuilder;
+            
+    +AdminWindow()
+    #ClickedApplyButton(object sender, EventArgs a)
+    #ClickedClearButton(object sender, EventArgs a)
+    #ClickedRefreshButton(object sender, EventArgs a)
+    #ClickedCloseButton(object sender, EventArgs a)
+    #ClickedAboutButton(object sender, EventArgs a)
+    #ExitButton(object sender, EventArgs a)
+    #ClickedQuitButton(object sender, EventArgs a)
+    #ActivatePurchaseButton(object sender, EventArgs a)
+    #CloseAboutWindow(object sender, EventArgs a)
+    #CloseAboutWindow(object sender, ResponseArgs a)
 }
 
 interface IService
@@ -188,12 +237,22 @@ interface IEventsCommands
 {
     +DataSourceHandler event Exchanged
     +DataSourceHandler event HistortViewed
-    +DataSourceHandler event Login
+    +DataSourceHandler event Logined
     +DataSourceHandler event LogReceived
     +DataSourceHandler event CurrenceExchangeUpdated
     
     -CallEvent(DataSourceEventArgs e,\nDataSourceHandler handler)
     -SetCommands(DataSourceHandler event exchanged,DataSourceHandler event HistortViewed,\nDataSourceHandler event Login,DataSourceHandler event LogReceived,\nDataSourceHandler event CurrenceExchangeUpdated)
+}
+
+class DialogWindow
+{
+    -Dialog dialogWindow;
+    -Builder GuiBuilder;
+    
+    +DialogWindow()
+    #ClickedOkButton(object sender, EventArgs a)
+    #ExitButton(object sender, EventArgs a)
 }
 
 IExecutorCommands <|.. ExecutorCommands

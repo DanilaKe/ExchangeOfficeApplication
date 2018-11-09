@@ -1,6 +1,5 @@
 ﻿using System;
 using ExchangeOfficeApplication.GUI;
-using Gtk;
 
 namespace ExchangeOfficeApplication
 {
@@ -12,7 +11,9 @@ namespace ExchangeOfficeApplication
             {
                 try
                 {
-                    new Login();
+                    new LoginWindow();
+                    
+                    // TODO
                 }
                 catch (Exception e)
                 {

@@ -3,21 +3,17 @@ using System;
 
 namespace ExchangeOfficeApplication.GUI
 {
-    /// <summary>
-    /// Class Login
-    /// 
-    /// </summary>
-    public class Login
+    public class LoginWindow
     {
         [Builder.Object] private Entry LoginEntry;
         [Builder.Object] private Entry PasswordEntry;
-        [Builder.Object] private Window LoginWindow;
+        [Builder.Object] private Window loginWindow;
 
         private bool adminFlag;
         
         private Builder GuiBuilder;
         
-        public Login()
+        public LoginWindow()
         {
             Gtk.Application.Init();
             GuiBuilder = new Builder();
@@ -26,7 +22,7 @@ namespace ExchangeOfficeApplication.GUI
                 GuiBuilder.AddFromFile(
                     "./GUI/LoginWindow.glade");
                 GuiBuilder.Autoconnect(this);
-                LoginWindow.Visible = true;
+                loginWindow.Visible = true;
                 Application.Run();
             }
             catch (Exception e)
@@ -35,9 +31,9 @@ namespace ExchangeOfficeApplication.GUI
             }
         }
         
-        protected void  OkButtonClicked(object sender, EventArgs a)
+        protected void OkButtonClicked(object sender, EventArgs a)
         {
-            LoginWindow.Visible = false;
+            loginWindow.Visible = false;
             if (adminFlag)
             {
                 new AdminWindow();
@@ -49,7 +45,7 @@ namespace ExchangeOfficeApplication.GUI
             // TODO
         }
         
-        protected void  ExitButtonClicked(object sender, EventArgs a)
+        protected void ExitButtonClicked(object sender, EventArgs a)
         {
             Console.WriteLine("Exit");
             Application.Quit();

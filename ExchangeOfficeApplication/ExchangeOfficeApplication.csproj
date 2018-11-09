@@ -32,8 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
+
     <Reference Include="AtkSharp, Version=3.22.24.36, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\AtkSharp.3.22.24.36\lib\netstandard2.0\AtkSharp.dll</HintPath>
       <Private>True</Private>
@@ -62,25 +61,12 @@
       <HintPath>..\packages\PangoSharp.3.22.24.36\lib\netstandard2.0\PangoSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
->>>>>>> Skeleton LoginWindow was added.
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\ExchangeOfficeApplication.sln">
-      <Link>ExchangeOfficeApplication.sln</Link>
-    </Content>
-    <Content Include="..\README.md">
-      <Link>README.md</Link>
-    </Content>
-=======
     <Compile Include="EntryPoint.cs" />
     <Compile Include="GUI\AdminWindow.cs" />
     <Compile Include="GUI\CashierWindow.cs" />
@@ -93,21 +79,18 @@
     <Content Include="GUI\CashierWindow.glade" />
     <Content Include="GUI\DialogWindow.glade" />
     <Content Include="GUI\LoginWindow.glade" />
->>>>>>> Skeleton LoginWindow was added.
     <Content Include="UML\ActivityAdministratorDiagram.puml" />
     <Content Include="UML\ActivityLoginDiagram.puml" />
     <Content Include="UML\ActivityReadLogDiagram.puml" />
     <Content Include="UML\ActivityTransactionDiagram.puml" />
     <Content Include="UML\ActivityViewHistoryDiagram.puml" />
+
     <Content Include="UML\ClassDiagram.puml" />
     <Content Include="UML\UseCaseDiagram.puml" />
   </ItemGroup>
-<<<<<<< HEAD
-=======
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
->>>>>>> Skeleton LoginWindow was added.
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
