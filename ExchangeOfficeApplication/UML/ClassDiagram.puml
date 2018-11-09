@@ -24,6 +24,7 @@ class DataSourceAccess
 interface ICommand
 interface IService
 interface IExecutorCommands
+interface IEventsCommands
 
 enum Currency 
 {
@@ -163,23 +164,19 @@ class CashierWindow
 
 interface IService
 {
+    DataSourceAccess dataSourceAccess
+    
     +Implement()
 }
 
 class ExecutorCommands
 {
     IService Service
+    DataSourceAccess dataSourceAccess
 }
 
 interface IExecutorCommands
 {
-    +DataSourceHandler event Exchanged
-    +DataSourceHandler event HistortViewed
-    +DataSourceHandler event LoginIn
-    +DataSourceHandler event LogReceived
-    +DataSourceHandler event CurrenceExchangeUpdated
-    
-    -CallEvent(DataSourceEventArgs e,\nDataSourceHandler handler)
     +Exchange(int customerID, Currency TargetCurrency,\nCurrency ContributedCurrency, double amount)
     +ViewingHistory(int customerID)
     +Login(string login, string password)
@@ -187,7 +184,20 @@ interface IExecutorCommands
     +GetLog()
 }
 
+interface IEventsCommands
+{
+    +DataSourceHandler event Exchanged
+    +DataSourceHandler event HistortViewed
+    +DataSourceHandler event Login
+    +DataSourceHandler event LogReceived
+    +DataSourceHandler event CurrenceExchangeUpdated
+    
+    -CallEvent(DataSourceEventArgs e,\nDataSourceHandler handler)
+    -SetCommands(DataSourceHandler event exchanged,DataSourceHandler event HistortViewed,\nDataSourceHandler event Login,DataSourceHandler event LogReceived,\nDataSourceHandler event CurrenceExchangeUpdated)
+}
+
 IExecutorCommands <|.. ExecutorCommands
+IEventsCommands <|. ExecutorCommands
 
 ExecutorCommands --> IService
 
@@ -222,7 +232,7 @@ Exchange o--> IExecutorCommands
 ViewingHistory o--> IExecutorCommands
 
 EntryPoint --> Application
-Application o-> IExecutorCommands
+Application o-------> IEventsCommands
 Application *--> LoginWindow 
 Application *--> AdminWindow
 Application *--> DialogWindow
