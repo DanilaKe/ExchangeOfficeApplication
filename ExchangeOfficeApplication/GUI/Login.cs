@@ -46,7 +46,6 @@ namespace ExchangeOfficeApplication.GUI
             {
                 new CashierWindow();
             }
-            Console.WriteLine("OK");
             // TODO
         }
         

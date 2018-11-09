@@ -17,6 +17,10 @@ namespace ExchangeOfficeApplication.GUI
         [Builder.Object] private Entry ContributedAmount;
         [Builder.Object] private Window Cashier;
         [Builder.Object] private AboutDialog AboutDialog;
+        [Builder.Object] private Dialog HistoryDialog;
+        [Builder.Object] private Entry Client;
+        [Builder.Object] private Window CustumerHistory;
+        [Builder.Object] private TextBuffer History;
         private Builder GuiBuilder;
         
         public CashierWindow()
@@ -38,7 +42,7 @@ namespace ExchangeOfficeApplication.GUI
 
         protected void ClickedApplyButton(object sender, EventArgs a)
         {
-            //TODO    
+            new DialogWindow();    
         }
         
         protected void ClickedClearButton(object sender, EventArgs a)
@@ -86,6 +90,37 @@ namespace ExchangeOfficeApplication.GUI
         protected void CloseAboutWindow(object sender, ResponseArgs a)
         {
             AboutDialog.Visible = false;
+        }
+        
+        protected void ClickedCloseHistoryButton(object sender, EventArgs a)
+        {
+            HistoryDialog.Visible = false;
+        }
+        
+        protected void ClickedHistoryButton(object sender, EventArgs a)
+        {
+            HistoryDialog.Visible = true;
+        }
+        
+        protected void ClickedSearchButton(object sender, EventArgs a)
+        {
+            CustumerHistory.Visible = true;
+            HistoryDialog.Visible = false;
+        }
+        
+        protected void CloseHistoryButton(object sender, EventArgs a)
+        {
+            GuiBuilder.AddFromFile(
+                "./GUI/CashierWindow.glade");
+            GuiBuilder.Autoconnect(this);
+        }
+        
+        protected void CloseHistory(object sender, EventArgs a)
+        {
+            CustumerHistory.Visible = false;
+            GuiBuilder.AddFromFile(
+                "./GUI/CashierWindow.glade");
+            GuiBuilder.Autoconnect(this);
         }
     }
 }

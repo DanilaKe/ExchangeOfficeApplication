@@ -69,12 +69,14 @@
     <Compile Include="EntryPoint.cs" />
     <Compile Include="GUI\AdminWindow.cs" />
     <Compile Include="GUI\CashierWindow.cs" />
+    <Compile Include="GUI\DialogWindow.cs" />
     <Compile Include="GUI\Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="GUI\AdminWindow.glade" />
     <Content Include="GUI\CashierWindow.glade" />
+    <Content Include="GUI\DialogWindow.glade" />
     <Content Include="GUI\LoginWindow.glade" />
     <Content Include="UML\ActivityAdministratorDiagram.puml" />
     <Content Include="UML\ActivityLoginDiagram.puml" />
