@@ -255,6 +255,31 @@ class DialogWindow
     #ExitButton(object sender, EventArgs a)
 }
 
+class ExchangeService
+{
+    +ExchangeService(int customerID,\nCurrency TargetCurrency,\nCurrency ContributedCurrency, double amount)
+}
+
+class HistoryService
+{
+    +HistoryService(int customerID)
+}
+
+class LoginService
+{
+     LoginService(string login, string password)
+}
+
+class GetLogService
+{
+    GetLogService()
+}
+
+class CurrenceExchangeUpdateService
+{
+    CurrenceExchangeUpdateService(Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
+}
+
 IExecutorCommands <|.. ExecutorCommands
 IEventsCommands <|. ExecutorCommands
 
