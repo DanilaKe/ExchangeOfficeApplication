@@ -32,7 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-
     <Reference Include="AtkSharp, Version=3.22.24.36, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\packages\AtkSharp.3.22.24.36\lib\netstandard2.0\AtkSharp.dll</HintPath>
       <Private>True</Private>
@@ -71,7 +70,7 @@
     <Compile Include="GUI\AdminWindow.cs" />
     <Compile Include="GUI\CashierWindow.cs" />
     <Compile Include="GUI\DialogWindow.cs" />
-    <Compile Include="GUI\Login.cs" />
+    <Compile Include="GUI\LoginWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,7 +83,6 @@
     <Content Include="UML\ActivityReadLogDiagram.puml" />
     <Content Include="UML\ActivityTransactionDiagram.puml" />
     <Content Include="UML\ActivityViewHistoryDiagram.puml" />
-
     <Content Include="UML\ClassDiagram.puml" />
     <Content Include="UML\UseCaseDiagram.puml" />
   </ItemGroup>
