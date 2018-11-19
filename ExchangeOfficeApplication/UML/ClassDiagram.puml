@@ -112,7 +112,9 @@ class Application
     -Account account
     -IExecutorCommands executorCommands
     
-    +Run (object sender, DataSourceEventArgs e)
+    +Run()
+    +ReloginHandler()
+    +ErrorMessageHandler(object sender, WindowEventArgs e)
     +LoginHandler (object sender, DataSourceEventArgs e)
     +ViewingHistoryHandler (object sender, DataSourceEventArgs e)
     +CurrenceExchangeUpdateHandler (object sender, DataSourceEventArgs e)
@@ -143,7 +145,7 @@ class LoginWindow
     -Entry LoginEntry;
     -Entry PasswordEntry;
     -Window LoginWindow;
-    -adminFlag;
+    -bool adminFlag;
     -Builder GuiBuilder;
     
     +LoginWindow()
@@ -155,21 +157,25 @@ class LoginWindow
 
 class CashierWindow
 {
-    -TextBuffer TodayCourse;
-    -TextBuffer ExchangeResult;
-    -Entry FirstName;
-    -ComboBoxText ContributedСurrency;
-    -ComboBoxText TargetCurrency;
-    -Entry ContributedAmount;
-    -Window Cashier;
-    -AboutDialog AboutDialog;
-    -Dialog HistoryDialog;
-    -Entry Client;
-    -Window CustumerHistory;
-    -TextBuffer History;
-    -Builder GuiBuilder;
+    -WindowHandler event ReloginEvent
+    -WindowHandler event ErrorMessageEvent 
+    -ErrorMessageWindowHandler
+    -TextBuffer TodayCourse
+    -TextBuffer ExchangeResult
+    -Entry FirstName
+    -ComboBoxText ContributedСurrency
+    -ComboBoxText TargetCurrency
+    -Entry ContributedAmount
+    -Window Cashier
+    -AboutDialog AboutDialog
+    -Dialog HistoryDialog
+    -Entry Client
+    -Window CustumerHistory
+    -TextBuffer History
+    -Builder GuiBuilder
     
     +CashierWindow()
+    -CallEvent(WindowEventArgs e,\nWindowHandler handler)
     #ClickedApplyButton(object sender, EventArgs a)
     #ClickedClearButton(object sender, EventArgs a)
     #ClickedRefreshButton(object sender, EventArgs a) 
@@ -189,6 +195,8 @@ class CashierWindow
 
 class AdminWindow
 {
+    -WindowHandler event ReloginEvent
+    -WindowHandler event ErrorMessageEvent 
     -TextBuffer Log;
     -ComboBoxText ContributedСurrency;
     -ComboBoxText TargetCurrency;
@@ -199,6 +207,7 @@ class AdminWindow
     -Builder GuiBuilder;
             
     +AdminWindow()
+    -CallEvent(WindowEventArgs e,\nWindowHandler handler)
     #ClickedApplyButton(object sender, EventArgs a)
     #ClickedClearButton(object sender, EventArgs a)
     #ClickedRefreshButton(object sender, EventArgs a)
@@ -235,11 +244,11 @@ interface IExecutorCommands
 
 interface IEventsCommands
 {
-    +DataSourceHandler event Exchanged
-    +DataSourceHandler event HistortViewed
-    +DataSourceHandler event Logined
-    +DataSourceHandler event LogReceived
-    +DataSourceHandler event CurrenceExchangeUpdated
+    +DataSourceHandler event ExchangedEvent
+    +DataSourceHandler event HistortViewedEvent
+    +DataSourceHandler event LoginedEvent
+    +DataSourceHandler event LogReceivedEvent
+    +DataSourceHandler event CurrenceExchangeUpdatedEvent
     
     -CallEvent(DataSourceEventArgs e,\nDataSourceHandler handler)
     -SetCommands(DataSourceHandler event exchanged,DataSourceHandler event HistortViewed,\nDataSourceHandler event Login,DataSourceHandler event LogReceived,\nDataSourceHandler event CurrenceExchangeUpdated)
@@ -251,6 +260,7 @@ class DialogWindow
     -Builder GuiBuilder;
     
     +DialogWindow()
+    +PrintMessage(string Message)
     #ClickedOkButton(object sender, EventArgs a)
     #ExitButton(object sender, EventArgs a)
 }
@@ -285,7 +295,11 @@ IEventsCommands <|. ExecutorCommands
 
 ExecutorCommands --> IService
 
-Account ..> ICommand
+Unauthenticated\nUser ..> Login
+Administrator ..> CurrenceExchangeUpdate
+Administrator ..> GetLog
+Cashier ..> Exchange
+Cashier ..> ViewingHistory
 
 IService <|.. ExchangeService
 IService <|.. HistoryService
