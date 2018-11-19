@@ -3,11 +3,11 @@ abstract class Account
 class Unauthenticated\nUser
 class Cashier
 class Administrator
-class Exchange
-class ViewingHistory
-class Login
-class CurrenceExchangeUpdate
-class GetLog
+class ExchangeCommand
+class ViewingHistoryCommand
+class LoginCommand
+class CurrenceExchangeUpdateCommand
+class GetLogCommand
 class ExecutorCommands
 class EntryPoint
 class Application
@@ -47,16 +47,16 @@ interface ICommand
     +Execute()
 }
 
-class ViewingHistory
+class ViewingHistoryCommand
 {
     -IExecutorCommands executorCommands
     -int customerID
     
-    +ViewingHistory(ExecutorCommands executorCommands, int customerID)
+    +ViewingHistoryCommand(ExecutorCommands executorCommands, int customerID)
     +Execute()
 }
 
-class Exchange
+class ExchangeCommand
 {
     -IExecutorCommands executorCommands
     -int customerID
@@ -64,19 +64,19 @@ class Exchange
     -Currency ContributedCurrency
     -double amount
     
-    +Exchange(ExecutorCommands executorCommands, int customerID,\nCurrency TargetCurrency,\nCurrency ContributedCurrency, double amount)
+    +ExchangeCommand(ExecutorCommands executorCommands, int customerID,\nCurrency TargetCurrency,\nCurrency ContributedCurrency, double amount)
     +Execute()
 }
 
-class GetLog
+class GetLogCommand
 {
     -IExecutorCommands executorCommands.
     
-    +GetLog(ExecutorCommands executorCommands)
+    +GetLogCommand(ExecutorCommands executorCommands)
     +Execute()
 }
 
-class CurrenceExchangeUpdate
+class CurrenceExchangeUpdateCommand
 {
     -IExecutorCommands executorCommands
     -Currency TargetCurrency
@@ -84,17 +84,17 @@ class CurrenceExchangeUpdate
     -double newPurchaseRate
     -double newSaleRate
     
-    +CurrenceExchangeUpdate(ExecutorCommands executorCommands, Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
+    +CurrenceExchangeUpdateCommand(ExecutorCommands executorCommands, Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
     +Execute()
 }
 
-class Login
+class LoginCommand
 {
     -IExecutorCommands executorCommands
     -string login
     -string password
     
-    +Login(ExecutorCommands executorCommands, string login, string password)
+    +LoginCommand(ExecutorCommands executorCommands, string login, string password)
     +Execute()
 }
 
@@ -248,7 +248,7 @@ interface IEventsCommands
     +DataSourceHandler event HistortViewedEvent
     +DataSourceHandler event LoginedEvent
     +DataSourceHandler event LogReceivedEvent
-    +DataSourceHandler event CurrenceExchangeUpdatedEvent
+    +DataSourceHandler event CurrenceExchangeUpdateCommanddEvent
     
     -CallEvent(DataSourceEventArgs e,\nDataSourceHandler handler)
     -SetCommands(DataSourceHandler event exchanged,DataSourceHandler event HistortViewed,\nDataSourceHandler event Login,DataSourceHandler event LogReceived,\nDataSourceHandler event CurrenceExchangeUpdated)
@@ -295,11 +295,11 @@ IEventsCommands <|. ExecutorCommands
 
 ExecutorCommands --> IService
 
-Unauthenticated\nUser ..> Login
-Administrator ..> CurrenceExchangeUpdate
-Administrator ..> GetLog
-Cashier ..> Exchange
-Cashier ..> ViewingHistory
+Unauthenticated\nUser ..> LoginCommand
+Administrator ..> CurrenceExchangeUpdateCommand
+Administrator ..> GetLogCommand
+Cashier ..> ExchangeCommand
+Cashier ..> ViewingHistoryCommand
 
 IService <|.. ExchangeService
 IService <|.. HistoryService
@@ -317,17 +317,17 @@ Account <|-- Unauthenticated\nUser
 Account <|-- Cashier
 Account <|-- Administrator
 
-ICommand <|.. Login
-ICommand <|.. CurrenceExchangeUpdate
-ICommand <|.. GetLog
-ICommand <|.. Exchange
-ICommand <|.. ViewingHistory
+ICommand <|.. LoginCommand
+ICommand <|.. CurrenceExchangeUpdateCommand
+ICommand <|.. GetLogCommand
+ICommand <|.. ExchangeCommand
+ICommand <|.. ViewingHistoryCommand
 
-Login o--> IExecutorCommands
-CurrenceExchangeUpdate o--> IExecutorCommands
-GetLog o--> IExecutorCommands
-Exchange o--> IExecutorCommands
-ViewingHistory o--> IExecutorCommands
+LoginCommand o--> IExecutorCommands
+CurrenceExchangeUpdateCommand o--> IExecutorCommands
+GetLogCommand o--> IExecutorCommands
+ExchangeCommand o--> IExecutorCommands
+ViewingHistoryCommand o--> IExecutorCommands
 
 EntryPoint --> Application
 Application o-------> IEventsCommands
