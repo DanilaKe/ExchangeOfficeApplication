@@ -15,8 +15,7 @@ namespace GraphicalUserInterface
         [Builder.Object] private ComboBoxText ContributedСurrency;
         [Builder.Object] private ComboBoxText TargetCurrency;
         [Builder.Object] private Entry ContributedAmount;
-        [Builder.Object] private Window Cashier;
-        [Builder.Object] private AboutDialog AboutDialog;
+        [Builder.Object] private Window _window;
         [Builder.Object] private Dialog HistoryDialog;
         [Builder.Object] private Entry Client;
         [Builder.Object] private Window CustumerHistory;
@@ -38,9 +37,14 @@ namespace GraphicalUserInterface
             }
         }
         
-        public void OpenWindow()
+        internal void OpenWindow()
         {
-            Cashier.Visible = true;
+            _window.Visible = true;
+        }
+
+        internal void HideWindow()
+        {
+            _window.Visible = false;
         }
 
         protected void ClickedApplyButton(object sender, EventArgs a)
@@ -65,7 +69,7 @@ namespace GraphicalUserInterface
         
         protected void ClickedAboutButton(object sender, EventArgs a)
         {
-            AboutDialog.Visible = true;
+            App.getInstance().OpenAboutWindow();
         }
         
         protected void ExitButton(object sender, EventArgs a)
@@ -81,18 +85,6 @@ namespace GraphicalUserInterface
         protected void ActivatePurchaseButton(object sender, EventArgs a)
         {
             //TODO
-        }
-
-        protected void CloseAboutWindow(object sender, EventArgs a)
-        {
-            GuiBuilder.AddFromFile(
-                "./GUI/CashierWindow.glade");
-            GuiBuilder.Autoconnect(this);
-        }
-        
-        protected void CloseAboutWindow(object sender, ResponseArgs a)
-        {
-            AboutDialog.Visible = false;
         }
         
         protected void ClickedCloseHistoryButton(object sender, EventArgs a)

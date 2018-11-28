@@ -7,7 +7,7 @@ namespace GraphicalUserInterface
     {
         [Builder.Object] private Entry LoginEntry;
         [Builder.Object] private Entry PasswordEntry;
-        [Builder.Object] private Window loginWindow;
+        [Builder.Object] private Window _window;
 
         private bool adminFlag;
         
@@ -28,21 +28,25 @@ namespace GraphicalUserInterface
             }
         }
 
-        public void OpenWindow()
+        internal void OpenWindow()
         {
-            loginWindow.Visible = true;
+            _window.Visible = true;
+        }
+        
+        internal void HideWindow()
+        {
+            _window.Visible = false;
         }
         
         protected void OkButtonClicked(object sender, EventArgs a)
         {
-            loginWindow.Visible = false;
             if (adminFlag)
             {
-                new AdminWindow();
+                App.getInstance().OpenAdminWindow();
             }
             else
             {
-                new CashierWindow();
+                App.getInstance().OpenCashierWindow();
             }
             // TODO
         }
@@ -60,7 +64,7 @@ namespace GraphicalUserInterface
             Console.WriteLine($"Admin : {adminFlag}");
         }
         
-        protected void  ExitButton(object sender, EventArgs a)
+        protected void ExitButton(object sender, EventArgs a)
         {
             Application.Quit();
         }

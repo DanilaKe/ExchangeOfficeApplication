@@ -14,8 +14,7 @@ namespace GraphicalUserInterface
         [Builder.Object] private ComboBoxText TargetCurrency;
         [Builder.Object] private Entry PurchaseRate;
         [Builder.Object] private Entry SellingRate;
-        [Builder.Object] private Window Admin;
-        [Builder.Object] private AboutDialog AboutDialog;
+        [Builder.Object] private Window _window;
         
         private Builder GuiBuilder;
         
@@ -35,9 +34,14 @@ namespace GraphicalUserInterface
             }
         }
         
-        public void OpenWindow()
+        internal void OpenWindow()
         {
-            Admin.Visible = true;
+            _window.Visible = true;
+        }
+        
+        internal void HideWindow()
+        {
+            _window.Visible = false;
         }
 
         protected void ClickedApplyButton(object sender, EventArgs a)
@@ -62,7 +66,7 @@ namespace GraphicalUserInterface
         
         protected void ClickedAboutButton(object sender, EventArgs a)
         {
-            AboutDialog.Visible = true;
+            App.getInstance().OpenAboutWindow();
         }
         
         protected void ExitButton(object sender, EventArgs a)
@@ -78,18 +82,6 @@ namespace GraphicalUserInterface
         protected void ActivatePurchaseButton(object sender, EventArgs a)
         {
             //TODO
-        }
-
-        protected void CloseAboutWindow(object sender, EventArgs a)
-        {
-            GuiBuilder.AddFromFile(
-                "./GUI/AdminWindow.glade");
-            GuiBuilder.Autoconnect(this);
-        }
-        
-        protected void CloseAboutWindow(object sender, ResponseArgs a)
-        {
-            AboutDialog.Visible = false;
         }
     }
 }

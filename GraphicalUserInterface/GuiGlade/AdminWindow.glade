@@ -2,64 +2,7 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkAboutDialog" id="AboutDialog">
-    <property name="can_focus">False</property>
-    <property name="type_hint">dialog</property>
-    <property name="program_name">Обменный пункт</property>
-    <property name="website">https://github.com/DanilaKe</property>
-    <property name="website_label" translatable="yes">GitHub</property>
-    <property name="authors">Данила Кедриский 3 курс, 6+7 КБ</property>
-    <property name="logo_icon_name">face-smile</property>
-    <signal name="destroy" handler="CloseAboutWindow" swapped="no"/>
-    <signal name="response" handler="CloseAboutWindow" swapped="no"/>
-    <child>
-      <placeholder/>
-    </child>
-    <child internal-child="vbox">
-      <object class="GtkBox">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="buttonbox">
-            <property name="can_focus">False</property>
-            <property name="layout_style">expand</property>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkTextBuffer" id="Дщп">
-    <property name="text" translatable="yes">------------------------------------------------------------------------------------------
-Операция : %OperationID%
-Дата : %Data%
-Время : %Time%
-Детали %Details%
-------------------------------------------------------------------------------------------
-Операция : %OperationID%
-Дата : %Data%
-Время : %Time%
-Детали %Details%
-------------------------------------------------------------------------------------------
-Операция : %OperationID%
-Дата : %Data%
-Время : %Time%
-Детали %Details%
-------------------------------------------------------------------------------------------
-Операция : %OperationID%
-Дата : %Data%
-Время : %Time%
-Детали %Details%</property>
-  </object>
-  <object class="GtkWindow" id="Admin">
+  <object class="GtkWindow" id="_window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Обменный пункт (Администратор)</property>
     <property name="resizable">False</property>
@@ -273,7 +216,6 @@
                 <property name="margin_bottom">15</property>
                 <property name="editable">False</property>
                 <property name="cursor_visible">False</property>
-                <property name="buffer">Дщп</property>
               </object>
             </child>
           </object>
@@ -532,9 +474,6 @@
                 <child>
                   <placeholder/>
                 </child>
-                <child>
-                  <placeholder/>
-                </child>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -561,6 +500,30 @@
           <object class="GtkGrid">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
             <child>
               <placeholder/>
             </child>
@@ -621,9 +584,6 @@
             <property name="left_attach">2</property>
             <property name="top_attach">7</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
         </child>
         <child>
           <placeholder/>

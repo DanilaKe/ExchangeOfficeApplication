@@ -11,8 +11,7 @@ namespace BSUTPApplication
             {
                 try
                 {
-                    App app = new App();
-                    app.Run();
+                    App.getInstance().Run();
                     
                     // TODO
                 }

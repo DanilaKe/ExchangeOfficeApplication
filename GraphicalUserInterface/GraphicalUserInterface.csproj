@@ -66,17 +66,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\AboutWindow.cs" />
     <Compile Include="Application\AdminWindow.cs" />
     <Compile Include="Application\App.cs" />
     <Compile Include="Application\CashierWindow.cs" />
     <Compile Include="Application\DialogWindow.cs" />
+    <Compile Include="Application\HistoryWindow.cs" />
     <Compile Include="Application\LoginWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GuiGlade\AboutWindow.glade" />
     <Content Include="GuiGlade\AdminWindow.glade" />
     <Content Include="GuiGlade\CashierWindow.glade" />
     <Content Include="GuiGlade\DialogWindow.glade" />
+    <Content Include="GuiGlade\HistoryWindow.glade" />
     <Content Include="GuiGlade\LoginWindow.glade" />
   </ItemGroup>
   <ItemGroup>
