@@ -1,4 +1,4 @@
-﻿namespace ExchangeOfficeApplication.Account
+﻿namespace ExchangeOfficeApplication
 {
     public class Account
     {

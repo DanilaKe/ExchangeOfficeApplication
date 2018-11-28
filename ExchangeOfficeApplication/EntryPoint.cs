@@ -11,7 +11,8 @@ namespace ExchangeOfficeApplication
             {
                 try
                 {
-                    new LoginWindow();
+                    App app = new App();
+                    app.Run();
                     
                     // TODO
                 }

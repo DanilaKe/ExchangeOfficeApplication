@@ -66,11 +66,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\Account.cs" />
+    <Compile Include="Account\Administrator.cs" />
+    <Compile Include="Account\Cashier.cs" />
+    <Compile Include="Account\UnauthenticatedUser.cs" />
+    <Compile Include="Application\AdminWindow.cs" />
+    <Compile Include="Application\App.cs" />
+    <Compile Include="Application\CashierWindow.cs" />
+    <Compile Include="Application\DialogWindow.cs" />
+    <Compile Include="Application\LoginWindow.cs" />
+    <Compile Include="Command\CurrenceExchangeUpdateCommand.cs" />
+    <Compile Include="Command\ExchangeCommand.cs" />
+    <Compile Include="Command\GetLogCommand.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Command\LoginCommand.cs" />
+    <Compile Include="Command\ViewingHistoryCommand.cs" />
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="GUI\AdminWindow.cs" />
-    <Compile Include="GUI\CashierWindow.cs" />
-    <Compile Include="GUI\DialogWindow.cs" />
-    <Compile Include="GUI\LoginWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,8 +101,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Command" />
-    <Folder Include="Executor commands" />
+    <ProjectReference Include="Executor Commands\Executor Commands.csproj">
+      <Project>{81186534-e3dc-44cd-86d2-0d8fb78c744d}</Project>
+      <Name>Executor Commands</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

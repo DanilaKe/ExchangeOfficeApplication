@@ -1,4 +1,4 @@
-﻿namespace ExchangeOfficeApplication.Executor_commands
+﻿namespace Executor_Commands
 {
     public interface IEventsCommands
     {

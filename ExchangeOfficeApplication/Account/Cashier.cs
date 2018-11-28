@@ -1,6 +1,6 @@
-﻿namespace ExchangeOfficeApplication.Account
+﻿namespace ExchangeOfficeApplication
 {
-    public class Cashier
+    public class Cashier : Account
     {
         
     }

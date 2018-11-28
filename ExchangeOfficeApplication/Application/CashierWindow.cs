@@ -32,12 +32,16 @@ namespace ExchangeOfficeApplication.GUI
                 GuiBuilder.AddFromFile(
                     "./GUI/CashierWindow.glade");
                 GuiBuilder.Autoconnect(this);
-                Cashier.Visible = true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+        
+        public void OpenWindow()
+        {
+            Cashier.Visible = true;
         }
 
         protected void ClickedApplyButton(object sender, EventArgs a)

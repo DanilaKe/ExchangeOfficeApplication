@@ -28,12 +28,16 @@ namespace ExchangeOfficeApplication.GUI
                 GuiBuilder.AddFromFile(
                     "./GUI/AdminWindow.glade");
                 GuiBuilder.Autoconnect(this);
-                Admin.Visible = true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+        
+        public void OpenWindow()
+        {
+            Admin.Visible = true;
         }
 
         protected void ClickedApplyButton(object sender, EventArgs a)

@@ -21,12 +21,16 @@ namespace ExchangeOfficeApplication.GUI
                 GuiBuilder.AddFromFile(
                     "./GUI/DialogWindow.glade");
                 GuiBuilder.Autoconnect(this);
-                dialogWindow.Visible = true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+        
+        public void OpenWindow()
+        {
+            dialogWindow.Visible = true;
         }
         
         protected void ClickedOkButton(object sender, EventArgs a)

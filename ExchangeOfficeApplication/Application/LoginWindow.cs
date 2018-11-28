@@ -19,16 +19,18 @@ namespace ExchangeOfficeApplication.GUI
             GuiBuilder = new Builder();
             try
             {
-                GuiBuilder.AddFromFile(
-                    "./GUI/LoginWindow.glade");
+                GuiBuilder.AddFromFile("./GUI/LoginWindow.glade");
                 GuiBuilder.Autoconnect(this);
-                loginWindow.Visible = true;
-                Application.Run();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        public void OpenWindow()
+        {
+            loginWindow.Visible = true;
         }
         
         protected void OkButtonClicked(object sender, EventArgs a)
