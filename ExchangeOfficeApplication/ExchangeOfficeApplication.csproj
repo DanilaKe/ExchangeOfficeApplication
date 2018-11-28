@@ -32,28 +32,79 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AtkSharp, Version=3.22.24.36, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\AtkSharp.3.22.24.36\lib\netstandard2.0\AtkSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CairoSharp, Version=3.22.24.36, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\CairoSharp.3.22.24.36\lib\netstandard2.0\CairoSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GdkSharp, Version=3.22.24.36, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\GdkSharp.3.22.24.36\lib\netstandard2.0\GdkSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GioSharp, Version=3.22.24.36, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\GioSharp.3.22.24.36\lib\netstandard2.0\GioSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GLibSharp, Version=3.22.24.36, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\GLibSharp.3.22.24.36\lib\netstandard2.0\GLibSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GtkSharp, Version=3.22.24.36, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\GtkSharp.3.22.24.36\lib\netstandard2.0\GtkSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PangoSharp, Version=3.22.24.36, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\PangoSharp.3.22.24.36\lib\netstandard2.0\PangoSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Account\Account.cs" />
+    <Compile Include="Account\Administrator.cs" />
+    <Compile Include="Account\Cashier.cs" />
+    <Compile Include="Account\UnauthenticatedUser.cs" />
+    <Compile Include="Application\AdminWindow.cs" />
+    <Compile Include="Application\App.cs" />
+    <Compile Include="Application\CashierWindow.cs" />
+    <Compile Include="Application\DialogWindow.cs" />
+    <Compile Include="Application\LoginWindow.cs" />
+    <Compile Include="Command\CurrenceExchangeUpdateCommand.cs" />
+    <Compile Include="Command\ExchangeCommand.cs" />
+    <Compile Include="Command\GetLogCommand.cs" />
+    <Compile Include="Command\ICommand.cs" />
+    <Compile Include="Command\LoginCommand.cs" />
+    <Compile Include="Command\ViewingHistoryCommand.cs" />
+    <Compile Include="EntryPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\ExchangeOfficeApplication.sln">
-      <Link>ExchangeOfficeApplication.sln</Link>
-    </Content>
-    <Content Include="..\README.md">
-      <Link>README.md</Link>
-    </Content>
+    <Content Include="GUI\AdminWindow.glade" />
+    <Content Include="GUI\CashierWindow.glade" />
+    <Content Include="GUI\DialogWindow.glade" />
+    <Content Include="GUI\LoginWindow.glade" />
     <Content Include="UML\ActivityAdministratorDiagram.puml" />
     <Content Include="UML\ActivityLoginDiagram.puml" />
     <Content Include="UML\ActivityReadLogDiagram.puml" />
     <Content Include="UML\ActivityTransactionDiagram.puml" />
     <Content Include="UML\ActivityViewHistoryDiagram.puml" />
+    <Content Include="UML\ClassDiagram.puml" />
     <Content Include="UML\UseCaseDiagram.puml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Executor Commands\Executor Commands.csproj">
+      <Project>{81186534-e3dc-44cd-86d2-0d8fb78c744d}</Project>
+      <Name>Executor Commands</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

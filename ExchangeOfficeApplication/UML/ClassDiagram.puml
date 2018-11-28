@@ -1,0 +1,343 @@
+@startuml
+abstract class Account
+class Unauthenticated\nUser
+class Cashier
+class Administrator
+class ExchangeCommand
+class ViewingHistoryCommand
+class LoginCommand
+class CurrenceExchangeUpdateCommand
+class GetLogCommand
+class ExecutorCommands
+class EntryPoint
+class Application
+class LoginWindow
+class CashierWindow
+class AdminWindow
+class DialogWindow
+class ExchangeService
+class HistoryService
+class LoginService
+class GetLogService
+class CurrenceExchangeUpdateService
+class DataSourceAccess
+interface ICommand
+interface IService
+interface IExecutorCommands
+interface IEventsCommands
+
+enum Currency 
+{
+    EUR
+    USD
+    RUB
+    BYR
+}
+
+class EntryPoint
+{
+    -Application Gui
+    -IExecutorCommands executorCommands
+    
+    +main()
+}
+
+interface ICommand
+{
+    +Execute()
+}
+
+class ViewingHistoryCommand
+{
+    -IExecutorCommands executorCommands
+    -int customerID
+    
+    +ViewingHistoryCommand(ExecutorCommands executorCommands, int customerID)
+    +Execute()
+}
+
+class ExchangeCommand
+{
+    -IExecutorCommands executorCommands
+    -int customerID
+    -Currency TargetCurrency
+    -Currency ContributedCurrency
+    -double amount
+    
+    +ExchangeCommand(ExecutorCommands executorCommands, int customerID,\nCurrency TargetCurrency,\nCurrency ContributedCurrency, double amount)
+    +Execute()
+}
+
+class GetLogCommand
+{
+    -IExecutorCommands executorCommands.
+    
+    +GetLogCommand(ExecutorCommands executorCommands)
+    +Execute()
+}
+
+class CurrenceExchangeUpdateCommand
+{
+    -IExecutorCommands executorCommands
+    -Currency TargetCurrency
+    -Currency ContributedCurrency
+    -double newPurchaseRate
+    -double newSaleRate
+    
+    +CurrenceExchangeUpdateCommand(ExecutorCommands executorCommands, Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
+    +Execute()
+}
+
+class LoginCommand
+{
+    -IExecutorCommands executorCommands
+    -string login
+    -string password
+    
+    +LoginCommand(ExecutorCommands executorCommands, string login, string password)
+    +Execute()
+}
+
+abstract class Account
+{
+    +ICommand Сommand
+}
+
+class Application
+{
+    -LoginWindow loginWindow
+    -CashierWindow cashierWindow
+    -AdminWindow adminWindow
+    -DialogWindow dialogWindow
+    -Account account
+    -IExecutorCommands executorCommands
+    
+    +Run()
+    +ReloginHandler()
+    +ErrorMessageHandler(object sender, WindowEventArgs e)
+    +LoginHandler (object sender, DataSourceEventArgs e)
+    +ViewingHistoryHandler (object sender, DataSourceEventArgs e)
+    +CurrenceExchangeUpdateHandler (object sender, DataSourceEventArgs e)
+    +GetLogHandler (object sender, DataSourceEventArgs e)
+    +ExchangeHandler (object sender, DataSourceEventArgs e)
+}
+
+class Unauthenticated\nUser
+{
+    UnauthenticatedUser(ICommand)
+    CreateCommand()
+}
+
+class Cashier
+{
+    Cashier(ICommand)
+    CreateCommand()
+}
+
+class Administrator
+{
+    Administrator(ICommand)
+    CreateCommand()
+}
+
+class LoginWindow
+{        
+    -Entry LoginEntry;
+    -Entry PasswordEntry;
+    -Window LoginWindow;
+    -bool adminFlag;
+    -Builder GuiBuilder;
+    
+    +LoginWindow()
+    #OkButtonClicked(object sender, EventArgs a)
+    #ExitButtonClicked(object sender, EventArgs a)
+    #AdministratorSwitchActivate(object sender, ButtonReleaseEventArgs a)
+    #ExitButton(object sender, EventArgs a)
+}
+
+class CashierWindow
+{
+    -WindowHandler event ReloginEvent
+    -WindowHandler event ErrorMessageEvent 
+    -ErrorMessageWindowHandler
+    -TextBuffer TodayCourse
+    -TextBuffer ExchangeResult
+    -Entry FirstName
+    -ComboBoxText ContributedСurrency
+    -ComboBoxText TargetCurrency
+    -Entry ContributedAmount
+    -Window Cashier
+    -AboutDialog AboutDialog
+    -Dialog HistoryDialog
+    -Entry Client
+    -Window CustumerHistory
+    -TextBuffer History
+    -Builder GuiBuilder
+    
+    +CashierWindow()
+    -CallEvent(WindowEventArgs e,\nWindowHandler handler)
+    #ClickedApplyButton(object sender, EventArgs a)
+    #ClickedClearButton(object sender, EventArgs a)
+    #ClickedRefreshButton(object sender, EventArgs a) 
+    #ClickedCloseButton(object sender, EventArgs a)
+    #ClickedAboutButton(object sender, EventArgs a)
+    #ExitButton(object sender, EventArgs a)
+    #ClickedQuitButton(object sender, EventArgs a)
+    #ActivatePurchaseButton(object sender, EventArgs a)
+    #CloseAboutWindow(object sender, EventArgs a)   
+    #CloseAboutWindow(object sender, ResponseArgs a)   
+    #ClickedCloseHistoryButton(object sender, EventArgs a)    
+    #ClickedHistoryButton(object sender, EventArgs a)    
+    #ClickedSearchButton(object sender, EventArgs a)    
+    #CloseHistoryButton(object sender, EventArgs a)    
+    #CloseHistory(object sender, EventArgs a)
+}
+
+class AdminWindow
+{
+    -WindowHandler event ReloginEvent
+    -WindowHandler event ErrorMessageEvent 
+    -TextBuffer Log;
+    -ComboBoxText ContributedСurrency;
+    -ComboBoxText TargetCurrency;
+    -Entry PurchaseRate;
+    -Entry SellingRate;
+    -Window Admin;
+    -AboutDialog AboutDialog;
+    -Builder GuiBuilder;
+            
+    +AdminWindow()
+    -CallEvent(WindowEventArgs e,\nWindowHandler handler)
+    #ClickedApplyButton(object sender, EventArgs a)
+    #ClickedClearButton(object sender, EventArgs a)
+    #ClickedRefreshButton(object sender, EventArgs a)
+    #ClickedCloseButton(object sender, EventArgs a)
+    #ClickedAboutButton(object sender, EventArgs a)
+    #ExitButton(object sender, EventArgs a)
+    #ClickedQuitButton(object sender, EventArgs a)
+    #ActivatePurchaseButton(object sender, EventArgs a)
+    #CloseAboutWindow(object sender, EventArgs a)
+    #CloseAboutWindow(object sender, ResponseArgs a)
+}
+
+interface IService
+{
+    DataSourceAccess dataSourceAccess
+    
+    +Implement()
+}
+
+class ExecutorCommands
+{
+    IService Service
+    DataSourceAccess dataSourceAccess
+}
+
+interface IExecutorCommands
+{
+    +Exchange(int customerID, Currency TargetCurrency,\nCurrency ContributedCurrency, double amount)
+    +ViewingHistory(int customerID)
+    +Login(string login, string password)
+    +CurrenceExchangeUpdate(Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
+    +GetLog()
+}
+
+interface IEventsCommands
+{
+    +DataSourceHandler event ExchangedEvent
+    +DataSourceHandler event HistortViewedEvent
+    +DataSourceHandler event LoginedEvent
+    +DataSourceHandler event LogReceivedEvent
+    +DataSourceHandler event CurrenceExchangeUpdateCommanddEvent
+    
+    -CallEvent(DataSourceEventArgs e,\nDataSourceHandler handler)
+    -SetCommands(DataSourceHandler event exchanged,DataSourceHandler event HistortViewed,\nDataSourceHandler event Login,DataSourceHandler event LogReceived,\nDataSourceHandler event CurrenceExchangeUpdated)
+}
+
+class DialogWindow
+{
+    -Dialog dialogWindow;
+    -Builder GuiBuilder;
+    
+    +DialogWindow()
+    +PrintMessage(string Message)
+    #ClickedOkButton(object sender, EventArgs a)
+    #ExitButton(object sender, EventArgs a)
+}
+
+class ExchangeService
+{
+    +ExchangeService(int customerID,\nCurrency TargetCurrency,\nCurrency ContributedCurrency, double amount)
+}
+
+class HistoryService
+{
+    +HistoryService(int customerID)
+}
+
+class LoginService
+{
+     LoginService(string login, string password)
+}
+
+class GetLogService
+{
+    GetLogService()
+}
+
+class CurrenceExchangeUpdateService
+{
+    CurrenceExchangeUpdateService(Currency TargetCurrency,\nCurrency ContributedCurrency, double newPurchaseRate,\ndouble newSaleRate)
+}
+
+IExecutorCommands <|.. ExecutorCommands
+IEventsCommands <|. ExecutorCommands
+
+ExecutorCommands --> IService
+
+Unauthenticated\nUser ..> LoginCommand
+Administrator ..> CurrenceExchangeUpdateCommand
+Administrator ..> GetLogCommand
+Cashier ..> ExchangeCommand
+Cashier ..> ViewingHistoryCommand
+
+IService <|.. ExchangeService
+IService <|.. HistoryService
+IService <|.. LoginService
+IService <|.. GetLogService
+IService <|.. CurrenceExchangeUpdateService
+
+ExchangeService o--> DataSourceAccess
+HistoryService o--> DataSourceAccess
+LoginService o--> DataSourceAccess
+GetLogService o--> DataSourceAccess
+CurrenceExchangeUpdateService o--> DataSourceAccess
+
+Account <|-- Unauthenticated\nUser
+Account <|-- Cashier
+Account <|-- Administrator
+
+ICommand <|.. LoginCommand
+ICommand <|.. CurrenceExchangeUpdateCommand
+ICommand <|.. GetLogCommand
+ICommand <|.. ExchangeCommand
+ICommand <|.. ViewingHistoryCommand
+
+LoginCommand o--> IExecutorCommands
+CurrenceExchangeUpdateCommand o--> IExecutorCommands
+GetLogCommand o--> IExecutorCommands
+ExchangeCommand o--> IExecutorCommands
+ViewingHistoryCommand o--> IExecutorCommands
+
+EntryPoint --> Application
+Application o-------> IEventsCommands
+Application *--> LoginWindow 
+Application *--> AdminWindow
+Application *--> DialogWindow
+Application *--> CashierWindow
+
+CashierWindow ---> Cashier 
+LoginWindow ---> Unauthenticated\nUser
+AdminWindow ---> Administrator
+
+@enduml
