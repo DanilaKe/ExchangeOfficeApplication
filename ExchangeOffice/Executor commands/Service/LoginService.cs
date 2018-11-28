@@ -1,6 +1,6 @@
-﻿namespace ExchangeOfficeApplication.Executor_commands.Service
+﻿namespace ExchangeOffice.Service
 {
-    public class LoginService
+    internal class LoginService
     {
         
     }

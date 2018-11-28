@@ -1,4 +1,4 @@
-﻿namespace ExchangeOfficeApplication.Command
+﻿namespace ExchangeOfficeCommands
 {
     public class ViewingHistoryCommand
     {

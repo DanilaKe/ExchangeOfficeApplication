@@ -1,6 +1,6 @@
-﻿namespace ExchangeOfficeApplication.Executor_commands.Service
+﻿namespace ExchangeOffice.Service
 {
-    public class CurrenceExchangeUpdateService
+    internal class CurrenceExchangeUpdateService
     {
         
     }

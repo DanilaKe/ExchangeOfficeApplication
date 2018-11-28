@@ -1,8 +1,8 @@
-﻿using ExchangeOfficeApplication.GUI;
-using Executor_Commands;
+﻿using ExchangeOffice;
+using ExchangeOfficeCommands;
 using Gtk;
 
-namespace ExchangeOfficeApplication
+namespace GraphicalUserInterface
 {
     public class App
     {
@@ -20,7 +20,7 @@ namespace ExchangeOfficeApplication
             _cashierWindow = new CashierWindow();
             _dialogWindow = new DialogWindow();
             _loginWindow = new LoginWindow();
-            _executorCommands = new ExecutorCommands();
+            // TODO _executorCommands = new ExecutorCommands();
             
         }
 

@@ -42,7 +42,6 @@
     <Compile Include="Account\Administrator.cs" />
     <Compile Include="Account\Cashier.cs" />
     <Compile Include="Account\UnauthenticatedUser.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Command\CurrenceExchangeUpdateCommand.cs" />
     <Compile Include="Command\ExchangeCommand.cs" />
     <Compile Include="Command\GetLogCommand.cs" />

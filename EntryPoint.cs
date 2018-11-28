@@ -1,6 +1,7 @@
 ﻿using System;
+using GraphicalUserInterface;
 
-namespace ExchangeOfficeApplication
+namespace BSUTPApplication
 {
     namespace BankApplication
     {

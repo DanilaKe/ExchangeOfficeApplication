@@ -1,6 +1,6 @@
-﻿namespace Executor_Commands
+﻿namespace ExchangeOffice
 {
-    public class ExecutorCommands : IEventsCommands, IExecutorCommands
+    internal class ExecutorCommands : IEventsCommands, IExecutorCommands
     {
         
     }

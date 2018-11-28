@@ -1,7 +1,7 @@
 ﻿using Gtk;
 using System;
 
-namespace ExchangeOfficeApplication.GUI
+namespace GraphicalUserInterface
 {
     /// <summary>
     /// Class Login
@@ -26,7 +26,7 @@ namespace ExchangeOfficeApplication.GUI
             try
             {
                 GuiBuilder.AddFromFile(
-                    "./GUI/AdminWindow.glade");
+                    "./GraphicalUserInterface/GuiGlade/AdminWindow.glade");
                 GuiBuilder.Autoconnect(this);
             }
             catch (Exception e)

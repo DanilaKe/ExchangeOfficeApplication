@@ -1,4 +1,4 @@
-﻿namespace Executor_Commands
+﻿namespace ExchangeOffice
 {
     public interface IExecutorCommands
     {
