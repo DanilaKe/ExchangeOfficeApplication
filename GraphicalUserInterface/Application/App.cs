@@ -1,5 +1,5 @@
-﻿using ExchangeOffice;
-using ExchangeOfficeCommands;
+﻿using System;
+using ExchangeOffice;
 using Gtk;
 
 namespace GraphicalUserInterface
@@ -11,8 +11,8 @@ namespace GraphicalUserInterface
         private DialogWindow _dialogWindow;
         private LoginWindow _loginWindow;
         private AboutWindow _aboutWindow;
-        private Account _account;
-        private IExecutorCommands _executorCommands;
+        private IAccount _account;
+        private ExecutorCommands _executorCommands;
         
         private static App instance;
         public static App getInstance()
@@ -32,7 +32,22 @@ namespace GraphicalUserInterface
             _dialogWindow = new DialogWindow();
             _loginWindow = new LoginWindow();
             _aboutWindow = new AboutWindow();
-            // TODO _executorCommands = new ExecutorCommands();
+        }
+
+        public void SetExecutorCommands(ExecutorCommands executorCommands)
+        {
+            if (_executorCommands == null && executorCommands != null)
+            {
+                _executorCommands = executorCommands;
+                if (_executorCommands is IEventsCommands)
+                {
+                    
+                }
+            }
+            else
+            {
+                Console.WriteLine("Useless command");
+            }
             
         }
 
@@ -58,6 +73,11 @@ namespace GraphicalUserInterface
         {
             _loginWindow.HideWindow();
             _adminWindow.OpenWindow();
+        }
+        
+        internal void TryCashierLogin(string login, string password)
+        {
+            _account.SendCommand(new LoginCommand(_executorCommands,login,password));
         }
     }
 }

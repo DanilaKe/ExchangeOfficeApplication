@@ -1,4 +1,5 @@
 ﻿using System;
+using ExchangeOffice;
 using GraphicalUserInterface;
 
 namespace BSUTPApplication
@@ -11,9 +12,9 @@ namespace BSUTPApplication
             {
                 try
                 {
+                    ExecutorCommands exchangeOffice = new ExchangeOffice.ExchangeOffice();
+                    App.getInstance().SetExecutorCommands(exchangeOffice);
                     App.getInstance().Run();
-                    
-                    // TODO
                 }
                 catch (Exception e)
                 {

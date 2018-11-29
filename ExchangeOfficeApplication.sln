@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSourceAccess", "DataSou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicalUserInterface", "GraphicalUserInterface\GraphicalUserInterface.csproj", "{98D2445E-AFC3-4537-9FA5-99C7E55F87C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeOfficeCommands", "ExchangeOfficeCommands\ExchangeOfficeCommands.csproj", "{190226C8-BA95-455B-A886-6451CD770800}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSUTPApplication", "BSUTPApplication.csproj", "{139E7585-3D42-4BE7-A1C6-EC6D20CE7BE9}"
 EndProject
 Global
@@ -28,10 +26,6 @@ Global
 		{98D2445E-AFC3-4537-9FA5-99C7E55F87C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98D2445E-AFC3-4537-9FA5-99C7E55F87C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98D2445E-AFC3-4537-9FA5-99C7E55F87C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{190226C8-BA95-455B-A886-6451CD770800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{190226C8-BA95-455B-A886-6451CD770800}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{190226C8-BA95-455B-A886-6451CD770800}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{190226C8-BA95-455B-A886-6451CD770800}.Release|Any CPU.Build.0 = Release|Any CPU
 		{139E7585-3D42-4BE7-A1C6-EC6D20CE7BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{139E7585-3D42-4BE7-A1C6-EC6D20CE7BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{139E7585-3D42-4BE7-A1C6-EC6D20CE7BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU

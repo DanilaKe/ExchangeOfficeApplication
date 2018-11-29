@@ -87,10 +87,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExchangeOfficeCommands\ExchangeOfficeCommands.csproj">
-      <Project>{190226c8-ba95-455b-a886-6451cd770800}</Project>
-      <Name>ExchangeOfficeCommands</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ExchangeOffice\ExchangeOffice.csproj">
       <Project>{81186534-e3dc-44cd-86d2-0d8fb78c744d}</Project>
       <Name>ExchangeOffice</Name>

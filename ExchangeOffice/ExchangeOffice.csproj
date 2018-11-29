@@ -38,9 +38,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Executor commands\ExecutorCommands.cs" />
+    <Compile Include="Account\Account.cs" />
+    <Compile Include="Account\Administrator.cs" />
+    <Compile Include="Account\Cashier.cs" />
+    <Compile Include="Account\UnauthenticatedUser.cs" />
+    <Compile Include="Command\Command.cs" />
+    <Compile Include="Command\CurrenceExchangeUpdateCommand.cs" />
+    <Compile Include="Command\ExchangeCommand.cs" />
+    <Compile Include="Command\GetLogCommand.cs" />
+    <Compile Include="Command\LoginCommand.cs" />
+    <Compile Include="Command\ViewingHistoryCommand.cs" />
+    <Compile Include="Currency.cs" />
+    <Compile Include="Executor commands\ExchangeOffice.cs" />
     <Compile Include="Executor commands\IEventsCommands.cs" />
-    <Compile Include="Executor commands\IExecutorCommands.cs" />
+    <Compile Include="Executor commands\ExecutorCommands.cs" />
     <Compile Include="Executor commands\Service\CurrenceExchangeUpdateService.cs" />
     <Compile Include="Executor commands\Service\ExchangeService.cs" />
     <Compile Include="Executor commands\Service\GetLogService.cs" />

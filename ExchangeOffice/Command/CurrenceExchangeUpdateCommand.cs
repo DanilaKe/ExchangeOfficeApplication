@@ -1,4 +1,4 @@
-﻿namespace ExchangeOfficeCommands
+﻿namespace ExchangeOffice
 {
     public class CurrenceExchangeUpdateCommand
     {

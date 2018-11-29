@@ -1,6 +1,6 @@
 ﻿namespace ExchangeOffice
 {
-    public interface IExecutorCommands
+    public class ViewingHistoryCommand
     {
         
     }

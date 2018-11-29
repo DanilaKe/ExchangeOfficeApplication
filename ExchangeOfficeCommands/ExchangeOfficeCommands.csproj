@@ -38,16 +38,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\Account.cs" />
-    <Compile Include="Account\Administrator.cs" />
-    <Compile Include="Account\Cashier.cs" />
-    <Compile Include="Account\UnauthenticatedUser.cs" />
-    <Compile Include="Command\CurrenceExchangeUpdateCommand.cs" />
-    <Compile Include="Command\ExchangeCommand.cs" />
-    <Compile Include="Command\GetLogCommand.cs" />
-    <Compile Include="Command\ICommand.cs" />
-    <Compile Include="Command\LoginCommand.cs" />
-    <Compile Include="Command\ViewingHistoryCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

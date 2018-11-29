@@ -48,20 +48,17 @@ namespace GraphicalUserInterface
             {
                 App.getInstance().OpenCashierWindow();
             }
-            // TODO
         }
         
         protected void ExitButtonClicked(object sender, EventArgs a)
         {
             Console.WriteLine("Exit");
             Application.Quit();
-            // TODO
         }
         
         protected void  AdministratorSwitchActivate(object sender, ButtonReleaseEventArgs a)
         {
             adminFlag = !adminFlag;
-            Console.WriteLine($"Admin : {adminFlag}");
         }
         
         protected void ExitButton(object sender, EventArgs a)

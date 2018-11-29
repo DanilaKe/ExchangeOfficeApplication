@@ -2,9 +2,9 @@
 
 namespace ExchangeOffice
 {
-    public abstract class ExecutorCommands
+    public class ExchangeOffice : ExecutorCommands, IEventsCommands
     {
-        internal void Exchange(int customerID, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
+        internal void Exchange(int customerID, Currency targetCurrency, Currency contributedCurrency, decimal amount)
         {
             throw new System.NotImplementedException();
         }

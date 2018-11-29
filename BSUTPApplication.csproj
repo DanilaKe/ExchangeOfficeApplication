@@ -45,6 +45,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="ExchangeOffice\ExchangeOffice.csproj">
+      <Project>{81186534-e3dc-44cd-86d2-0d8fb78c744d}</Project>
+      <Name>ExchangeOffice</Name>
+    </ProjectReference>
     <ProjectReference Include="GraphicalUserInterface\GraphicalUserInterface.csproj">
       <Project>{98d2445e-afc3-4537-9fa5-99c7e55f87c9}</Project>
       <Name>GraphicalUserInterface</Name>
