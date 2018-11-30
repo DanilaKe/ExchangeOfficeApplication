@@ -5,4 +5,9 @@
         <TargetFramework>netcoreapp2.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ExchangeOffice\ExchangeOffice.csproj" />
+      <ProjectReference Include="..\GraphicalUserInterface\GraphicalUserInterface.csproj" />
+    </ItemGroup>
+
 </Project>
