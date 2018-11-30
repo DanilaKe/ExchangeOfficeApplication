@@ -46,7 +46,7 @@ namespace GraphicalUserInterface
             }
             else
             {
-                App.getInstance().OpenCashierWindow();
+                App.getInstance().TryCashierLogin("a","a");
             }
         }
         
