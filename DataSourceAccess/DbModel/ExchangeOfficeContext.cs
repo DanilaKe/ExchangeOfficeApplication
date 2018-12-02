@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataSourceAccess
 {
-    public class BloggingContext : DbContext
+    public class ExchangeOfficeContext : DbContext
     {
         public DbSet<Account> Accounts { get; set; }
         public DbSet<CurrencyExchange> CurrencyExchanges { get; set; }

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataSourceAccess
 {
     public class Custumer
     {
-        public int CustumerId { get; set; }
-        public string Name { get; set; }
-        public decimal DailyLimit { get; set; }
+        [Key]public int CustumerId { get; set; }
+        [Required] public string Name { get; set; }
+        [Required] public decimal DailyLimit { get; set; }
         public ICollection<Exchange> HistoryOfExchanges { get; set; }
     }
 }
