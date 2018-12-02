@@ -4,4 +4,12 @@
         <TargetFramework>netcoreapp2.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ExchangeOffice\ExchangeOffice.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="GtkSharp" Version="3.22.24.36" />
+    </ItemGroup>
+
 </Project>

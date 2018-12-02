@@ -77,6 +77,7 @@ namespace GraphicalUserInterface
         
         internal void TryCashierLogin(string login, string password)
         {
+            _cashierWindow.OpenWindow();
             try
             {
                 _account.SendCommand(new LoginCommand(_executorCommands,login,password));
