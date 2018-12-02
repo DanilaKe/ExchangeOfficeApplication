@@ -1,42 +1,69 @@
+using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataSourceAccess
 {
     public class SQLiteCurrencyExchangeRepository : IRepository<CurrencyExchange>
     {
-        public void Dispose()
-        {
-            throw new System.NotImplementedException();
-        }
+        private ExchangeOfficeContext db;
+        private bool disposed = false;
 
+        public SQLiteCurrencyExchangeRepository()
+        {
+            db = new ExchangeOfficeContext();
+        }
+        
         public IEnumerable<CurrencyExchange> GetList()
         {
-            throw new System.NotImplementedException();
+            return db.CurrencyExchanges;
         }
 
         public CurrencyExchange Get(int id)
         {
-            throw new System.NotImplementedException();
+            return db.CurrencyExchanges.Find(id);
         }
 
         public void Create(CurrencyExchange item)
         {
-            throw new System.NotImplementedException();
+            db.CurrencyExchanges.Add(item);
         }
 
         public void Update(CurrencyExchange item)
         {
-            throw new System.NotImplementedException();
+            db.Entry(item).State = EntityState.Modified;
         }
 
         public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var currencyExchange = db.CurrencyExchanges.Find(id);
+            if (currencyExchange != null)
+            {
+                db.CurrencyExchanges.Remove(currencyExchange);
+            }
         }
 
         public void Save()
         {
-            throw new System.NotImplementedException();
+            db.SaveChanges();
+        }
+        
+        public virtual void Dispose(bool disposing)
+        {
+            if(!this.disposed)
+            {
+                if(disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+ 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

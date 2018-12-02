@@ -4,41 +4,42 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataSourceAccess
 {
-    public class SQLiteCustumerRepository : IRepository<Custumer>
+    public class SQLiteExchangeRepository : IRepository<Exchange>
     {
         private ExchangeOfficeContext db;
         private bool disposed = false;
 
-        public SQLiteCustumerRepository()
+        public SQLiteExchangeRepository()
         {
             db = new ExchangeOfficeContext();
         }
-        public IEnumerable<Custumer> GetList()
+
+        public IEnumerable<Exchange> GetList()
         {
-            return db.Custumers;
+            return db.Exchanges;
         }
 
-        public Custumer Get(int id)
+        public Exchange Get(int id)
         {
-            return db.Custumers.Find(id);
+            return db.Exchanges.Find(id);
         }
 
-        public void Create(Custumer item)
+        public void Create(Exchange item)
         {
-            db.Custumers.Add(item);
+            db.Exchanges.Add(item);
         }
 
-        public void Update(Custumer item)
+        public void Update(Exchange item)
         {
             db.Entry(item).State = EntityState.Modified;
         }
 
         public void Delete(int id)
         {
-            var custumer = db.Custumers.Find(id);
-            if (custumer != null)
+            var exchange = db.Exchanges.Find(id);
+            if (exchange != null)
             {
-                db.Custumers.Remove(custumer);
+                db.Exchanges.Remove(exchange);
             }
         }
 
