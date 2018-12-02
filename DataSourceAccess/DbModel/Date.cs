@@ -7,6 +7,6 @@ namespace DataSourceAccess
     {
         public int DateId { get; set; }
         public DateTime DateTime { get; set; }
-        public ICollection<HistoryOfExchanges> HistoryOfExchanges { get; set; }
+        public ICollection<Exchange> HistoryOfExchanges { get; set; }
     }
 }

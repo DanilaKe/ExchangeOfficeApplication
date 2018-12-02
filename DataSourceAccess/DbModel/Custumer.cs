@@ -7,6 +7,6 @@ namespace DataSourceAccess
         public int CustumerId { get; set; }
         public string Name { get; set; }
         public decimal DailyLimit { get; set; }
-        public ICollection<HistoryOfExchanges> HistoryOfExchanges { get; set; }
+        public ICollection<Exchange> HistoryOfExchanges { get; set; }
     }
 }
