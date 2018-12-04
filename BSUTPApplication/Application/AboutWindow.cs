@@ -19,7 +19,7 @@ namespace GraphicalUserInterface
             GuiBuilder = new Builder();
             try
             {
-                GuiBuilder.AddFromFile("./GraphicalUserInterface/GuiGlade/AboutWindow.glade");
+                GuiBuilder.AddFromFile("./Presentation/GuiGlade/AboutWindow.glade");
                 GuiBuilder.Autoconnect(this);
             }
             catch (Exception e)
@@ -35,7 +35,7 @@ namespace GraphicalUserInterface
         
         protected void CloseAboutWindow(object sender, EventArgs a)
         {
-            GuiBuilder.AddFromFile("./GraphicalUserInterface/GuiGlade/AboutWindow.glade");
+            GuiBuilder.AddFromFile("./Presentation/GuiGlade/AboutWindow.glade");
             GuiBuilder.Autoconnect(this);
         }
         

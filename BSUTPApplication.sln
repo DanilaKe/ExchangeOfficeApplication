@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSourceAccess", "DataSou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExchangeOffice", "ExchangeOffice\ExchangeOffice.csproj", "{BF051AB0-1625-4CC1-B558-880E3C1A9E0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicalUserInterface", "GraphicalUserInterface\GraphicalUserInterface.csproj", "{765D2526-91AD-449F-A513-A4E3E405C02E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{765D2526-91AD-449F-A513-A4E3E405C02E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

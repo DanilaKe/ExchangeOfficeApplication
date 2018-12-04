@@ -18,7 +18,7 @@ namespace GraphicalUserInterface
             GuiBuilder = new Builder();
             try
             {
-                GuiBuilder.AddFromFile("./GraphicalUserInterface/GuiGlade/DialogWindow.glade");
+                GuiBuilder.AddFromFile("./Presentation/GuiGlade/DialogWindow.glade");
                 GuiBuilder.Autoconnect(this);
             }
             catch (Exception e)

@@ -7,7 +7,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ExchangeOffice\ExchangeOffice.csproj" />
-      <ProjectReference Include="..\GraphicalUserInterface\GraphicalUserInterface.csproj" />
+      <ProjectReference Include="..\Presentation\Presentation.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="GtkSharp" Version="3.22.24.36" />
     </ItemGroup>
 
 </Project>

@@ -19,7 +19,7 @@ namespace GraphicalUserInterface
             GuiBuilder = new Builder();
             try
             {
-                GuiBuilder.AddFromFile("./GraphicalUserInterface/GuiGlade/LoginWindow.glade");
+                GuiBuilder.AddFromFile("./Presentation/GuiGlade/LoginWindow.glade");
                 GuiBuilder.Autoconnect(this);
             }
             catch (Exception e)
