@@ -1,7 +1,7 @@
 namespace GraphicalUserInterface
 {
-    public class IAboutWindow
-    {
+    public interface IAboutWindow : IView
+    { 
         
     }
 }

@@ -1,16 +1,23 @@
 ﻿using Gtk;
 using System;
+using Action = System.Action;
 
 namespace GraphicalUserInterface
 {
-    public class LoginWindow
+    public class LoginWindow : ILoginWindow
     {
         [Builder.Object] private Entry LoginEntry;
         [Builder.Object] private Entry PasswordEntry;
+        [Builder.Object] private Label ErrorMessage;
         [Builder.Object] private Window _window;
+        public event Action TryLogin;
+        public bool AdminFlag { get; set; }
+        public string Login => LoginEntry.Text;
+        public string Password => PasswordEntry.Text;
+        public void Show() =>  _window.Visible = true;
+        public void Close() => _window.Visible = false;
+        public void ShowError(string message) => ErrorMessage.Text = message;
 
-        private bool adminFlag;
-        
         private Builder GuiBuilder;
         
         public LoginWindow()
@@ -27,43 +34,20 @@ namespace GraphicalUserInterface
                 Console.WriteLine(e.Message);
             }
         }
-
-        internal void OpenWindow()
-        {
-            _window.Visible = true;
-        }
-        
-        internal void HideWindow()
-        {
-            _window.Visible = false;
-        }
-        
         protected void OkButtonClicked(object sender, EventArgs a)
         {
-            if (adminFlag)
-            {
-                App.getInstance().OpenAdminWindow();
-            }
-            else
-            {
-                App.getInstance().TryCashierLogin("a","a");
-            }
+            ErrorMessage.Text = string.Empty;
+            TryLogin?.Invoke();
         }
         
         protected void ExitButtonClicked(object sender, EventArgs a)
         {
-            Console.WriteLine("Exit");
             Application.Quit();
         }
         
         protected void  AdministratorSwitchActivate(object sender, ButtonReleaseEventArgs a)
         {
-            adminFlag = !adminFlag;
-        }
-        
-        protected void ExitButton(object sender, EventArgs a)
-        {
-            Application.Quit();
+            AdminFlag = !AdminFlag;
         }
     }
 }

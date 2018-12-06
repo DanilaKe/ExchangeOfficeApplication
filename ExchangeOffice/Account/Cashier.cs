@@ -1,8 +1,12 @@
 ﻿namespace ExchangeOffice
 {
-    public class Cashier : IAccount
+    public sealed class Cashier : Account
     {
-        public bool SendCommand(Command command)
+        internal Cashier()
+        {
+            Account.Instance = this;
+        }
+        public override bool SendCommand(Command command)
         {
             throw new System.NotImplementedException();
         }

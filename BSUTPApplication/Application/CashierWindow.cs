@@ -7,7 +7,7 @@ namespace GraphicalUserInterface
     /// Class Login
     /// 
     /// </summary>
-    public class CashierWindow
+    public class CashierWindow : ICashierWindow
     {
         [Builder.Object] private TextBuffer TodayCourse;
         [Builder.Object] private TextBuffer ExchangeResult;

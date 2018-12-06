@@ -4,15 +4,18 @@
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkAboutDialog" id="_window">
     <property name="can_focus">False</property>
+    <property name="resizable">False</property>
+    <property name="icon_name">  Обменный пункт</property>
     <property name="type_hint">dialog</property>
+    <property name="skip_pager_hint">True</property>
+    <property name="deletable">False</property>
     <property name="program_name">Обменный пункт</property>
     <property name="website">https://github.com/DanilaKe</property>
     <property name="website_label" translatable="yes">GitHub</property>
     <property name="authors">Данила Кедриский 3 курс, 6+7 КБ</property>
     <property name="logo_icon_name">face-smile</property>
-    <signal name="destroy" handler="CloseAboutWindow" swapped="no"/>
     <signal name="response" handler="CloseAboutWindow" swapped="no"/>
-    <child>
+    <child type="titlebar">
       <placeholder/>
     </child>
     <child internal-child="vbox">

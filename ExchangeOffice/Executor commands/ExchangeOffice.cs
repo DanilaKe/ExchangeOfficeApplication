@@ -1,4 +1,5 @@
-﻿using DataSourceAccess;
+﻿using System;
+using DataSourceAccess;
 using ExchangeOffice.Service;
 
 namespace ExchangeOffice
@@ -30,5 +31,7 @@ namespace ExchangeOffice
         {
             throw new System.NotImplementedException();
         }
+
+        public event ServiceStateHandler LoginEvent;
     }
 }

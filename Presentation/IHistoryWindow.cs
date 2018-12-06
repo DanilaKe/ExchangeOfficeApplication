@@ -1,6 +1,6 @@
 namespace GraphicalUserInterface
 {
-    public class IHistoryWindow
+    public interface IHistoryWindow : IView
     {
         
     }

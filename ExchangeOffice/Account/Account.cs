@@ -1,8 +1,18 @@
-﻿namespace ExchangeOffice
+﻿using System;
+
+namespace ExchangeOffice
 {
-    public interface IAccount
+    public abstract class Account
     {
-        bool SendCommand(Command command);
+        private static Account _instance;
+        public static Account Instance
+        {
+            get => _instance ?? (_instance = new UnauthenticatedUser());
+
+            protected set => _instance = value;
+        }
+
+        public abstract bool SendCommand(Command command);
     }
     
 }

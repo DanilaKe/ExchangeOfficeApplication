@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <PackageReference Include="GtkSharp" Version="3.22.24.36" />
+      <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
     </ItemGroup>
 
 </Project>

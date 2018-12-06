@@ -7,7 +7,7 @@ namespace GraphicalUserInterface
     /// Class Login
     /// 
     /// </summary>
-    public class AboutWindow
+    public class AboutWindow : IAboutWindow
     {
         [Builder.Object] private AboutDialog _window;
         

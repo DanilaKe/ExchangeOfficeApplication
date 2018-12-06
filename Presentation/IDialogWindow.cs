@@ -1,6 +1,6 @@
 namespace GraphicalUserInterface
 {
-    public class IDialogWindow
+    public interface IDialogWindow : IView
     {
         
     }

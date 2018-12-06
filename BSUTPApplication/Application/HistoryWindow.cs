@@ -1,6 +1,6 @@
 namespace GraphicalUserInterface
 {
-    public class HistoryWindow
+    public class HistoryWindow : IDialogWindow
     {
         
     }

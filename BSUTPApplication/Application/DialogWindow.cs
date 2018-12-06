@@ -7,7 +7,7 @@ namespace GraphicalUserInterface
     /// Class Login
     /// 
     /// </summary>
-    public class DialogWindow
+    public class DialogWindow : IDialogWindow
     {
         [Builder.Object] private Dialog dialogWindow;
         private Builder GuiBuilder;

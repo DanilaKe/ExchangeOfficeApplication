@@ -1,7 +1,7 @@
 namespace GraphicalUserInterface
 {
-    public class IPresenter
+    public interface IPresenter
     {
-        
+        void Run();
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace ExchangeOffice
 {
-    public class UnauthenticatedUser : IAccount
+    public sealed class UnauthenticatedUser : Account
     {
-        public bool SendCommand(Command command)
+        public override bool SendCommand(Command command)
         {
             if (command is LoginCommand)
             {

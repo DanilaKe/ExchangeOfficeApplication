@@ -1,6 +1,6 @@
 namespace GraphicalUserInterface
 {
-    public class IAdminWindow
+    public interface IAdminWindow : IView
     {
         
     }

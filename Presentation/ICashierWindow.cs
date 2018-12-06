@@ -1,6 +1,6 @@
 namespace GraphicalUserInterface
 {
-    public class ICashierWindow
+    public interface ICashierWindow : IView
     {
         
     }

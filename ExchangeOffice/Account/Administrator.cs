@@ -1,8 +1,12 @@
 ﻿namespace ExchangeOffice
 {
-    public class Administrator : IAccount
+    public sealed class Administrator : Account
     {
-        public bool SendCommand(Command command)
+        internal Administrator()
+        {
+            Account.Instance = this;
+        }
+        public override bool SendCommand(Command command)
         {
             throw new System.NotImplementedException();
         }

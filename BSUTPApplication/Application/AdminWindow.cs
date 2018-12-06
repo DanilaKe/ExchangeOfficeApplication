@@ -7,7 +7,7 @@ namespace GraphicalUserInterface
     /// Class Login
     /// 
     /// </summary>
-    public class AdminWindow
+    public class AdminWindow : IAdminWindow
     {
         [Builder.Object] private TextBuffer Log;
         [Builder.Object] private ComboBoxText ContributedСurrency;
