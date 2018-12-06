@@ -12,9 +12,7 @@ namespace ExchangeOffice
         public ExchangeOffice()
         {
             _kernel = new StandardKernel();
-            _kernel.Bind<IEventsCommands>().To<ExchangeOffice>().InSingletonScope();
             _kernel.Bind<IRepository<DataSourceAccess.Account>>().To<SQLiteAccountRepository>();
-            //_kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>));
         }
 
         public void CallEvent(ServiceEventArgs e, ServiceStateHandler handler)

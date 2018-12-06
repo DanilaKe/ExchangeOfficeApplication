@@ -47,19 +47,10 @@ namespace ExchangeOffice.Service
         private bool Check()
         {
             var Status = AdminFlag ? 1 : 2;
-            /*return new SQLiteAccountRepository().GetList().Select(x => x).Any(x => x.Login == Login &&
-                                                                                   x.Password == Password &&
-                                                                                   x.AccountTypeValue == Status);;
-            foreach (var i in a.GetList())
-            {
-                Console.WriteLine(i.Login);
-            }*/
-            
             return _kernel.Get<IRepository<DataSourceAccess.Account>>().GetList().Select(x => x)
                 .Any(x => x.Login == Login &&
                           x.Password == Password &&
                           x.AccountTypeValue == Status);
-            /*return true;*/
         }
     }
 }

@@ -112,10 +112,10 @@ namespace GraphicalUserInterface
 
         private void InitCurrency()
         {
-            for (var i = 1; i < Enum.GetNames(typeof(Currency)).Length; i++)
+            for (var i = 0; i < Enum.GetNames(typeof(Currency)).Length; i++)
             {
-                ContributedСurrency.InsertText(i-1,Enum.GetName(typeof(Currency),i));
-                TargetCurrency.InsertText(i-1,Enum.GetName(typeof(Currency),i));
+                ContributedСurrency.InsertText(i,Enum.GetName(typeof(Currency),i+1));
+                TargetCurrency.InsertText(i,Enum.GetName(typeof(Currency),i+1));
             }
         }
     }
