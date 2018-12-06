@@ -43,5 +43,15 @@ namespace GraphicalUserInterface
         {
             _window.Visible = false;
         }
+
+        public void Show()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Close()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -43,5 +43,15 @@ namespace GraphicalUserInterface
                 "./GUI/DialogWindow.glade");
             GuiBuilder.Autoconnect(this);
         }
+
+        public void Show()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Close()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

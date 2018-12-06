@@ -23,8 +23,9 @@ namespace BSUTPApplication
                     kernel.Bind<AboutWindowPresenter>().ToSelf();
                     kernel.Bind<AdminWindowPresenter>().ToSelf();
                     kernel.Bind<LoginWindowPresenter>().ToSelf();
-                    kernel.Bind<DialogWindow>().ToSelf();
-                    kernel.Bind<CashierWindow>().ToSelf();
+                    kernel.Bind<DialogWindowPresenter>().ToSelf();
+                    kernel.Bind<CashierWindowPresenter>().ToSelf();
+                    kernel.Bind<ExecutorCommands>().To<ExchangeOffice.ExchangeOffice>();
 
                     kernel.Get<LoginWindowPresenter>().Run();
                     Application.Run();

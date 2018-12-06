@@ -66,7 +66,7 @@ namespace GraphicalUserInterface
         
         protected void ClickedAboutButton(object sender, EventArgs a)
         {
-            App.getInstance().OpenAboutWindow();
+            
         }
         
         protected void ExitButton(object sender, EventArgs a)
@@ -82,6 +82,16 @@ namespace GraphicalUserInterface
         protected void ActivatePurchaseButton(object sender, EventArgs a)
         {
             //TODO
+        }
+
+        public void Show()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Close()
+        {
+            throw new NotImplementedException();
         }
     }
 }

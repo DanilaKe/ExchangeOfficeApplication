@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataSourceAccess
 {
-    interface IRepository<T> : IDisposable 
+    public interface IRepository<T> : IDisposable 
         where T : class
     {
         IEnumerable<T> GetList(); 

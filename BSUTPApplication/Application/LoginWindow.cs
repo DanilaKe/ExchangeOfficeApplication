@@ -26,7 +26,7 @@ namespace GraphicalUserInterface
             GuiBuilder = new Builder();
             try
             {
-                GuiBuilder.AddFromFile("./Presentation/GuiGlade/LoginWindow.glade");
+                GuiBuilder.AddFromFile("./BSUTPApplication/GuiGlade/LoginWindow.glade");
                 GuiBuilder.Autoconnect(this);
             }
             catch (Exception e)

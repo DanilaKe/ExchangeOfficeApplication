@@ -1,5 +1,6 @@
 ﻿using Gtk;
 using System;
+using DataSourceAccess;
 
 namespace GraphicalUserInterface
 {
@@ -16,11 +17,14 @@ namespace GraphicalUserInterface
         [Builder.Object] private ComboBoxText TargetCurrency;
         [Builder.Object] private Entry ContributedAmount;
         [Builder.Object] private Window _window;
-        [Builder.Object] private Dialog HistoryDialog;
+     /*   [Builder.Object] private Dialog HistoryDialog;
         [Builder.Object] private Entry Client;
         [Builder.Object] private Window CustumerHistory;
-        [Builder.Object] private TextBuffer History;
+        [Builder.Object] private TextBuffer History;*/
         private Builder GuiBuilder;
+        
+        public void Show() =>  _window.Visible = true;
+        public void Close() => _window.Visible = false;
         
         public CashierWindow()
         {
@@ -28,25 +32,17 @@ namespace GraphicalUserInterface
             GuiBuilder = new Builder();
             try
             {
-                GuiBuilder.AddFromFile("./Presentation/GuiGlade/CashierWindow.glade");
+                GuiBuilder.AddFromFile("./BSUTPApplication/GuiGlade/CashierWindow.glade");
                 GuiBuilder.Autoconnect(this);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+            
+            InitCurrency();
         }
         
-        internal void OpenWindow()
-        {
-            _window.Visible = true;
-        }
-
-        internal void HideWindow()
-        {
-            _window.Visible = false;
-        }
-
         protected void ClickedApplyButton(object sender, EventArgs a)
         {
             new DialogWindow();    
@@ -69,7 +65,7 @@ namespace GraphicalUserInterface
         
         protected void ClickedAboutButton(object sender, EventArgs a)
         {
-            App.getInstance().OpenAboutWindow();
+            
         }
         
         protected void ExitButton(object sender, EventArgs a)
@@ -89,18 +85,15 @@ namespace GraphicalUserInterface
         
         protected void ClickedCloseHistoryButton(object sender, EventArgs a)
         {
-            HistoryDialog.Visible = false;
         }
         
         protected void ClickedHistoryButton(object sender, EventArgs a)
         {
-            HistoryDialog.Visible = true;
+           
         }
         
         protected void ClickedSearchButton(object sender, EventArgs a)
         {
-            CustumerHistory.Visible = true;
-            HistoryDialog.Visible = false;
         }
         
         protected void CloseHistoryButton(object sender, EventArgs a)
@@ -112,10 +105,18 @@ namespace GraphicalUserInterface
         
         protected void CloseHistory(object sender, EventArgs a)
         {
-            CustumerHistory.Visible = false;
             GuiBuilder.AddFromFile(
                 "./GUI/CashierWindow.glade");
             GuiBuilder.Autoconnect(this);
+        }
+
+        private void InitCurrency()
+        {
+            for (var i = 1; i < Enum.GetNames(typeof(Currency)).Length; i++)
+            {
+                ContributedСurrency.InsertText(i-1,Enum.GetName(typeof(Currency),i));
+                TargetCurrency.InsertText(i-1,Enum.GetName(typeof(Currency),i));
+            }
         }
     }
 }

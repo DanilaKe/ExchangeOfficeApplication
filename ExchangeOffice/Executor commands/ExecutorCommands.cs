@@ -4,30 +4,14 @@ namespace ExchangeOffice
 {
     public abstract class ExecutorCommands
     {
-        internal void Exchange(int customerID, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
-        {
-            throw new System.NotImplementedException();
-        }
+        internal abstract void Exchange(int customerID, Currency TargetCurrency, Currency ContributedCurrency,
+            decimal amount);
+        internal abstract void ViewingHistory(int customerID);
+        internal abstract void Login(string login, string password, bool adminFlag);
 
-        internal void ViewingHistory(int customerID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        internal virtual void Login(string login, string password)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        internal void CurrenceExchangeUpdate(Currency TargetCurrency, Currency ContributedCurrency, decimal newPurchaseRate,
-            decimal newSaleRate)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        internal void GetLog()
-        {
-            throw new System.NotImplementedException();
-        }
+        internal abstract void CurrenceExchangeUpdate(Currency TargetCurrency, Currency ContributedCurrency,
+            decimal newPurchaseRate,
+            decimal newSaleRate);
+        internal abstract void GetLog();
     }
 }

@@ -410,12 +410,6 @@
                   <object class="GtkComboBoxText" id="ContributedСurrency">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <items>
-                      <item id="RUB" translatable="yes">RUB</item>
-                      <item id="USD" translatable="yes">USD</item>
-                      <item id="EUR" translatable="yes">EUR</item>
-                      <item id="BYR" translatable="yes">BYR</item>
-                    </items>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -448,12 +442,6 @@
                   <object class="GtkComboBoxText" id="TargetCurrency">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <items>
-                      <item id="RUB" translatable="yes">RUB</item>
-                      <item id="USD" translatable="yes">USD</item>
-                      <item id="EUR" translatable="yes">EUR</item>
-                      <item id="BYR" translatable="yes">BYR</item>
-                    </items>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>

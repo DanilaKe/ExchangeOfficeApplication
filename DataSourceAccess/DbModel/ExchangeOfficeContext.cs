@@ -14,7 +14,7 @@ namespace DataSourceAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=ExchangeOffice.db");
+            optionsBuilder.UseSqlite("Data Source=./DataSourceAccess/ExchangeOffice.db");
         }
     }
 }

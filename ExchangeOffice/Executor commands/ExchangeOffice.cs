@@ -1,37 +1,54 @@
 ﻿using System;
 using DataSourceAccess;
 using ExchangeOffice.Service;
+using Ninject;
 
 namespace ExchangeOffice
 {
     public class ExchangeOffice : ExecutorCommands, IEventsCommands
     {
-        internal void Exchange(int customerID, Currency targetCurrency, Currency contributedCurrency, decimal amount)
+        private StandardKernel _kernel;
+
+        public ExchangeOffice()
         {
-            throw new System.NotImplementedException();
+            _kernel = new StandardKernel();
+            _kernel.Bind<IEventsCommands>().To<ExchangeOffice>().InSingletonScope();
+            _kernel.Bind<IRepository<DataSourceAccess.Account>>().To<SQLiteAccountRepository>();
+            //_kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>));
         }
 
-        internal void ViewingHistory(int customerID)
+        public void CallEvent(ServiceEventArgs e, ServiceStateHandler handler)
         {
-            throw new System.NotImplementedException();
-        }
-
-        internal override void Login(string login, string password)
-        {
-            new LoginService();
-        }
-
-        internal void CurrenceExchangeUpdate(Currency TargetCurrency, Currency ContributedCurrency, decimal newPurchaseRate,
-            decimal newSaleRate)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        internal void GetLog()
-        {
-            throw new System.NotImplementedException();
+            if (handler != null && e!=null)
+                handler(this, e);
         }
 
         public event ServiceStateHandler LoginEvent;
+       internal override void Exchange(int customerID, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
+       {
+           throw new NotImplementedException();
+       }
+
+       internal override void ViewingHistory(int customerID)
+       {
+           throw new NotImplementedException();
+       }
+
+       internal override void Login(string login, string password,bool adminFlag)
+       {
+           var service = new LoginService(_kernel,login,password,adminFlag);
+           CallEvent(service.Invoke(),LoginEvent);
+       }
+
+       internal override void CurrenceExchangeUpdate(Currency TargetCurrency, Currency ContributedCurrency, decimal newPurchaseRate,
+           decimal newSaleRate)
+       {
+           throw new NotImplementedException();
+       }
+
+       internal override void GetLog()
+       {
+           throw new NotImplementedException();
+       }
     }
 }
