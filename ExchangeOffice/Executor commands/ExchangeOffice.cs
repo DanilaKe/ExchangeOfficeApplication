@@ -29,7 +29,7 @@ namespace ExchangeOffice
        internal override void Exchange(string name, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
        {
            var service = new ExchangeService(_kernel,name, ContributedCurrency,TargetCurrency, amount);
-           service.Invoke();
+           CallEvent(service.Invoke(),ExchangeEvent);
        }
 
        internal override void ViewingHistory(int customerID)

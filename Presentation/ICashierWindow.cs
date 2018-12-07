@@ -10,6 +10,7 @@ namespace GraphicalUserInterface
         Currency TargetCurrency { get; }
         decimal ContributedAmount { get;  }
         void ShowError(string message);
+        void ShowExchangeResult(string message);
 
         event Action Exchange;
     }

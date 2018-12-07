@@ -26,6 +26,7 @@ namespace ExchangeOffice.Service
         }
         internal override ServiceEventArgs Invoke()
         {
+            ServiceEventArgs e;
             var customer = GetCustomer();
             var rate = _kernel.Get<IRepository<CurrencyExchange>>().GetList().FirstOrDefault(x =>
                 x.ContributedCurrency == ContributedCurrency &&
@@ -44,9 +45,14 @@ namespace ExchangeOffice.Service
                     DateId = GetDate()
                 });
                 db.Save();
+                e = CreateAnswer(customer.CustumerId,IssuedAmount,customer.DailyLimit,rate.Rate);
+            }
+            else
+            {
+                e = new ServiceEventArgs(false,"Exceeded daily limit.");
             }
             
-            return null;
+            return e;
         }
 
         private Custumer GetCustomer()
@@ -98,6 +104,13 @@ namespace ExchangeOffice.Service
                 i.DailyLimit = 1000;
             }
             db.Save();
+        }
+
+        public ServiceEventArgs CreateAnswer(int customerId,decimal IssuedAmount, decimal Limit,decimal rate)
+        {
+            var e = new ServiceEventArgs(true,
+                $"{DateTime.Now}/{customerId}/{Name}/{Enum.GetName(typeof(Currency), (int) ContributedCurrency)}/{Enum.GetName(typeof(Currency), (int) TargetCurrency)}/{rate}/{ContributedAmount}/{IssuedAmount}/{Limit}");
+            return e;
         }
     }
 }

@@ -6,8 +6,7 @@
     <property name="text" translatable="yes">Дата : %Date%
 Счет : %AccountNumber%
 
-Имя : %FirstName%
-Фамилия : %LastName%
+Имя : %Name%
 
 Валюта операции : %ContributedСurrency%
 Целевая валюта : %TargetCurrency%

@@ -1,3 +1,4 @@
+using System;
 using DataSourceAccess;
 using ExchangeOffice;
 using Ninject;
@@ -36,7 +37,17 @@ namespace GraphicalUserInterface
         {
             if (e.Status)
             {
-                _kernel.Get<AdminWindowPresenter>().Run();
+                var splitArgs = e.Message.Split('/');
+                var result = $"Дата : {splitArgs[0]}\n" +
+                             $"Счет : {splitArgs[1]}\n\n" +
+                             $"Имя : {splitArgs[2]}\n\n" +
+                             $"Валюта операции : {splitArgs[3]}\n" +
+                             $"Целевая валюта : {splitArgs[4]}\n" +
+                             $"Курс : {splitArgs[5]}\n" +
+                             $"Внесенная сумма : {splitArgs[6]}\n" +
+                             $"Полученная сумма : {splitArgs[7]}\n\n" +
+                             $"Сегодняшний лимит : {splitArgs[8]}";
+                _window.ShowExchangeResult(result);
             }
             else
             {

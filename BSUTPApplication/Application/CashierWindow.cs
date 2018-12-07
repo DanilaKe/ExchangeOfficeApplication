@@ -37,6 +37,11 @@ namespace GraphicalUserInterface
             throw new NotImplementedException();
         }
 
+        public void ShowExchangeResult(string message)
+        {
+            ExchangeResult.Text = message;
+        }
+
         public event Action Exchange;
 
         public CashierWindow()
