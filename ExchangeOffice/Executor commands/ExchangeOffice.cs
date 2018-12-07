@@ -15,6 +15,7 @@ namespace ExchangeOffice
             _kernel.Bind<IRepository<DataSourceAccess.Account>>().To<SQLiteAccountRepository>();
             _kernel.Bind<IRepository<DataSourceAccess.Custumer>>().To<SQLiteCustumerRepository>();
             _kernel.Bind<IRepository<DataSourceAccess.CurrencyExchange>>().To<SQLiteCurrencyExchangeRepository>();
+            _kernel.Bind<IRepository<Date>>().To<SQLiteDateRepository>();
         }
 
         public void CallEvent(ServiceEventArgs e, ServiceStateHandler handler)

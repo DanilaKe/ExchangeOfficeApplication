@@ -5,6 +5,7 @@ namespace DataSourceAccess
     public class Exchange
     {
         [Key] public int ExchangeId { get; set; }
+        public int? DateId { get; set; }
         [Required] public Date Date { get; set; }
         public int? CurrencyExchangeId { get; set; }
         [Required] public CurrencyExchange CurrencyExchange { get; set; } 

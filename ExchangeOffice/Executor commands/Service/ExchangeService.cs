@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.ComponentModel.Design;
 using System.Linq;
 using DataSourceAccess;
@@ -29,8 +30,10 @@ namespace ExchangeOffice.Service
             var rate = _kernel.Get<IRepository<CurrencyExchange>>().GetList().FirstOrDefault(x =>
                 x.ContributedCurrency == ContributedCurrency &&
                 x.TargetCurrency == TargetCurrency);
-            if (customer.DailyLimit >= ContributedAmount)
+            var rateToUSD = GetRateToUSD();
+            if (customer.DailyLimit >= ContributedAmount*rateToUSD)
             {
+                customer.DailyLimit -= ContributedAmount * rateToUSD;
                 decimal IssuedAmount = ContributedAmount * rate.Rate;
                 customer.HistoryOfExchanges.Add(new Exchange()
                 {
@@ -38,7 +41,7 @@ namespace ExchangeOffice.Service
                     CurrencyExchangeId = rate.CurrencyExchangeId,
                     IssuedAmount = IssuedAmount,
                     CustumerId = customer.CustumerId,
-                    Date = new Date()
+                    DateId = GetDate()
                 });
                 db.Save();
             }
@@ -55,6 +58,46 @@ namespace ExchangeOffice.Service
             }
 
             return db.GetList().Select(x => x).FirstOrDefault(x => x.Name == Name);
+        }
+
+        private decimal GetRateToUSD()
+        {
+            return ContributedCurrency == TargetCurrency? 
+                1 : _kernel.Get<IRepository<CurrencyExchange>>().GetList().FirstOrDefault(x =>
+                    x.ContributedCurrency == ContributedCurrency &&
+                    x.TargetCurrency == (Currency) 3).Rate;
+        }
+
+        private int GetDate()
+        {
+            var db = _kernel.Get<IRepository<Date>>();
+            bool newday;
+            if (db.GetList()?.Count() != 0)
+            {
+                newday = !Equals(db.GetList().Last().DateTime, DateTime.Today);
+            }
+            else
+            {
+                newday = true;
+            }
+            if (newday)
+            {
+                db.Create(new Date(){DateTime = DateTime.Today});
+                db.Save();
+                UpdateDailyLimit();
+            }
+
+            return db.GetList().Last().DateId;
+        }
+
+        private void UpdateDailyLimit()
+        {
+            var db = _kernel.Get<IRepository<Custumer>>();
+            foreach (var i in db.GetList())
+            {
+                i.DailyLimit = 1000;
+            }
+            db.Save();
         }
     }
 }
