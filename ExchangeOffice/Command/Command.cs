@@ -10,9 +10,7 @@ namespace ExchangeOffice
         {
             _executorCommands = executorCommands;
         }
-        internal virtual void Execute()
-        {
-            throw new NotImplementedException();
-        }
+
+        internal abstract void Execute();
     }
 }

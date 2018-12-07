@@ -1,6 +1,7 @@
 ﻿using Gtk;
 using System;
 using DataSourceAccess;
+using Action = System.Action;
 
 namespace GraphicalUserInterface
 {
@@ -12,10 +13,10 @@ namespace GraphicalUserInterface
     {
         [Builder.Object] private TextBuffer TodayCourse;
         [Builder.Object] private TextBuffer ExchangeResult;
-        [Builder.Object] private Entry FirstName;
-        [Builder.Object] private ComboBoxText ContributedСurrency;
-        [Builder.Object] private ComboBoxText TargetCurrency;
-        [Builder.Object] private Entry ContributedAmount;
+        [Builder.Object] private Entry NameEntry;
+        [Builder.Object] private ComboBoxText ContributedСurrencyComboBoxText;
+        [Builder.Object] private ComboBoxText TargetCurrencyComboBoxText;
+        [Builder.Object] private Entry ContributedAmountEntry;
         [Builder.Object] private Window _window;
      /*   [Builder.Object] private Dialog HistoryDialog;
         [Builder.Object] private Entry Client;
@@ -25,7 +26,19 @@ namespace GraphicalUserInterface
         
         public void Show() =>  _window.Visible = true;
         public void Close() => _window.Visible = false;
-        
+        public string Name => NameEntry.Text;
+        public Currency ContributedCurrency => 
+            (Currency) Enum.Parse(typeof(Currency),ContributedСurrencyComboBoxText.ActiveText);
+        public Currency TargetCurrency => 
+            (Currency) Enum.Parse(typeof(Currency),TargetCurrencyComboBoxText.ActiveText);
+        public decimal ContributedAmount => decimal.Parse(ContributedAmountEntry.Text);
+        public void ShowError(string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public event Action Exchange;
+
         public CashierWindow()
         {
             Gtk.Application.Init();
@@ -45,7 +58,7 @@ namespace GraphicalUserInterface
         
         protected void ClickedApplyButton(object sender, EventArgs a)
         {
-            new DialogWindow();    
+            Exchange?.Invoke();   
         }
         
         protected void ClickedClearButton(object sender, EventArgs a)
@@ -114,8 +127,8 @@ namespace GraphicalUserInterface
         {
             for (var i = 0; i < Enum.GetNames(typeof(Currency)).Length; i++)
             {
-                ContributedСurrency.InsertText(i,Enum.GetName(typeof(Currency),i+1));
-                TargetCurrency.InsertText(i,Enum.GetName(typeof(Currency),i+1));
+                ContributedСurrencyComboBoxText.InsertText(i,Enum.GetName(typeof(Currency),i+1));
+                TargetCurrencyComboBoxText.InsertText(i,Enum.GetName(typeof(Currency),i+1));
             }
         }
     }

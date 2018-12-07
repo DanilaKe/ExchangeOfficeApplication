@@ -6,5 +6,6 @@ namespace ExchangeOffice
     {
         void CallEvent(ServiceEventArgs e, ServiceStateHandler handler);
         event ServiceStateHandler LoginEvent;
+        event ServiceStateHandler ExchangeEvent;
     }
 }

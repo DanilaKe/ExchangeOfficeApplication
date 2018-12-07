@@ -13,6 +13,8 @@ namespace ExchangeOffice
         {
             _kernel = new StandardKernel();
             _kernel.Bind<IRepository<DataSourceAccess.Account>>().To<SQLiteAccountRepository>();
+            _kernel.Bind<IRepository<DataSourceAccess.Custumer>>().To<SQLiteCustumerRepository>();
+            _kernel.Bind<IRepository<DataSourceAccess.CurrencyExchange>>().To<SQLiteCurrencyExchangeRepository>();
         }
 
         public void CallEvent(ServiceEventArgs e, ServiceStateHandler handler)
@@ -21,10 +23,12 @@ namespace ExchangeOffice
                 handler(this, e);
         }
 
-        public event ServiceStateHandler LoginEvent;
-       internal override void Exchange(int customerID, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
+       public event ServiceStateHandler LoginEvent;
+       public event ServiceStateHandler ExchangeEvent;
+       internal override void Exchange(string name, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
        {
-           throw new NotImplementedException();
+           var service = new ExchangeService(_kernel,name, ContributedCurrency,TargetCurrency, amount);
+           service.Invoke();
        }
 
        internal override void ViewingHistory(int customerID)
@@ -38,7 +42,7 @@ namespace ExchangeOffice
            CallEvent(service.Invoke(),LoginEvent);
        }
 
-       internal override void CurrenceExchangeUpdate(Currency TargetCurrency, Currency ContributedCurrency, decimal newPurchaseRate,
+       internal override void CurrencyExchangeUpdate(Currency TargetCurrency, Currency ContributedCurrency, decimal newPurchaseRate,
            decimal newSaleRate)
        {
            throw new NotImplementedException();
