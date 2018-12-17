@@ -13,5 +13,6 @@ namespace DataSourceAccess
         [Key]public int DateId { get; set; }
         [Required]public DateTime DateTime { get; set; }
         public ICollection<Exchange> HistoryOfExchanges { get; set; }
+        public ICollection<CurrencyExchange> CurrencyExchanges { get; set; }
     }
 }

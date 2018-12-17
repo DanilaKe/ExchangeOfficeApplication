@@ -13,6 +13,7 @@ namespace ExchangeOffice
         }
 
         public abstract bool SendCommand(Command command);
+        
     }
     
 }

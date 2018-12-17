@@ -1,6 +1,7 @@
 ﻿using Gtk;
 using System;
 using DataSourceAccess;
+using Ninject;
 using Action = System.Action;
 
 namespace GraphicalUserInterface
@@ -9,8 +10,10 @@ namespace GraphicalUserInterface
     /// Class Login
     /// 
     /// </summary>
-    public class CashierWindow : ICashierWindow
+    public class CashierWindow : ICashierWindow, IDisposable
     {
+        private bool disposed;
+        private IKernel _kernel;
         [Builder.Object] private TextBuffer TodayCourse;
         [Builder.Object] private TextBuffer ExchangeResult;
         [Builder.Object] private Entry NameEntry;
@@ -25,7 +28,7 @@ namespace GraphicalUserInterface
         private Builder GuiBuilder;
         
         public void Show() =>  _window.Visible = true;
-        public void Close() => _window.Visible = false;
+        public void Close() => Dispose();
         public string Name => NameEntry.Text;
         public Currency ContributedCurrency => 
             (Currency) Enum.Parse(typeof(Currency),ContributedСurrencyComboBoxText.ActiveText);
@@ -37,15 +40,13 @@ namespace GraphicalUserInterface
             throw new NotImplementedException();
         }
 
-        public void ShowExchangeResult(string message)
-        {
-            ExchangeResult.Text = message;
-        }
+        public void ShowExchangeResult(string message) => ExchangeResult.Text = message;
 
         public event Action Exchange;
 
-        public CashierWindow()
+        public CashierWindow(IKernel kernel)
         {
+            _kernel = kernel;
             Gtk.Application.Init();
             GuiBuilder = new Builder();
             try
@@ -83,7 +84,7 @@ namespace GraphicalUserInterface
         
         protected void ClickedAboutButton(object sender, EventArgs a)
         {
-            
+            //TODO
         }
         
         protected void ExitButton(object sender, EventArgs a)
@@ -93,7 +94,8 @@ namespace GraphicalUserInterface
         
         protected void ClickedQuitButton(object sender, EventArgs a)
         {
-            //TODO
+            Close();
+            _kernel.Get<LoginWindowPresenter>().Run();
         }
         
         protected void ActivatePurchaseButton(object sender, EventArgs a)
@@ -128,13 +130,32 @@ namespace GraphicalUserInterface
             GuiBuilder.Autoconnect(this);
         }
 
-        private void InitCurrency()
+        private void InitCurrency() // делать инициализацию из призентера
         {
             for (var i = 0; i < Enum.GetNames(typeof(Currency)).Length; i++)
             {
                 ContributedСurrencyComboBoxText.InsertText(i,Enum.GetName(typeof(Currency),i+1));
                 TargetCurrencyComboBoxText.InsertText(i,Enum.GetName(typeof(Currency),i+1));
             }
+        }
+        
+        public virtual void Dispose(bool disposing)
+        {
+            if(!this.disposed)
+            {
+                if(disposing)
+                {
+                    _window.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+ 
+        public void Dispose()
+        {
+            _window.Close();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

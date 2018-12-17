@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using DataSourceAccess;
-using Microsoft.Data.Sqlite;
 using Ninject;
 
 namespace ExchangeOffice.Service

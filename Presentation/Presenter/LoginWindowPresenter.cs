@@ -9,12 +9,13 @@ namespace GraphicalUserInterface
         private readonly IKernel _kernel;
         private readonly ILoginWindow _window;
         private readonly ExecutorCommands _executorCommands;
+        private readonly Account _account;
         public LoginWindowPresenter(IKernel kernel, ILoginWindow loginWindow,ExecutorCommands executorCommands)
         {
             _kernel = kernel;
             _window = loginWindow;
             _executorCommands = executorCommands;
-
+            _account = new UnauthenticatedUser();
             _window.TryLogin += () => TryLogin(_window.Login, _window.Password, _window.AdminFlag);
         }
 
@@ -25,7 +26,7 @@ namespace GraphicalUserInterface
                 ((IEventsCommands)_executorCommands).LoginEvent += LoginEventHandler;
             }
 
-            if (Account.Instance.SendCommand(new LoginCommand(_executorCommands, login, password,adminFlag))) return;
+            if (_account.SendCommand(new LoginCommand(_executorCommands, login, password,adminFlag))) return;
             _window.ShowError("Invalid command");
         }
 
@@ -33,7 +34,6 @@ namespace GraphicalUserInterface
         {
             if (e.Status)
             {
-                _window.Close();
                 if (_window.AdminFlag)
                 {
                     _kernel.Get<AdminWindowPresenter>().Run();
@@ -42,6 +42,7 @@ namespace GraphicalUserInterface
                 {
                     _kernel.Get<CashierWindowPresenter>().Run();
                 }
+                _window.Close();
             }
             else
             {
@@ -52,6 +53,7 @@ namespace GraphicalUserInterface
 
         public void Run()
         {
+            
             _window.Show();
         }
     }

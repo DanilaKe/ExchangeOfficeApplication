@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataSourceAccess
 {
-    public class SQLiteDateRepository : IRepository<Date>
+    public class SQLiteDateRepository : IRepository<Date> // unitofwork
     {
         private ExchangeOfficeContext db;
         private bool disposed = false;

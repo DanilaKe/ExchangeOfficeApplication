@@ -14,7 +14,7 @@ namespace ExchangeOffice.Service
         Currency ContributedCurrency { get; }
         Currency TargetCurrency { get; }
         decimal ContributedAmount { get;  }
-        private IRepository<Custumer> db;
+        private IRepository<Customer> db;
         public ExchangeService(IKernel kernel, string name, Currency contributedCurrency, Currency targetCurrency, decimal contributedAmount)
         {
             _kernel = kernel;
@@ -22,7 +22,7 @@ namespace ExchangeOffice.Service
             ContributedCurrency = contributedCurrency;
             TargetCurrency = targetCurrency;
             ContributedAmount = contributedAmount;
-            db = _kernel.Get<IRepository<Custumer>>();
+            db = _kernel.Get<IRepository<Customer>>();
         }
         internal override ServiceEventArgs Invoke()
         {
@@ -41,11 +41,11 @@ namespace ExchangeOffice.Service
                     ContributedAmount = ContributedAmount,
                     CurrencyExchangeId = rate.CurrencyExchangeId,
                     IssuedAmount = IssuedAmount,
-                    CustumerId = customer.CustumerId,
+                    CustomerId = customer.CustomerId,
                     DateId = GetDate()
                 });
                 db.Save();
-                e = CreateAnswer(customer.CustumerId,IssuedAmount,customer.DailyLimit,rate.Rate);
+                e = CreateAnswer(customer.CustomerId,IssuedAmount,customer.DailyLimit,rate.Rate);
             }
             else
             {
@@ -55,11 +55,11 @@ namespace ExchangeOffice.Service
             return e;
         }
 
-        private Custumer GetCustomer()
+        private Customer GetCustomer()
         {
             if (!db.GetList().Select(x => x.Name).Any(x => x == Name))
             {
-                db.Create(new Custumer() {Name = Name, DailyLimit = 1000});
+                db.Create(new Customer() {Name = Name, DailyLimit = 1000});
                 db.Save();
             }
 
@@ -98,7 +98,7 @@ namespace ExchangeOffice.Service
 
         private void UpdateDailyLimit()
         {
-            var db = _kernel.Get<IRepository<Custumer>>();
+            var db = _kernel.Get<IRepository<Customer>>();
             foreach (var i in db.GetList())
             {
                 i.DailyLimit = 1000;

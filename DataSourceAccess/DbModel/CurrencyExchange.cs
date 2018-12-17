@@ -26,7 +26,8 @@ namespace DataSourceAccess
         }
         
         [Required] public decimal Rate { get; set; }
-        [Range(0,1), Required]public bool ActualStatus { get; set; }
+        public int? DateId { get; set; }
+        public Date Date { get; set; }
         public ICollection<Exchange> HistoryOfExchanges { get; set; }
     }
 }

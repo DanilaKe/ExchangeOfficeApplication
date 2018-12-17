@@ -7,13 +7,13 @@ namespace ExchangeOffice
 {
     public class ExchangeOffice : ExecutorCommands, IEventsCommands
     {
-        private StandardKernel _kernel;
+        private StandardKernel _kernel; // создать отдельные исполнители для различных команд( скорее всего отдельные исполнители для разных окон, но пока хз).
 
         public ExchangeOffice()
         {
-            _kernel = new StandardKernel();
-            _kernel.Bind<IRepository<DataSourceAccess.Account>>().To<SQLiteAccountRepository>();
-            _kernel.Bind<IRepository<DataSourceAccess.Custumer>>().To<SQLiteCustumerRepository>();
+            _kernel = new StandardKernel(); // попробывать раздавать кернелы через встроенные функции нинджекта, а не передовать в конструктор.(или как-то так)
+            _kernel.Bind<IRepository<DataSourceAccess.Account>>().To<SQLiteAccountRepository>(); // возможно попробывать заюхать паттерн фасад.
+            _kernel.Bind<IRepository<DataSourceAccess.Customer>>().To<SQLiteCustomerRepository>();
             _kernel.Bind<IRepository<DataSourceAccess.CurrencyExchange>>().To<SQLiteCurrencyExchangeRepository>();
             _kernel.Bind<IRepository<Date>>().To<SQLiteDateRepository>();
         }

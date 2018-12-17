@@ -11,7 +11,7 @@ namespace DataSourceAccess
         [Required] public CurrencyExchange CurrencyExchange { get; set; } 
         [Required] public decimal ContributedAmount { get; set; }
         [Required] public decimal IssuedAmount { get; set; }
-        public int? CustumerId { get; set; }
-        public Custumer Custumer { get; set; }
+        public int? CustomerId { get; set; }
+        public Customer Customer { get; set; }
     }
 }
