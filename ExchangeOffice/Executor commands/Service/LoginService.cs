@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DataSourceAccess;
 using Ninject;
 
@@ -21,6 +22,7 @@ namespace ExchangeOffice.Service
 
         internal override ServiceEventArgs Invoke()
         {
+            
             ServiceEventArgs e;
             if (Check())
             {

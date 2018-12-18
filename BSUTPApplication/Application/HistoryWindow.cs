@@ -1,4 +1,6 @@
-namespace GraphicalUserInterface
+using Presentation.WindowInterfaces;
+
+namespace BSUTPApplication.GraphicalUserInterface
 {
     public class HistoryWindow : IDialogWindow
     {

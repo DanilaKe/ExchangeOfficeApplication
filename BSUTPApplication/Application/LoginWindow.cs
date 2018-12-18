@@ -1,8 +1,9 @@
 ﻿using Gtk;
 using System;
+using Presentation.WindowInterfaces;
 using Action = System.Action;
 
-namespace GraphicalUserInterface
+namespace BSUTPApplication.GraphicalUserInterface
 {
     public class LoginWindow : ILoginWindow, IDisposable
     {

@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
 using DataSourceAccess;
 
-namespace GraphicalUserInterface
+namespace Presentation.WindowInterfaces
 {
     public interface ICashierWindow : IView
     {
@@ -10,7 +11,7 @@ namespace GraphicalUserInterface
         Currency TargetCurrency { get; }
         decimal ContributedAmount { get;  }
         void ShowError(string message);
-        void ShowExchangeResult(string message);
+        string ExchangeResult { get; set; }
 
         event Action Exchange;
     }

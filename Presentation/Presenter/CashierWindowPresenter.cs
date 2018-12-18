@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using DataSourceAccess;
 using ExchangeOffice;
 using Ninject;
+using Presentation.WindowInterfaces;
 using Account = ExchangeOffice.Account;
 
-namespace GraphicalUserInterface
+namespace Presentation
 {
     public class CashierWindowPresenter : IPresenter
     {
@@ -37,22 +39,18 @@ namespace GraphicalUserInterface
         {
             if (e.Status)
             {
-                var splitArgs = e.Message.Split('/');
-                var result = $"Дата : {splitArgs[0]}\n" +
-                             $"Счет : {splitArgs[1]}\n\n" +
-                             $"Имя : {splitArgs[2]}\n\n" +
-                             $"Валюта операции : {splitArgs[3]}\n" +
-                             $"Целевая валюта : {splitArgs[4]}\n" +
-                             $"Курс : {splitArgs[5]}\n" +
-                             $"Внесенная сумма : {splitArgs[6]}\n" +
-                             $"Полученная сумма : {splitArgs[7]}\n\n" +
-                             $"Сегодняшний лимит : {splitArgs[8]}";
-                _window.ShowExchangeResult(result);
+                var Args = e.Message;
+                _window.ExchangeResult.Replace(null,null);
             }
             else
             {
-                _window.ShowError(e.Message);
+                _window.ShowError(e.Message[0]);
             }
+        }
+
+        public void InitCurrencies()
+        {
+            
         }
         
         public void Run()

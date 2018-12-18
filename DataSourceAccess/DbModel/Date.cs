@@ -9,6 +9,7 @@ namespace DataSourceAccess
         public Date()
         {
             HistoryOfExchanges = new List<Exchange>();
+            CurrencyExchanges = new List<CurrencyExchange>();
         }
         [Key]public int DateId { get; set; }
         [Required]public DateTime DateTime { get; set; }

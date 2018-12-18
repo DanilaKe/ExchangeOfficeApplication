@@ -1,4 +1,4 @@
-namespace GraphicalUserInterface
+namespace Presentation.WindowInterfaces
 {
     public interface IHistoryWindow : IView
     {

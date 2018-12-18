@@ -1,3 +1,5 @@
+using DataSourceAccess;
+
 namespace ExchangeOffice
 {
     public delegate void ServiceStateHandler(object sender, ServiceEventArgs e);
@@ -5,12 +7,13 @@ namespace ExchangeOffice
     public class ServiceEventArgs
     {
         public bool Status { get; set; }
-        public string Message { get; set; }
 
-        public ServiceEventArgs(bool _status,string _message)
+        public string[] Message { get; set; }
+
+        public ServiceEventArgs(bool status,params string[] message)
         {
-            Status = _status;
-            Message = _message;
+            Status = status;
+            Message = message;
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using Gtk;
 using System;
+using Presentation.WindowInterfaces;
 
-namespace GraphicalUserInterface
+namespace BSUTPApplication.GraphicalUserInterface
 {
     /// <summary>
     /// Class Login
@@ -66,7 +67,7 @@ namespace GraphicalUserInterface
         
         protected void ClickedAboutButton(object sender, EventArgs a)
         {
-            
+            //TODO
         }
         
         protected void ExitButton(object sender, EventArgs a)

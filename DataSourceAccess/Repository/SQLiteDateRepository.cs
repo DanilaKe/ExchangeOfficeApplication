@@ -26,6 +26,7 @@ namespace DataSourceAccess
         public void Create(Date item)
         {
             db.Dates.Add(item);
+            db.SaveChanges();
         }
 
         public void Update(Date item)

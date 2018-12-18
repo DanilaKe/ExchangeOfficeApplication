@@ -1,26 +1,29 @@
-﻿using System;
-using ExchangeOffice;
-using Gdk;
-using GraphicalUserInterface;
-using Gtk;
+﻿using Gtk;
 using Ninject;
+using Presentation;
 
 namespace BSUTPApplication
 {
-    namespace BankApplication
+    /// <summary>
+    /// Class EntryPoint
+    /// 
+    /// </summary>
+    internal static class EntryPoint
     {
-        class EntryPoint
+        /// <summary>
+        /// Method Main.
+        /// Entry point.
+        /// </summary>
+        private static void Main()
         {
-            static void Main(string[] args) // сделать инициализацию кернела в отдельном классе,
-            {
-                var registrations = new NinjectRegistrations();
-                var kernel = new StandardKernel(registrations);
+            var registrations = new NinjectRegistrations();
+            var kernel = new StandardKernel(registrations);
 
-                kernel.Get<LoginWindowPresenter>().Run();
-                Application.Run();
-            }
-        
+            kernel.Get<LoginWindowPresenter>().Run();
+            Application.Run();
         }
+    
     }
+    
 
 }

@@ -1,4 +1,4 @@
-namespace GraphicalUserInterface
+namespace Presentation
 {
     public interface IPresenter
     {

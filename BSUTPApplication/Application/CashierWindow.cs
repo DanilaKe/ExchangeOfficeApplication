@@ -1,33 +1,39 @@
 ﻿using Gtk;
 using System;
+using System.Collections.Generic;
 using DataSourceAccess;
 using Ninject;
+using Presentation;
+using Presentation.WindowInterfaces;
 using Action = System.Action;
 
-namespace GraphicalUserInterface
+namespace BSUTPApplication.GraphicalUserInterface
 {
     /// <summary>
     /// Class Login
     /// 
     /// </summary>
-    public class CashierWindow : ICashierWindow, IDisposable
+    public sealed class CashierWindow : ICashierWindow, IDisposable
     {
         private bool disposed;
-        private IKernel _kernel;
+        private readonly IKernel _kernel;
+        private readonly Builder GuiBuilder;
+        
         [Builder.Object] private TextBuffer TodayCourse;
-        [Builder.Object] private TextBuffer ExchangeResult;
+        [Builder.Object] private TextBuffer ExchangeResultTextBuffer;
         [Builder.Object] private Entry NameEntry;
         [Builder.Object] private ComboBoxText ContributedСurrencyComboBoxText;
         [Builder.Object] private ComboBoxText TargetCurrencyComboBoxText;
         [Builder.Object] private Entry ContributedAmountEntry;
-        [Builder.Object] private Window _window;
-     /*   [Builder.Object] private Dialog HistoryDialog;
-        [Builder.Object] private Entry Client;
-        [Builder.Object] private Window CustumerHistory;
-        [Builder.Object] private TextBuffer History;*/
-        private Builder GuiBuilder;
-        
-        public void Show() =>  _window.Visible = true;
+        [Builder.Object] private Window Window;
+
+        public string ExchangeResult
+        {
+            get => ExchangeResultTextBuffer.Text;
+            set => ExchangeResultTextBuffer.Text = value;
+        }
+
+        public void Show() =>  Window.Visible = true;
         public void Close() => Dispose();
         public string Name => NameEntry.Text;
         public Currency ContributedCurrency => 
@@ -35,117 +41,108 @@ namespace GraphicalUserInterface
         public Currency TargetCurrency => 
             (Currency) Enum.Parse(typeof(Currency),TargetCurrencyComboBoxText.ActiveText);
         public decimal ContributedAmount => decimal.Parse(ContributedAmountEntry.Text);
+            
         public void ShowError(string message)
         {
             throw new NotImplementedException();
         }
-
-        public void ShowExchangeResult(string message) => ExchangeResult.Text = message;
 
         public event Action Exchange;
 
         public CashierWindow(IKernel kernel)
         {
             _kernel = kernel;
-            Gtk.Application.Init();
-            GuiBuilder = new Builder();
-            try
+            Application.Init();
+            using (GuiBuilder = new Builder())
             {
                 GuiBuilder.AddFromFile("./BSUTPApplication/GuiGlade/CashierWindow.glade");
                 GuiBuilder.Autoconnect(this);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
             
-            InitCurrency();
+            InitCurrencies();
         }
-        
-        protected void ClickedApplyButton(object sender, EventArgs a)
+
+        private void ClickedApplyButton(object sender, EventArgs a)
         {
             Exchange?.Invoke();   
         }
-        
-        protected void ClickedClearButton(object sender, EventArgs a)
+
+        private void ClickedClearButton(object sender, EventArgs a)
         {
             //TODO
         }
-        
-        protected void ClickedRefreshButton(object sender, EventArgs a)
+
+        private void ClickedRefreshButton(object sender, EventArgs a)
         {
             //TODO
         }
-        
-        protected void ClickedCloseButton(object sender, EventArgs a)
+
+        private void ClickedCloseButton(object sender, EventArgs a)
         {
             Application.Quit();
         }
-        
-        protected void ClickedAboutButton(object sender, EventArgs a)
+
+        private void ClickedAboutButton(object sender, EventArgs a)
         {
             //TODO
         }
-        
-        protected void ExitButton(object sender, EventArgs a)
+
+        private void ExitButton(object sender, EventArgs a)
         {
             Application.Quit();
         }
-        
-        protected void ClickedQuitButton(object sender, EventArgs a)
+
+        private void ClickedQuitButton(object sender, EventArgs a)
         {
             Close();
             _kernel.Get<LoginWindowPresenter>().Run();
         }
-        
-        protected void ActivatePurchaseButton(object sender, EventArgs a)
+
+        private void ActivatePurchaseButton(object sender, EventArgs a)
         {
             //TODO
         }
-        
-        protected void ClickedCloseHistoryButton(object sender, EventArgs a)
+
+        private void ClickedCloseHistoryButton(object sender, EventArgs a)
         {
-        }
-        
-        protected void ClickedHistoryButton(object sender, EventArgs a)
-        {
-           
-        }
-        
-        protected void ClickedSearchButton(object sender, EventArgs a)
-        {
-        }
-        
-        protected void CloseHistoryButton(object sender, EventArgs a)
-        {
-            GuiBuilder.AddFromFile(
-                "./GUI/CashierWindow.glade");
-            GuiBuilder.Autoconnect(this);
-        }
-        
-        protected void CloseHistory(object sender, EventArgs a)
-        {
-            GuiBuilder.AddFromFile(
-                "./GUI/CashierWindow.glade");
-            GuiBuilder.Autoconnect(this);
+            //TODO
         }
 
-        private void InitCurrency() // делать инициализацию из призентера
+        private void ClickedHistoryButton(object sender, EventArgs a)
         {
-            for (var i = 0; i < Enum.GetNames(typeof(Currency)).Length; i++)
+            //TODO
+        }
+
+        private void ClickedSearchButton(object sender, EventArgs a)
+        {
+            //TODO
+        }
+
+        private void CloseHistoryButton(object sender, EventArgs a)
+        {
+        }
+
+        private void CloseHistory(object sender, EventArgs a)
+        {
+        }
+
+        private void InitCurrencies()
+        {
+            foreach (var i in Enum.GetNames(typeof(Currency)))
             {
-                ContributedСurrencyComboBoxText.InsertText(i,Enum.GetName(typeof(Currency),i+1));
-                TargetCurrencyComboBoxText.InsertText(i,Enum.GetName(typeof(Currency),i+1));
+                ContributedСurrencyComboBoxText.AppendText(i);
+                TargetCurrencyComboBoxText.AppendText(i);
             }
+                
         }
         
-        public virtual void Dispose(bool disposing)
+        public void Dispose(bool disposing)
         {
             if(!this.disposed)
             {
                 if(disposing)
                 {
-                    _window.Dispose();
+                    Window.Dispose();
                 }
             }
             this.disposed = true;
@@ -153,7 +150,7 @@ namespace GraphicalUserInterface
  
         public void Dispose()
         {
-            _window.Close();
+            Window.Close();
             Dispose(true);
             GC.SuppressFinalize(this);
         }

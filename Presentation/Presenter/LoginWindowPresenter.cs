@@ -1,8 +1,9 @@
 using System;
 using ExchangeOffice;
 using Ninject;
+using Presentation.WindowInterfaces;
 
-namespace GraphicalUserInterface
+namespace Presentation
 {
     public class LoginWindowPresenter : IPresenter
     {
@@ -46,7 +47,7 @@ namespace GraphicalUserInterface
             }
             else
             {
-                _window.ShowError(e.Message);
+                _window.ShowError(e.Message[0]);
             }
         }
 

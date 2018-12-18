@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkTextBuffer" id="ExchangeResult">
+  <object class="GtkTextBuffer" id="ExchangeResultTextBuffer">
     <property name="text" translatable="yes">Дата : %Date%
 Счет : %AccountNumber%
 
@@ -16,7 +16,7 @@
 
 Сегодняшний лимит : %TodayLimit%</property>
   </object>
-  <object class="GtkTextBuffer" id="TodayСourse.">
+  <object class="GtkTextBuffer" id="TodayСourseTextBuffer">
     <property name="text">---------------------------------------------------------------------
 Валюта %CurrencyName1%
 ---------------------------------------------------------------------
@@ -29,7 +29,7 @@
 Покупка %PurchaseRate2%
 ---------------------------------------------------------------------</property>
   </object>
-  <object class="GtkWindow" id="_window">
+  <object class="GtkWindow" id="Window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Обменный пункт</property>
     <property name="resizable">False</property>
@@ -216,7 +216,7 @@
                 <property name="margin_bottom">15</property>
                 <property name="editable">False</property>
                 <property name="cursor_visible">False</property>
-                <property name="buffer">ExchangeResult</property>
+                <property name="buffer">ExchangeResultTextBuffer</property>
               </object>
             </child>
           </object>
@@ -237,7 +237,7 @@
                 <property name="editable">False</property>
                 <property name="left_margin">7</property>
                 <property name="cursor_visible">False</property>
-                <property name="buffer">TodayСourse.</property>
+                <property name="buffer">TodayСourseTextBuffer</property>
                 <property name="accepts_tab">False</property>
               </object>
             </child>

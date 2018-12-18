@@ -6,6 +6,10 @@ namespace DataSourceAccess
 {
     public class CurrencyExchange
     {
+        public CurrencyExchange()
+        {
+            HistoryOfExchanges = new List<Exchange>();
+        }
         [Key] public int CurrencyExchangeId { get; set; }
         
         [Range(1, 4), Required] public int ContributedCurrencyValue { get; set; }

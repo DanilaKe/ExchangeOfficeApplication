@@ -1,6 +1,6 @@
 using System;
 
-namespace GraphicalUserInterface
+namespace Presentation.WindowInterfaces
 {
     public interface ILoginWindow : IView
     {

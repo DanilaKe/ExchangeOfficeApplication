@@ -1,9 +1,14 @@
+using BSUTPApplication.GraphicalUserInterface;
 using ExchangeOffice;
-using GraphicalUserInterface;
 using Ninject.Modules;
+using Presentation;
+using Presentation.WindowInterfaces;
 
 namespace BSUTPApplication
 {
+    /// <summary>
+    /// Class NinjectRegistrations
+    /// </summary>
     public class NinjectRegistrations : NinjectModule
     {
         public override void Load()
