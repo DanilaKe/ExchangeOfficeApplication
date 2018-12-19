@@ -5,12 +5,13 @@ using Ninject;
 
 namespace ExchangeOffice.Service
 {
-    internal class LoginService : Service
+    internal class LoginService : ILoginService
     {
         private IKernel _kernel;
         public string Login { get; set; }
         public string Password { get; set; }
         public bool AdminFlag { get; set; }
+        public IRepository<DataSourceAccess.Account> db;
 
         public LoginService(IKernel kernel,string login, string password,bool adminFlag)
         {
@@ -18,13 +19,14 @@ namespace ExchangeOffice.Service
             Login = login;
             Password = password;
             AdminFlag = adminFlag;
+            db = _kernel.Get<IRepository<DataSourceAccess.Account>>();
         }
 
-        internal override ServiceEventArgs Invoke()
+        public IServiceEventArgs Invoke()
         {
-            
-            ServiceEventArgs e;
-            if (Check())
+            IServiceEventArgs e;
+            var account = GetAccount();
+            if (account != null)
             {
                 if (AdminFlag)
                 {
@@ -34,23 +36,23 @@ namespace ExchangeOffice.Service
                 {
                     new Cashier();
                 }
-                e = new ServiceEventArgs(true,"Successful login");
+                e = new LoginServiceEventArgs(){Status = true,Account = account,Message = "Successful"};
             }
             else
             {
-                e = new ServiceEventArgs(false,"Incorrect username / password.");
+                e = new LoginServiceEventArgs(){Status = false, Account = new DataSourceAccess.Account(),
+                    Message = "Invalid login/password."};
             }
 
             return e;
         }
 
-        private bool Check()
+        private DataSourceAccess.Account GetAccount()
         {
-            var Status = AdminFlag ? 1 : 2;
-            return _kernel.Get<IRepository<DataSourceAccess.Account>>().GetList().Select(x => x)
-                .Any(x => x.Login == Login &&
+            var status = AdminFlag ? 1 : 2;
+            return db.GetList().FirstOrDefault(x => x.Login == Login &&
                           x.Password == Password &&
-                          x.AccountTypeValue == Status);
+                          x.AccountTypeValue == status);
         }
     }
 }

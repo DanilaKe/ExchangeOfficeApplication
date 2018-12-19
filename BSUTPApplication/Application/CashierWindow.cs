@@ -19,22 +19,31 @@ namespace BSUTPApplication.GraphicalUserInterface
         private readonly IKernel _kernel;
         private readonly Builder GuiBuilder;
         
-        [Builder.Object] private TextBuffer TodayCourse;
+        [Builder.Object] private TextBuffer TodayCourseTextBuffer;
         [Builder.Object] private TextBuffer ExchangeResultTextBuffer;
         [Builder.Object] private Entry NameEntry;
+        [Builder.Object] private Label CashierNameLable;
         [Builder.Object] private ComboBoxText ContributedСurrencyComboBoxText;
         [Builder.Object] private ComboBoxText TargetCurrencyComboBoxText;
         [Builder.Object] private Entry ContributedAmountEntry;
         [Builder.Object] private Window Window;
 
+        public string TodayCourse
+        {
+            get => TodayCourseTextBuffer.Text;
+            set => TodayCourseTextBuffer.Text = value;
+        }
         public string ExchangeResult
         {
             get => ExchangeResultTextBuffer.Text;
             set => ExchangeResultTextBuffer.Text = value;
         }
 
-        public void Show() =>  Window.Visible = true;
-        public void Close() => Dispose();
+        public string CashierName
+        {
+            get => CashierNameLable.Text;
+            set => CashierNameLable.Text = value;
+        }
         public string Name => NameEntry.Text;
         public Currency ContributedCurrency => 
             (Currency) Enum.Parse(typeof(Currency),ContributedСurrencyComboBoxText.ActiveText);
@@ -69,7 +78,8 @@ namespace BSUTPApplication.GraphicalUserInterface
 
         private void ClickedClearButton(object sender, EventArgs a)
         {
-            //TODO
+            NameEntry.Text = string.Empty;
+            ContributedAmountEntry.Text = string.Empty;
         }
 
         private void ClickedRefreshButton(object sender, EventArgs a)
@@ -154,5 +164,8 @@ namespace BSUTPApplication.GraphicalUserInterface
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+        
+        public void Show() =>  Window.Visible = true;
+        public void Close() => Dispose();
     }
 }

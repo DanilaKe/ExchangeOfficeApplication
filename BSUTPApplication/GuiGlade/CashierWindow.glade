@@ -8,7 +8,7 @@
 
 Имя : %Name%
 
-Валюта операции : %ContributedСurrency%
+Валюта операции : %ContributedCurrency%
 Целевая валюта : %TargetCurrency%
 Курс : %ExchangeRates%
 Внесенная сумма : %ContributedAmount%
@@ -92,7 +92,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="CashierName">
+          <object class="GtkLabel" id="CashierNameLable">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">%CashierName%</property>

@@ -7,7 +7,7 @@ using Ninject;
 
 namespace ExchangeOffice.Service
 {
-    internal class ExchangeService : Service
+    internal class ExchangeService : IExchangeService
     {
         private IKernel _kernel;
         string Name { get;}
@@ -24,9 +24,9 @@ namespace ExchangeOffice.Service
             ContributedAmount = contributedAmount;
             db = _kernel.Get<IRepository<Customer>>();
         }
-        internal override ServiceEventArgs Invoke()
+        public IServiceEventArgs Invoke()
         {
-            ServiceEventArgs e;
+            IServiceEventArgs e;
             var customer = GetCustomer();
             var rate = _kernel.Get<IRepository<CurrencyExchange>>().GetList().FirstOrDefault(x =>
                 x.ContributedCurrency == ContributedCurrency &&
@@ -45,11 +45,18 @@ namespace ExchangeOffice.Service
                     DateId = GetDate()
                 });
                 db.Save();
-                e = CreateAnswer(customer.CustomerId,IssuedAmount,customer.DailyLimit,rate.Rate);
+                e = new ExchangeServiceEventArgs()
+                {
+                    Status = true, Exchange = customer.HistoryOfExchanges.Last(),
+                    Message = "Successful"
+                };
             }
             else
             {
-                e = new ServiceEventArgs(false,"Exceeded daily limit.");
+                e = new ExchangeServiceEventArgs()
+                {
+                    Status = false,Exchange = new Exchange(), Message = "Exceeded daily limit."
+                };
             }
             
             return e;
@@ -69,7 +76,7 @@ namespace ExchangeOffice.Service
         private decimal GetRateToUSD()
         {
             return ContributedCurrency == TargetCurrency? 
-                1 : _kernel.Get<IRepository<CurrencyExchange>>().GetList().FirstOrDefault(x =>
+                1M : _kernel.Get<IRepository<CurrencyExchange>>().GetList().FirstOrDefault(x =>
                     x.ContributedCurrency == ContributedCurrency &&
                     x.TargetCurrency == (Currency) 3).Rate;
         }
@@ -101,16 +108,9 @@ namespace ExchangeOffice.Service
             var db = _kernel.Get<IRepository<Customer>>();
             foreach (var i in db.GetList())
             {
-                i.DailyLimit = 1000;
+                i.DailyLimit = 1000M;
             }
             db.Save();
-        }
-
-        public ServiceEventArgs CreateAnswer(int customerId,decimal IssuedAmount, decimal Limit,decimal rate)
-        {
-            var e = new ServiceEventArgs(true,
-                $"{DateTime.Now}/{customerId}/{Name}/{Enum.GetName(typeof(Currency), (int) ContributedCurrency)}/{Enum.GetName(typeof(Currency), (int) TargetCurrency)}/{rate}/{ContributedAmount}/{IssuedAmount}/{Limit}");
-            return e;
         }
     }
 }

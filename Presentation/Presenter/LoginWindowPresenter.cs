@@ -22,32 +22,33 @@ namespace Presentation
 
         private void TryLogin(string login, string password, bool adminFlag)
         {
-            if (_executorCommands is IEventsCommands)
-            {
-                ((IEventsCommands)_executorCommands).LoginEvent += LoginEventHandler;
-            }
+            _executorCommands.LoginEvent = LoginEventHandler;
 
             if (_account.SendCommand(new LoginCommand(_executorCommands, login, password,adminFlag))) return;
             _window.ShowError("Invalid command");
         }
 
-        private void LoginEventHandler(object sender, ServiceEventArgs e)
+        private void LoginEventHandler(object sender, IServiceEventArgs e)
         {
+            var operation = (LoginServiceEventArgs) e;
             if (e.Status)
             {
                 if (_window.AdminFlag)
                 {
-                    _kernel.Get<AdminWindowPresenter>().Run();
+                    var newWindow =_kernel.Get<AdminWindowPresenter>();
+                    newWindow.Run();
                 }
                 else
                 {
-                    _kernel.Get<CashierWindowPresenter>().Run();
+                    var newWindow =_kernel.Get<CashierWindowPresenter>();
+                    newWindow.SetCashierName(operation.Account.Login);
+                    newWindow.Run();
                 }
                 _window.Close();
             }
             else
             {
-                _window.ShowError(e.Message[0]);
+                _window.ShowError(e.Message);
             }
         }
 

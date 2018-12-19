@@ -12,6 +12,8 @@ namespace Presentation.WindowInterfaces
         decimal ContributedAmount { get;  }
         void ShowError(string message);
         string ExchangeResult { get; set; }
+        string CashierName { get; set; }
+        string TodayCourse { get; set; }
 
         event Action Exchange;
     }

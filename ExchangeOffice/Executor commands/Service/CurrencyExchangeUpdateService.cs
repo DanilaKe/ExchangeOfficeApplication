@@ -1,6 +1,6 @@
 ﻿namespace ExchangeOffice.Service
 {
-    internal class CurrenceExchangeUpdateService
+    internal class CurrencyExchangeUpdateService
     {
         
     }

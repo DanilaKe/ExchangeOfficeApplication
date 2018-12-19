@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using DataSourceAccess;
 using ExchangeOffice;
 using Ninject;
@@ -26,31 +27,47 @@ namespace Presentation
 
         private void Exchange(string name, Currency ContributedCurrency, Currency TargetCurrency, decimal amount)
         {
-            if (_executorCommands is IEventsCommands)
-            {
-                ((IEventsCommands)_executorCommands).ExchangeEvent += ExchangeEventHandler;
-            }
+            _executorCommands.ExchangeEvent = ExchangeEventHandler;
             
             if (Account.Instance.SendCommand(new ExchangeCommand(_executorCommands, name,ContributedCurrency,TargetCurrency,amount))) return;
             _window.ShowError("Invalid command");
         }
         
-        private void ExchangeEventHandler(object sender, ServiceEventArgs e)
+        private void ExchangeEventHandler(object sender, IServiceEventArgs e)
         {
+            var operation = (ExchangeServiceEventArgs) e;
             if (e.Status)
             {
-                var Args = e.Message;
-                _window.ExchangeResult.Replace(null,null);
+                _window.ExchangeResult.Replace("%Date%",DateTime.Now.ToString(CultureInfo.InvariantCulture));
+                _window.ExchangeResult.Replace("%Name%", operation.Exchange.Customer.Name);
+                _window.ExchangeResult.Replace("%AccountNumber%", operation.Exchange.Customer.CustomerId.ToString());
+              /*  _window.ExchangeResult.Replace("%ContributedCurrency%",
+                    Enum.GetName(typeof(Currency),operation.Exchange.CurrencyExchange.ContributedCurrency));
+                _window.ExchangeResult.Replace("%TargetCurrency%",
+                    Enum.GetName(typeof(Currency),operation.Exchange.CurrencyExchange.TargetCurrency));*/
+                _window.ExchangeResult.Replace("%ExchangeRates%",
+                    operation.Exchange.CurrencyExchange.Rate.ToString(CultureInfo.InvariantCulture));
+                _window.ExchangeResult.Replace("%ContributedAmount%",
+                    operation.Exchange.ContributedAmount.ToString(CultureInfo.InvariantCulture));
+                _window.ExchangeResult.Replace("%IssuedAmount%",
+                    operation.Exchange.IssuedAmount.ToString(CultureInfo.InvariantCulture));
+                _window.ExchangeResult.Replace("%TodayLimit%",
+                    operation.Exchange.Customer.DailyLimit.ToString(CultureInfo.InvariantCulture));
             }
             else
             {
-                _window.ShowError(e.Message[0]);
+                _window.ShowError(e.Message);
             }
         }
 
         public void InitCurrencies()
         {
             
+        }
+
+        public void SetCashierName(string name)
+        {
+            _window.CashierName = name;
         }
         
         public void Run()

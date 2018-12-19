@@ -5,7 +5,7 @@ using Ninject;
 
 namespace ExchangeOffice
 {
-    public class ExchangeOffice : ExecutorCommands, IEventsCommands
+    public class ExchangeOffice : ExecutorCommands
     {
         private StandardKernel _kernel; // создать отдельные исполнители для различных команд( скорее всего отдельные исполнители для разных окон, но пока хз).
 
@@ -18,18 +18,18 @@ namespace ExchangeOffice
             _kernel.Bind<IRepository<Date>>().To<SQLiteDateRepository>();
         }
 
-        public void CallEvent(ServiceEventArgs e, ServiceStateHandler handler)
+        internal override void CallEvent(IServiceEventArgs e, Action<object,IServiceEventArgs> handler)
         {
             if (handler != null && e!=null)
                 handler(this, e);
         }
 
-       public event ServiceStateHandler LoginEvent;
-       public event ServiceStateHandler ExchangeEvent;
+       public Action<object,IServiceEventArgs> LoginEvent;
+       public Action<object,IServiceEventArgs> ExchangeEvent;
        internal override void Exchange(string name, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
        {
            var service = new ExchangeService(_kernel,name, ContributedCurrency,TargetCurrency, amount);
-           CallEvent(service.Invoke(),ExchangeEvent);
+           CallEvent(service.Invoke(),base.ExchangeEvent);
        }
 
        internal override void ViewingHistory(int customerID)
@@ -40,7 +40,7 @@ namespace ExchangeOffice
        internal override void Login(string login, string password,bool adminFlag)
        {
            var service = new LoginService(_kernel,login,password,adminFlag);
-           CallEvent(service.Invoke(),LoginEvent);
+           CallEvent(service.Invoke(),base.LoginEvent);
        }
 
        internal override void CurrencyExchangeUpdate(Currency TargetCurrency, Currency ContributedCurrency, decimal newPurchaseRate,
