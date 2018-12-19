@@ -11,7 +11,6 @@ namespace ExchangeOffice.Service
         public string Login { get; set; }
         public string Password { get; set; }
         public bool AdminFlag { get; set; }
-        public IRepository<DataSourceAccess.Account> db;
 
         public LoginService(IKernel kernel,string login, string password,bool adminFlag)
         {
@@ -19,7 +18,6 @@ namespace ExchangeOffice.Service
             Login = login;
             Password = password;
             AdminFlag = adminFlag;
-            db = _kernel.Get<IRepository<DataSourceAccess.Account>>();
         }
 
         public IServiceEventArgs Invoke()
@@ -49,6 +47,7 @@ namespace ExchangeOffice.Service
 
         private DataSourceAccess.Account GetAccount()
         {
+            var db = _kernel.Get<UnitOfWork>().Accounts;
             var status = AdminFlag ? 1 : 2;
             return db.GetList().FirstOrDefault(x => x.Login == Login &&
                           x.Password == Password &&

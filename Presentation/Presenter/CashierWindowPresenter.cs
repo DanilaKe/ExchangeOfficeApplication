@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using DataSourceAccess;
 using ExchangeOffice;
 using Ninject;
@@ -38,21 +39,7 @@ namespace Presentation
             var operation = (ExchangeServiceEventArgs) e;
             if (e.Status)
             {
-                _window.ExchangeResult.Replace("%Date%",DateTime.Now.ToString(CultureInfo.InvariantCulture));
-                _window.ExchangeResult.Replace("%Name%", operation.Exchange.Customer.Name);
-                _window.ExchangeResult.Replace("%AccountNumber%", operation.Exchange.Customer.CustomerId.ToString());
-              /*  _window.ExchangeResult.Replace("%ContributedCurrency%",
-                    Enum.GetName(typeof(Currency),operation.Exchange.CurrencyExchange.ContributedCurrency));
-                _window.ExchangeResult.Replace("%TargetCurrency%",
-                    Enum.GetName(typeof(Currency),operation.Exchange.CurrencyExchange.TargetCurrency));*/
-                _window.ExchangeResult.Replace("%ExchangeRates%",
-                    operation.Exchange.CurrencyExchange.Rate.ToString(CultureInfo.InvariantCulture));
-                _window.ExchangeResult.Replace("%ContributedAmount%",
-                    operation.Exchange.ContributedAmount.ToString(CultureInfo.InvariantCulture));
-                _window.ExchangeResult.Replace("%IssuedAmount%",
-                    operation.Exchange.IssuedAmount.ToString(CultureInfo.InvariantCulture));
-                _window.ExchangeResult.Replace("%TodayLimit%",
-                    operation.Exchange.Customer.DailyLimit.ToString(CultureInfo.InvariantCulture));
+                _window.ExchangeResult = operation.Exchange.GetReportOnOperation();
             }
             else
             {

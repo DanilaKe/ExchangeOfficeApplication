@@ -6,13 +6,15 @@ namespace DataSourceAccess
 {
     public class SQLiteDateRepository : IRepository<Date> // unitofwork
     {
-        private ExchangeOfficeContext db;
         private bool disposed = false;
 
-        public SQLiteDateRepository()
+        public SQLiteDateRepository(ExchangeOfficeContext db)
         {
-            db = new ExchangeOfficeContext();
+            this.db = db;
         }
+
+        public ExchangeOfficeContext db { get; set; }
+
         public IEnumerable<Date> GetList()
         {
             return db.Dates;

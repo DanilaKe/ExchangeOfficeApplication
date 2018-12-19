@@ -16,6 +16,8 @@ namespace ExchangeOffice
             _kernel.Bind<IRepository<DataSourceAccess.Customer>>().To<SQLiteCustomerRepository>();
             _kernel.Bind<IRepository<DataSourceAccess.CurrencyExchange>>().To<SQLiteCurrencyExchangeRepository>();
             _kernel.Bind<IRepository<Date>>().To<SQLiteDateRepository>();
+            _kernel.Bind<IExchangeService>().To<ExchangeService>().InSingletonScope();
+            _kernel.Bind<UnitOfWork>().ToSelf().InSingletonScope();
         }
 
         internal override void CallEvent(IServiceEventArgs e, Action<object,IServiceEventArgs> handler)
@@ -28,7 +30,11 @@ namespace ExchangeOffice
        public Action<object,IServiceEventArgs> ExchangeEvent;
        internal override void Exchange(string name, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
        {
-           var service = new ExchangeService(_kernel,name, ContributedCurrency,TargetCurrency, amount);
+           var service = _kernel.Get<IExchangeService>();
+           service.Name = name;
+           service.TargetCurrency = TargetCurrency;
+           service.ContributedCurrency = ContributedCurrency;
+           service.ContributedAmount = amount;
            CallEvent(service.Invoke(),base.ExchangeEvent);
        }
 

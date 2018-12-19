@@ -53,7 +53,7 @@ namespace BSUTPApplication.GraphicalUserInterface
             
         public void ShowError(string message)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("111");
         }
 
         public event Action Exchange;

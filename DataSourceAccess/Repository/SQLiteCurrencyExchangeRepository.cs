@@ -6,14 +6,15 @@ namespace DataSourceAccess
 {
     public class SQLiteCurrencyExchangeRepository : IRepository<CurrencyExchange>
     {
-        private ExchangeOfficeContext db;
         private bool disposed = false;
 
-        public SQLiteCurrencyExchangeRepository()
+        public SQLiteCurrencyExchangeRepository(ExchangeOfficeContext db)
         {
-            db = new ExchangeOfficeContext();
+            this.db = db;
         }
-        
+
+        public ExchangeOfficeContext db { get; set; }
+
         public IEnumerable<CurrencyExchange> GetList()
         {
             return db.CurrencyExchanges;

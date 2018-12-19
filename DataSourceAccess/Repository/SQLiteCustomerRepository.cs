@@ -6,13 +6,15 @@ namespace DataSourceAccess
 {
     public class SQLiteCustomerRepository : IRepository<Customer>
     {
-        private ExchangeOfficeContext db;
         private bool disposed = false;
 
-        public SQLiteCustomerRepository()
+        public SQLiteCustomerRepository(ExchangeOfficeContext db)
         {
-            db = new ExchangeOfficeContext();
+            this.db = db;
         }
+
+        public ExchangeOfficeContext db { get; set; }
+
         public IEnumerable<Customer> GetList()
         {
             return db.Customers;

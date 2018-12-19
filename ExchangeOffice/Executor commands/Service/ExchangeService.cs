@@ -10,25 +10,19 @@ namespace ExchangeOffice.Service
     internal class ExchangeService : IExchangeService
     {
         private IKernel _kernel;
-        string Name { get;}
-        Currency ContributedCurrency { get; }
-        Currency TargetCurrency { get; }
-        decimal ContributedAmount { get;  }
-        private IRepository<Customer> db;
-        public ExchangeService(IKernel kernel, string name, Currency contributedCurrency, Currency targetCurrency, decimal contributedAmount)
+        public string Name { get; set; }
+        public Currency ContributedCurrency { get; set; }
+        public Currency TargetCurrency { get; set; }
+        public decimal ContributedAmount { get; set; }
+        public ExchangeService(IKernel kernel)
         {
             _kernel = kernel;
-            Name = name;
-            ContributedCurrency = contributedCurrency;
-            TargetCurrency = targetCurrency;
-            ContributedAmount = contributedAmount;
-            db = _kernel.Get<IRepository<Customer>>();
         }
         public IServiceEventArgs Invoke()
         {
             IServiceEventArgs e;
             var customer = GetCustomer();
-            var rate = _kernel.Get<IRepository<CurrencyExchange>>().GetList().FirstOrDefault(x =>
+            var rate = _kernel.Get<UnitOfWork>().CurrencyExchanges.GetList().FirstOrDefault(x =>
                 x.ContributedCurrency == ContributedCurrency &&
                 x.TargetCurrency == TargetCurrency);
             var rateToUSD = GetRateToUSD();
@@ -44,7 +38,7 @@ namespace ExchangeOffice.Service
                     CustomerId = customer.CustomerId,
                     DateId = GetDate()
                 });
-                db.Save();
+                _kernel.Get<UnitOfWork>().Save();
                 e = new ExchangeServiceEventArgs()
                 {
                     Status = true, Exchange = customer.HistoryOfExchanges.Last(),
@@ -64,6 +58,7 @@ namespace ExchangeOffice.Service
 
         private Customer GetCustomer()
         {
+            var db = _kernel.Get<UnitOfWork>().Customers;
             if (!db.GetList().Select(x => x.Name).Any(x => x == Name))
             {
                 db.Create(new Customer() {Name = Name, DailyLimit = 1000});
@@ -76,14 +71,14 @@ namespace ExchangeOffice.Service
         private decimal GetRateToUSD()
         {
             return ContributedCurrency == TargetCurrency? 
-                1M : _kernel.Get<IRepository<CurrencyExchange>>().GetList().FirstOrDefault(x =>
+                1M : _kernel.Get<UnitOfWork>().CurrencyExchanges.GetList().FirstOrDefault(x =>
                     x.ContributedCurrency == ContributedCurrency &&
                     x.TargetCurrency == (Currency) 3).Rate;
         }
 
         private int GetDate()
         {
-            var db = _kernel.Get<IRepository<Date>>();
+            var db = _kernel.Get<UnitOfWork>().Dates;
             bool newday;
             if (db.GetList()?.Count() != 0)
             {
@@ -105,7 +100,7 @@ namespace ExchangeOffice.Service
 
         private void UpdateDailyLimit()
         {
-            var db = _kernel.Get<IRepository<Customer>>();
+            var db = _kernel.Get<UnitOfWork>().Customers;
             foreach (var i in db.GetList())
             {
                 i.DailyLimit = 1000M;
