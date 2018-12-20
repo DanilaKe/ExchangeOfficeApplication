@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using DataSourceAccess;
@@ -28,6 +29,19 @@ namespace Presentation
             return exchangeResult.ToString();
         }
 
+        public static string GetTodayRate(this List<CurrencyExchange> currencyExchanges)
+        {
+            var TodayRate = new StringBuilder();
+            foreach (var exchange in currencyExchanges)
+            {
+                TodayRate.Append(
+                    $"Валютная пара {Enum.GetName(typeof(Currency), exchange.ContributedCurrency)}" +
+                    $" - {Enum.GetName(typeof(Currency), exchange.TargetCurrency)} : {exchange.Rate}\n");
+            }
+
+            return TodayRate.ToString();
+        }
+        
         private const string BillTemplate =
 @"Дата : %Date%
 Счет : %AccountNumber%

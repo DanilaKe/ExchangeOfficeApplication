@@ -23,7 +23,7 @@ namespace BSUTPApplication
             Bind<LoginWindowPresenter>().ToSelf();
             Bind<DialogWindowPresenter>().ToSelf();
             Bind<CashierWindowPresenter>().ToSelf();
-            Bind<ExecutorCommands>().To<ExchangeOffice.ExchangeOffice>();
+            Bind<ExecutorCommands>().To<ExchangeOffice.ExchangeOffice>().InSingletonScope();
         }
     }
 }

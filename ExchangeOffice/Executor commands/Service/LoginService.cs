@@ -12,12 +12,9 @@ namespace ExchangeOffice.Service
         public string Password { get; set; }
         public bool AdminFlag { get; set; }
 
-        public LoginService(IKernel kernel,string login, string password,bool adminFlag)
+        public LoginService(IKernel kernel)
         {
             _kernel = kernel;
-            Login = login;
-            Password = password;
-            AdminFlag = adminFlag;
         }
 
         public IServiceEventArgs Invoke()

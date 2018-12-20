@@ -17,9 +17,11 @@ namespace ExchangeOffice
             _kernel.Bind<IRepository<DataSourceAccess.CurrencyExchange>>().To<SQLiteCurrencyExchangeRepository>();
             _kernel.Bind<IRepository<Date>>().To<SQLiteDateRepository>();
             _kernel.Bind<IExchangeService>().To<ExchangeService>().InSingletonScope();
+            _kernel.Bind<ILoginService>().To<LoginService>().InSingletonScope();
+            _kernel.Bind<IViewExchangeRateService>().To<ViewExchangeRateService>().InSingletonScope();
             _kernel.Bind<UnitOfWork>().ToSelf().InSingletonScope();
+            _kernel.Bind<CurrencyRatePage>().ToSelf().InSingletonScope();
         }
-
         internal override void CallEvent(IServiceEventArgs e, Action<object,IServiceEventArgs> handler)
         {
             if (handler != null && e!=null)
@@ -28,6 +30,7 @@ namespace ExchangeOffice
 
        public Action<object,IServiceEventArgs> LoginEvent;
        public Action<object,IServiceEventArgs> ExchangeEvent;
+       public Action<object, IServiceEventArgs> CurrencyRateEvent;
        internal override void Exchange(string name, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
        {
            var service = _kernel.Get<IExchangeService>();
@@ -37,6 +40,12 @@ namespace ExchangeOffice
            service.ContributedAmount = amount;
            CallEvent(service.Invoke(),base.ExchangeEvent);
        }
+       
+       internal override void GetCurrencyRate()
+       {
+           var service = _kernel.Get<IViewExchangeRateService>();
+           CallEvent(service.Invoke(),base.CurrencyRateEvent);
+       }
 
        internal override void ViewingHistory(int customerID)
        {
@@ -45,7 +54,10 @@ namespace ExchangeOffice
 
        internal override void Login(string login, string password,bool adminFlag)
        {
-           var service = new LoginService(_kernel,login,password,adminFlag);
+           var service = _kernel.Get<ILoginService>();
+           service.Login = login;
+           service.Password = password;
+           service.AdminFlag = adminFlag;
            CallEvent(service.Invoke(),base.LoginEvent);
        }
 

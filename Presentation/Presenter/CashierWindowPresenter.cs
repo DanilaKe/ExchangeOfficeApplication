@@ -24,12 +24,13 @@ namespace Presentation
 
             _window.Exchange += () => Exchange(_window.Name, _window.ContributedCurrency,
                 _window.TargetCurrency, _window.ContributedAmount);
+            _window.RefreshExchangeRate += RefreshTodayRate;
+            _executorCommands.ExchangeEvent = ExchangeEventHandler;
+            _executorCommands.CurrencyRateEvent = ViewingTodayExchangeRateHandler;
         }
 
         private void Exchange(string name, Currency ContributedCurrency, Currency TargetCurrency, decimal amount)
-        {
-            _executorCommands.ExchangeEvent = ExchangeEventHandler;
-            
+        {   
             if (Account.Instance.SendCommand(new ExchangeCommand(_executorCommands, name,ContributedCurrency,TargetCurrency,amount))) return;
             _window.ShowError("Invalid command");
         }
@@ -47,18 +48,32 @@ namespace Presentation
             }
         }
 
-        public void InitCurrencies()
-        {
-            
-        }
-
         public void SetCashierName(string name)
         {
             _window.CashierName = name;
         }
+
+        private void ViewingTodayExchangeRateHandler(object sender, IServiceEventArgs e)
+        {
+            var operation = (ViewExchangeRateServiceEventArgs) e;
+            if (operation.Status)
+            {
+                _window.TodayCourse = operation.CurrencyExchanges.GetTodayRate();
+            }
+            else
+            {
+                _window.ShowError(e.Message);
+            }
+        }
+
+        public void RefreshTodayRate()
+        {
+            Account.Instance.SendCommand(new ViewingTodayRateCommand(_executorCommands));
+        }
         
         public void Run()
         {
+            RefreshTodayRate();
             _window.Show();
         }
     }

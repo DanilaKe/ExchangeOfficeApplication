@@ -19,7 +19,7 @@ namespace BSUTPApplication.GraphicalUserInterface
         private readonly IKernel _kernel;
         private readonly Builder GuiBuilder;
         
-        [Builder.Object] private TextBuffer TodayCourseTextBuffer;
+        [Builder.Object] private TextBuffer TodayСourseTextBuffer;
         [Builder.Object] private TextBuffer ExchangeResultTextBuffer;
         [Builder.Object] private Entry NameEntry;
         [Builder.Object] private Label CashierNameLable;
@@ -30,8 +30,8 @@ namespace BSUTPApplication.GraphicalUserInterface
 
         public string TodayCourse
         {
-            get => TodayCourseTextBuffer.Text;
-            set => TodayCourseTextBuffer.Text = value;
+            get => TodayСourseTextBuffer.Text;
+            set => TodayСourseTextBuffer.Text = value;
         }
         public string ExchangeResult
         {
@@ -57,6 +57,7 @@ namespace BSUTPApplication.GraphicalUserInterface
         }
 
         public event Action Exchange;
+        public event Action RefreshExchangeRate;
 
         public CashierWindow(IKernel kernel)
         {
@@ -84,11 +85,12 @@ namespace BSUTPApplication.GraphicalUserInterface
 
         private void ClickedRefreshButton(object sender, EventArgs a)
         {
-            //TODO
+            RefreshExchangeRate?.Invoke();
         }
 
         private void ClickedCloseButton(object sender, EventArgs a)
         {
+            Close();
             Application.Quit();
         }
 

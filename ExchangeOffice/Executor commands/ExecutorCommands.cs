@@ -14,9 +14,12 @@ namespace ExchangeOffice
             decimal newPurchaseRate,
             decimal newSaleRate);
         internal abstract void GetLog();
+
+        internal abstract void GetCurrencyRate();
         
         internal abstract void CallEvent(IServiceEventArgs e, Action<object,IServiceEventArgs> handler);
         public Action<object,IServiceEventArgs> LoginEvent;
         public Action<object,IServiceEventArgs> ExchangeEvent;
+        public Action<object, IServiceEventArgs> CurrencyRateEvent;
     }
 }

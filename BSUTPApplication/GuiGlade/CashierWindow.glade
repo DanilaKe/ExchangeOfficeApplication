@@ -2,47 +2,8 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkTextBuffer" id="ExchangeResultTextBuffer">
-    <property name="text" translatable="yes">Дата : %Date%
-Счет : %AccountNumber%
-
-Имя : %Name%
-
-Валюта операции : %ContributedCurrency%
-Целевая валюта : %TargetCurrency%
-Курс : %ExchangeRates%
-Внесенная сумма : %ContributedAmount%
-Полученная сумма : %IssuedAmount%
-
-Сегодняшний лимит : %TodayLimit%</property>
-  </object>
-  <object class="GtkTextBuffer" id="TodayСourseTextBuffer">
-    <property name="text">---------------------------------------------------------------------
-Валютная пара %Name1% - %Name2% : %Rate1%
----------------------------------------------------------------------
-Валютная пара %Name1% - %Name3% : %Rate2%
----------------------------------------------------------------------
-Валютная пара %Name1% - %Name4% : %Rate3%
----------------------------------------------------------------------
-Валютная пара %Name2% - %Name1% : %Rate4%
----------------------------------------------------------------------
-Валютная пара %Name2% - %Name3% : %Rate5%
----------------------------------------------------------------------
-Валютная пара %Name2% - %Name4% : %Rate6%
----------------------------------------------------------------------
-Валютная пара %Name3% - %Name1% : %Rate7%
----------------------------------------------------------------------
-Валютная пара %Name3% - %Name2% : %Rate8%
----------------------------------------------------------------------
-Валютная пара %Name3% - %Name4% : %Rate9%
----------------------------------------------------------------------
-Валютная пара %Name4% - %Name1% : %Rate10%
----------------------------------------------------------------------
-Валютная пара %Name4% - %Name2% : %Rate11%
----------------------------------------------------------------------
-Валютная пара %Name4% - %Name3% : %Rate12%
----------------------------------------------------------------------</property>
-  </object>
+  <object class="GtkTextBuffer" id="ExchangeResultTextBuffer"/>
+  <object class="GtkTextBuffer" id="TodayСourseTextBuffer"/>
   <object class="GtkWindow" id="Window">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Обменный пункт</property>

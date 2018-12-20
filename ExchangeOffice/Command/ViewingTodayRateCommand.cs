@@ -7,7 +7,7 @@ namespace ExchangeOffice
 
         internal override void Execute()
         {
-            throw new System.NotImplementedException();
+            _executorCommands.GetCurrencyRate();
         }
     }
 }
