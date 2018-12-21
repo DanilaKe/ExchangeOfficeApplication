@@ -1,7 +1,9 @@
+using DataSourceAccess;
+
 namespace ExchangeOffice.Service
 {
     public interface IViewExchangeRateService
     {
-        IServiceEventArgs Invoke();
+        ServiceEventArgs<CurrencyExchange> Invoke();
     }
 }

@@ -5,6 +5,6 @@ namespace ExchangeOffice.Service
         string Login { get; set; }
         string Password { get; set; }
         bool AdminFlag { get; set; }
-        IServiceEventArgs Invoke();
+        ServiceEventArgs<DataSourceAccess.Account> Invoke();
     }
 }

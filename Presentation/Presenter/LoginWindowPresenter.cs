@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ExchangeOffice;
 using Ninject;
 using Presentation.WindowInterfaces;
@@ -28,9 +29,8 @@ namespace Presentation
             _window.ShowError("Invalid command");
         }
 
-        private void LoginEventHandler(object sender, IServiceEventArgs e)
+        private void LoginEventHandler(object sender, ServiceEventArgs<DataSourceAccess.Account> e)
         {
-            var operation = (LoginServiceEventArgs) e;
             if (e.Status)
             {
                 if (_window.AdminFlag)
@@ -41,7 +41,7 @@ namespace Presentation
                 else
                 {
                     var newWindow =_kernel.Get<CashierWindowPresenter>();
-                    newWindow.SetCashierName(operation.Account.Login);
+                    newWindow.SetCashierName(e.Result.Last().Login);
                     newWindow.Run();
                 }
                 _window.Close();

@@ -6,6 +6,7 @@ using Presentation.WindowInterfaces;
 using Account = ExchangeOffice.Account;
 using System.Drawing.Printing;
 using System.IO;
+using System.Linq;
 using System.Security;
 
 namespace Presentation
@@ -37,12 +38,11 @@ namespace Presentation
             _window.ShowError("Invalid command");
         }
         
-        private void ExchangeEventHandler(object sender, IServiceEventArgs e)
+        private void ExchangeEventHandler(object sender, ServiceEventArgs<Exchange> e)
         {
-            var operation = (ExchangeServiceEventArgs) e;
             if (e.Status)
             {
-                 Bill = operation.Exchange.GetReportOnOperation();
+                 Bill = e.Result.Last().GetReportOnOperation();
                 _window.ExchangeResult = Bill;
                 if (_window.PrintFlag)
                 {
@@ -65,13 +65,11 @@ namespace Presentation
             _kernel.Get<AboutWindowPresenter>().Run();
         }
 
-        private void ViewingTodayExchangeRateHandler(object sender, IServiceEventArgs e)
+        private void ViewingTodayExchangeRateHandler(object sender, ServiceEventArgs<CurrencyExchange> e)
         {
-            var operation = (ViewExchangeRateServiceEventArgs) e;
-            if (operation.Status)
+            if (e.Status)
             {
-                _window.TodayCourse = operation.CurrencyExchanges.GetTodayRate();
-                
+                _window.TodayCourse = e.Result.GetTodayRate();
             }
             else
             {

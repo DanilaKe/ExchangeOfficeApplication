@@ -1,9 +1,11 @@
+using System.Collections.Generic;
+
 namespace ExchangeOffice
 {
-    public class LoginServiceEventArgs : IServiceEventArgs
+    public class ServiceEventArgs<T>
     {
+        public List<T> Result { get; set; }
         public bool Status { get; set; }
         public string Message { get; set; }
-        public DataSourceAccess.Account Account { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DataSourceAccess;
 using Ninject;
@@ -17,9 +17,9 @@ namespace ExchangeOffice.Service
             _kernel = kernel;
         }
 
-        public IServiceEventArgs Invoke()
+        public ServiceEventArgs<DataSourceAccess.Account> Invoke()
         {
-            IServiceEventArgs e;
+            ServiceEventArgs<DataSourceAccess.Account> e;
             var account = GetAccount();
             if (account != null)
             {
@@ -31,11 +31,11 @@ namespace ExchangeOffice.Service
                 {
                     new Cashier();
                 }
-                e = new LoginServiceEventArgs(){Status = true,Account = account,Message = "Successful"};
+                e = new ServiceEventArgs<DataSourceAccess.Account>(){Status = true,Result = new List<DataSourceAccess.Account>() {account},Message = "Successful"};
             }
             else
             {
-                e = new LoginServiceEventArgs(){Status = false, Account = new DataSourceAccess.Account(),
+                e = new ServiceEventArgs<DataSourceAccess.Account>(){Status = false, Result = new List<DataSourceAccess.Account>(),
                     Message = "Invalid login/password."};
             }
 

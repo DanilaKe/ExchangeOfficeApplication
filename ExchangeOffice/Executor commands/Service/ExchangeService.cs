@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
 using DataSourceAccess;
@@ -18,9 +19,9 @@ namespace ExchangeOffice.Service
         {
             _kernel = kernel;
         }
-        public IServiceEventArgs Invoke()
+        public ServiceEventArgs<Exchange> Invoke()
         {
-            IServiceEventArgs e;
+            ServiceEventArgs<Exchange> e;
             var customer = GetCustomer();
             var rate = _kernel.Get<UnitOfWork>().CurrencyExchanges.GetList().Last(x => x.ContributedCurrency == ContributedCurrency &&
                                                                                        x.TargetCurrency == TargetCurrency);
@@ -38,17 +39,18 @@ namespace ExchangeOffice.Service
                     DateId = GetDate()
                 });
                 _kernel.Get<UnitOfWork>().Save();
-                e = new ExchangeServiceEventArgs()
+                e = new ServiceEventArgs<Exchange>()
                 {
-                    Status = true, Exchange = customer.HistoryOfExchanges.Last(),
+                    Status = true,
+                    Result = new List<Exchange>(){customer.HistoryOfExchanges.Last()},
                     Message = "Successful"
                 };
             }
             else
             {
-                e = new ExchangeServiceEventArgs()
+                e = new ServiceEventArgs<Exchange>()
                 {
-                    Status = false,Exchange = new Exchange(), Message = "Exceeded daily limit."
+                    Status = false,Result = new List<Exchange>(), Message = "Exceeded daily limit."
                 };
             }
             

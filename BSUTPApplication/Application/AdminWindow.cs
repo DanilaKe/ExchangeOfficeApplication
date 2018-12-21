@@ -8,8 +8,9 @@ namespace BSUTPApplication.GraphicalUserInterface
     /// Class Login
     /// 
     /// </summary>
-    public class AdminWindow : IAdminWindow
+    public class AdminWindow : IAdminWindow,IDisposable
     {
+        private bool disposed = false;
         [Builder.Object] private TextBuffer Log;
         [Builder.Object] private ComboBoxText ContributedСurrency;
         [Builder.Object] private ComboBoxText TargetCurrency;
@@ -24,19 +25,9 @@ namespace BSUTPApplication.GraphicalUserInterface
             Application.Init();
             using (GuiBuilder = new Builder())
             {
-                GuiBuilder.AddFromFile("./BSUTPApplication/GuiGlade/AboutWindow.glade");
+                GuiBuilder.AddFromFile("./BSUTPApplication/GuiGlade/AdminWindow.glade");
                 GuiBuilder.Autoconnect(this);   
             }
-        }
-        
-        internal void OpenWindow()
-        {
-            _window.Visible = true;
-        }
-        
-        internal void HideWindow()
-        {
-            _window.Visible = false;
         }
 
         protected void ClickedApplyButton(object sender, EventArgs a)
@@ -79,14 +70,27 @@ namespace BSUTPApplication.GraphicalUserInterface
             //TODO
         }
 
-        public void Show()
+        public void Dispose(bool disposing)
         {
-            throw new NotImplementedException();
+            if(!this.disposed)
+            {
+                if(disposing)
+                {
+                    _window.Dispose();
+                }
+            }
+            this.disposed = true;
         }
-
-        public void Close()
+ 
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            _window.Close();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+        
+        public void Show() => _window.Visible = true;
+        public void Close() => Dispose();
+        
     }
 }

@@ -9,6 +9,6 @@ namespace ExchangeOffice.Service
         Currency ContributedCurrency { get; set; }
         Currency TargetCurrency { get; set; }
         decimal ContributedAmount { get; set; }   
-        IServiceEventArgs Invoke();       
+        ServiceEventArgs<Exchange> Invoke();       
     }
 }

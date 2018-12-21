@@ -22,15 +22,15 @@ namespace ExchangeOffice
             _kernel.Bind<UnitOfWork>().ToSelf().InSingletonScope();
             _kernel.Bind<CurrencyRatePage>().ToSelf().InSingletonScope();
         }
-        internal override void CallEvent(IServiceEventArgs e, Action<object,IServiceEventArgs> handler)
+        internal override void CallEvent<T>(ServiceEventArgs<T> e, Action<object,ServiceEventArgs<T>> handler)
         {
             if (handler != null && e!=null)
                 handler(this, e);
         }
 
-       public Action<object,IServiceEventArgs> LoginEvent;
-       public Action<object,IServiceEventArgs> ExchangeEvent;
-       public Action<object, IServiceEventArgs> CurrencyRateEvent;
+       public Action<object,ServiceEventArgs<DataSourceAccess.Account>> LoginEvent;
+       public Action<object,ServiceEventArgs<Exchange>> ExchangeEvent;
+       public Action<object, ServiceEventArgs<CurrencyExchange>> CurrencyRateEvent;
        internal override void Exchange(string name, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
        {
            var service = _kernel.Get<IExchangeService>();

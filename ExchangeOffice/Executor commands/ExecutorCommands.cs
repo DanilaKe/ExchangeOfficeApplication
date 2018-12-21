@@ -17,9 +17,9 @@ namespace ExchangeOffice
 
         internal abstract void GetCurrencyRate();
         
-        internal abstract void CallEvent(IServiceEventArgs e, Action<object,IServiceEventArgs> handler);
-        public Action<object,IServiceEventArgs> LoginEvent;
-        public Action<object,IServiceEventArgs> ExchangeEvent;
-        public Action<object, IServiceEventArgs> CurrencyRateEvent;
+        internal abstract void CallEvent<T>(ServiceEventArgs<T> e, Action<object,ServiceEventArgs<T>> handler);
+        public Action<object,ServiceEventArgs<DataSourceAccess.Account>> LoginEvent;
+        public Action<object,ServiceEventArgs<Exchange>> ExchangeEvent;
+        public Action<object, ServiceEventArgs<CurrencyExchange>> CurrencyRateEvent;
     }
 }
