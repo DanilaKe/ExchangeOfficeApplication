@@ -22,14 +22,13 @@ namespace ExchangeOffice.Service
         {
             IServiceEventArgs e;
             var customer = GetCustomer();
-            var rate = _kernel.Get<UnitOfWork>().CurrencyExchanges.GetList().FirstOrDefault(x =>
-                x.ContributedCurrency == ContributedCurrency &&
-                x.TargetCurrency == TargetCurrency);
+            var rate = _kernel.Get<UnitOfWork>().CurrencyExchanges.GetList().Last(x => x.ContributedCurrency == ContributedCurrency &&
+                                                                                       x.TargetCurrency == TargetCurrency);
             var rateToUSD = GetRateToUSD();
             if (customer.DailyLimit >= ContributedAmount*rateToUSD)
             {
                 customer.DailyLimit -= ContributedAmount * rateToUSD;
-                decimal IssuedAmount = ContributedAmount * rate.Rate;
+                var IssuedAmount = ContributedAmount * rate.Rate;
                 customer.HistoryOfExchanges.Add(new Exchange()
                 {
                     ContributedAmount = ContributedAmount,

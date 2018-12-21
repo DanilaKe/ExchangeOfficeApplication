@@ -27,6 +27,11 @@ namespace DataSourceAccess
 
         public void Create(Date item)
         {
+            ;
+            foreach (var i in db.Customers)
+            {
+                i.DailyLimit = 1000M;
+            }
             db.Dates.Add(item);
             db.SaveChanges();
         }

@@ -27,6 +27,7 @@ namespace BSUTPApplication.GraphicalUserInterface
         [Builder.Object] private ComboBoxText TargetCurrencyComboBoxText;
         [Builder.Object] private Entry ContributedAmountEntry;
         [Builder.Object] private Window Window;
+        [Builder.Object] private CheckButton PrintFlagCheckButton;
 
         public string TodayCourse
         {
@@ -44,6 +45,8 @@ namespace BSUTPApplication.GraphicalUserInterface
             get => CashierNameLable.Text;
             set => CashierNameLable.Text = value;
         }
+
+        public bool PrintFlag => PrintFlagCheckButton.Active;
         public string Name => NameEntry.Text;
         public Currency ContributedCurrency => 
             (Currency) Enum.Parse(typeof(Currency),ContributedСurrencyComboBoxText.ActiveText);

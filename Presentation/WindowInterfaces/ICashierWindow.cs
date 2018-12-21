@@ -6,6 +6,7 @@ namespace Presentation.WindowInterfaces
 {
     public interface ICashierWindow : IView
     {
+        bool PrintFlag { get; }
         string Name { get;}
         Currency ContributedCurrency { get; }
         Currency TargetCurrency { get; }

@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+using System.Drawing;
 using DataSourceAccess;
 using ExchangeOffice;
 using Ninject;
 using Presentation.WindowInterfaces;
 using Account = ExchangeOffice.Account;
+using System.Drawing.Printing;
+using System.IO;
+using System.Security;
 
 namespace Presentation
 {
@@ -15,6 +15,7 @@ namespace Presentation
         private readonly IKernel _kernel;
         private readonly ICashierWindow _window;
         private readonly ExecutorCommands _executorCommands;
+        private string Bill;
 
         public CashierWindowPresenter(IKernel kernel, ICashierWindow cashierWindow, ExecutorCommands executorCommands)
         {
@@ -40,7 +41,12 @@ namespace Presentation
             var operation = (ExchangeServiceEventArgs) e;
             if (e.Status)
             {
-                _window.ExchangeResult = operation.Exchange.GetReportOnOperation();
+                 Bill = operation.Exchange.GetReportOnOperation();
+                _window.ExchangeResult = Bill;
+                if (_window.PrintFlag)
+                {
+                    _kernel.Get<Printer>().Print(Bill);
+                }
             }
             else
             {
@@ -59,6 +65,7 @@ namespace Presentation
             if (operation.Status)
             {
                 _window.TodayCourse = operation.CurrencyExchanges.GetTodayRate();
+                
             }
             else
             {
