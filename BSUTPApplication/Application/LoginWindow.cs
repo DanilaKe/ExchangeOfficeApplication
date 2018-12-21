@@ -25,18 +25,14 @@ namespace BSUTPApplication.GraphicalUserInterface
         public LoginWindow() 
         {
             Gtk.Application.Init();
-            GuiBuilder = new Builder();
-            try
+            using (GuiBuilder = new Builder())
             {
                 GuiBuilder.AddFromFile("./BSUTPApplication/GuiGlade/LoginWindow.glade");
-                GuiBuilder.Autoconnect(this);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
+                GuiBuilder.Autoconnect(this);   
             }
         }
-        protected void OkButtonClicked(object sender, EventArgs a)
+
+            protected void OkButtonClicked(object sender, EventArgs a)
         {
             ErrorMessage.Text = string.Empty;
             TryLogin?.Invoke();

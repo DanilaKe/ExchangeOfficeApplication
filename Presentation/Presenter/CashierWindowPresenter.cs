@@ -25,6 +25,7 @@ namespace Presentation
 
             _window.Exchange += () => Exchange(_window.Name, _window.ContributedCurrency,
                 _window.TargetCurrency, _window.ContributedAmount);
+            _window.CallAboutWindow += CallingAboutWindow;
             _window.RefreshExchangeRate += RefreshTodayRate;
             _executorCommands.ExchangeEvent = ExchangeEventHandler;
             _executorCommands.CurrencyRateEvent = ViewingTodayExchangeRateHandler;
@@ -57,6 +58,11 @@ namespace Presentation
         public void SetCashierName(string name)
         {
             _window.CashierName = name;
+        }
+
+        private void CallingAboutWindow()
+        {
+            _kernel.Get<AboutWindowPresenter>().Run();
         }
 
         private void ViewingTodayExchangeRateHandler(object sender, IServiceEventArgs e)

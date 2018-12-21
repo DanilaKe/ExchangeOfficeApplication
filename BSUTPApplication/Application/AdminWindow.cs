@@ -21,17 +21,11 @@ namespace BSUTPApplication.GraphicalUserInterface
         
         public AdminWindow()
         {
-            Gtk.Application.Init();
-            GuiBuilder = new Builder();
-            try
+            Application.Init();
+            using (GuiBuilder = new Builder())
             {
-                GuiBuilder.AddFromFile(
-                    "./Presentation/GuiGlade/AdminWindow.glade");
-                GuiBuilder.Autoconnect(this);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
+                GuiBuilder.AddFromFile("./BSUTPApplication/GuiGlade/AboutWindow.glade");
+                GuiBuilder.Autoconnect(this);   
             }
         }
         

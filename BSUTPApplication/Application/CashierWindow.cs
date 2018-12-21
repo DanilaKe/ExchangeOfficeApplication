@@ -60,6 +60,7 @@ namespace BSUTPApplication.GraphicalUserInterface
         }
 
         public event Action Exchange;
+        public event Action CallAboutWindow;
         public event Action RefreshExchangeRate;
 
         public CashierWindow(IKernel kernel)
@@ -99,7 +100,7 @@ namespace BSUTPApplication.GraphicalUserInterface
 
         private void ClickedAboutButton(object sender, EventArgs a)
         {
-            //TODO
+            CallAboutWindow?.Invoke();
         }
 
         private void ExitButton(object sender, EventArgs a)

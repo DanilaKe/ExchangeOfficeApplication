@@ -17,6 +17,7 @@ namespace Presentation.WindowInterfaces
         string TodayCourse { get; set; }
 
         event Action Exchange;
+        event Action CallAboutWindow;
         event Action RefreshExchangeRate;
     }
 }
