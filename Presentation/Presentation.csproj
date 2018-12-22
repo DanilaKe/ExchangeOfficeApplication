@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <RootNamespace>Presentation</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ExchangeOffice\ExchangeOffice.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Ninject" Version="4.0.0-beta-0134" />
+      <PackageReference Include="System.Drawing.Common" Version="4.6.0-preview.18571.3" />
+    </ItemGroup>
+
+</Project>
