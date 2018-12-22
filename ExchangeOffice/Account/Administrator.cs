@@ -8,7 +8,15 @@
         }
         public override bool SendCommand(Command command)
         {
-            throw new System.NotImplementedException();
+            if (command is CurrencyExchangeUpdateCommand)
+            {
+                command.Execute();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

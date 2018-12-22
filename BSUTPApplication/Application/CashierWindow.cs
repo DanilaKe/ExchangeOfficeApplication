@@ -48,11 +48,50 @@ namespace BSUTPApplication.GraphicalUserInterface
 
         public bool PrintFlag => PrintFlagCheckButton.Active;
         public string Name => NameEntry.Text;
-        public Currency ContributedCurrency => 
-            (Currency) Enum.Parse(typeof(Currency),ContributedСurrencyComboBoxText.ActiveText);
-        public Currency TargetCurrency => 
-            (Currency) Enum.Parse(typeof(Currency),TargetCurrencyComboBoxText.ActiveText);
-        public decimal ContributedAmount => decimal.Parse(ContributedAmountEntry.Text);
+
+        public Currency ContributedCurrency
+        {
+            get
+            {
+                if (Enum.TryParse<Currency>(ContributedСurrencyComboBoxText.ActiveText,out var value))
+                {
+                    return value;
+                }
+                InvalidData?.Invoke();
+                return 0;
+            }
+        }
+
+        public Currency TargetCurrency
+        {
+            get
+            {
+                if (TargetCurrencyComboBoxText.ActiveText == ContributedСurrencyComboBoxText.ActiveText)
+                {
+                    InvalidData?.Invoke();
+                    return 0;
+                }
+                if (Enum.TryParse<Currency>(TargetCurrencyComboBoxText.ActiveText,out var value))
+                {
+                    return value;
+                }
+                InvalidData?.Invoke();
+                return 0;
+            }
+        }
+
+        public decimal ContributedAmount
+        {
+            get
+            {
+                if (decimal.TryParse(ContributedAmountEntry.Text,out var value))
+                {
+                    return value;
+                }
+                InvalidData?.Invoke();
+                return 0;
+            }
+        }
             
         public void ShowError(string message)
         {
@@ -62,6 +101,9 @@ namespace BSUTPApplication.GraphicalUserInterface
         public event Action Exchange;
         public event Action CallAboutWindow;
         public event Action RefreshExchangeRate;
+        public event Action Quit;
+
+        public event Action InvalidData;
 
         public CashierWindow(IKernel kernel)
         {
@@ -110,8 +152,7 @@ namespace BSUTPApplication.GraphicalUserInterface
 
         private void ClickedQuitButton(object sender, EventArgs a)
         {
-            Close();
-            _kernel.Get<LoginWindowPresenter>().Run();
+            Quit?.Invoke();
         }
 
         private void ActivatePurchaseButton(object sender, EventArgs a)

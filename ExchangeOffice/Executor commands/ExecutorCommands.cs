@@ -11,9 +11,7 @@ namespace ExchangeOffice
         internal abstract void Login(string login, string password, bool adminFlag);
 
         internal abstract void CurrencyExchangeUpdate(Currency TargetCurrency, Currency ContributedCurrency,
-            decimal newPurchaseRate,
-            decimal newSaleRate);
-        internal abstract void GetLog();
+            decimal Rate);
 
         internal abstract void GetCurrencyRate();
         
@@ -21,5 +19,6 @@ namespace ExchangeOffice
         public Action<object,ServiceEventArgs<DataSourceAccess.Account>> LoginEvent;
         public Action<object,ServiceEventArgs<Exchange>> ExchangeEvent;
         public Action<object, ServiceEventArgs<CurrencyExchange>> CurrencyRateEvent;
+        public Action<object, ServiceEventArgs<CurrencyExchange>> UpdateRateEvent;
     }
 }

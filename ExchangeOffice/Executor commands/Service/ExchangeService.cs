@@ -72,7 +72,7 @@ namespace ExchangeOffice.Service
         private decimal GetRateToUSD()
         {
             return ContributedCurrency == TargetCurrency? 
-                1M : _kernel.Get<UnitOfWork>().CurrencyExchanges.GetList().FirstOrDefault(x =>
+                1M : _kernel.Get<UnitOfWork>().CurrencyExchanges.GetList().Last(x =>
                     x.ContributedCurrency == ContributedCurrency &&
                     x.TargetCurrency == (Currency) 3).Rate;
         }

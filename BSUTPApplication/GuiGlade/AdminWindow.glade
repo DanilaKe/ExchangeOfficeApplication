@@ -31,18 +31,6 @@
                     <property name="can_focus">False</property>
                     <child>
                       <object class="GtkImageMenuItem">
-                        <property name="label">gtk-refresh</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="tooltip_text" translatable="yes">Обновить лог операции.</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <property name="always_show_image">True</property>
-                        <signal name="activate" handler="ClickedRefreshButton" swapped="no"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImageMenuItem">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -146,6 +134,7 @@
         </child>
         <child>
           <object class="GtkLabel" id="CashierNameLable">
+            <property name="name">AdminLable</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">%AdminName%</property>
@@ -243,6 +232,27 @@
                     <child>
                       <placeholder/>
                     </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -262,7 +272,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBoxText" id="ContributedСurrency">
+                  <object class="GtkComboBoxText" id="ContributedCurrencyComboBoxText">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                   </object>
@@ -294,7 +304,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkComboBoxText" id="TargetCurrency">
+                  <object class="GtkComboBoxText" id="TargetCurrencyComboBoxText">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                   </object>
@@ -486,6 +496,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="margin_left">65</property>
                         <property name="use_stock">True</property>
                         <property name="always_show_image">True</property>
                         <signal name="clicked" handler="ClickedApplyButton" swapped="no"/>
@@ -496,19 +507,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton">
-                        <property name="label">gtk-clear</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="use_stock">True</property>
-                        <property name="always_show_image">True</property>
-                        <signal name="clicked" handler="ClickedClearButton" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
+                      <placeholder/>
                     </child>
                   </object>
                   <packing>

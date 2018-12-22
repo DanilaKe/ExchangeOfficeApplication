@@ -16,6 +16,7 @@ namespace Presentation
         private readonly IKernel _kernel;
         private readonly ICashierWindow _window;
         private readonly ExecutorCommands _executorCommands;
+        private bool InvalidDataFlag;
         private string Bill;
 
         public CashierWindowPresenter(IKernel kernel, ICashierWindow cashierWindow, ExecutorCommands executorCommands)
@@ -27,6 +28,8 @@ namespace Presentation
             _window.Exchange += () => Exchange(_window.Name, _window.ContributedCurrency,
                 _window.TargetCurrency, _window.ContributedAmount);
             _window.CallAboutWindow += CallingAboutWindow;
+            _window.Quit += QuitHandler;
+            _window.InvalidData += InvalidData;
             _window.RefreshExchangeRate += RefreshTodayRate;
             _executorCommands.ExchangeEvent = ExchangeEventHandler;
             _executorCommands.CurrencyRateEvent = ViewingTodayExchangeRateHandler;
@@ -34,8 +37,13 @@ namespace Presentation
 
         private void Exchange(string name, Currency ContributedCurrency, Currency TargetCurrency, decimal amount)
         {   
-            if (Account.Instance.SendCommand(new ExchangeCommand(_executorCommands, name,ContributedCurrency,TargetCurrency,amount))) return;
-            _window.ShowError("Invalid command");
+            var exchangeCommand = new ExchangeCommand(_executorCommands, name,ContributedCurrency,TargetCurrency,amount);
+            if (!InvalidDataFlag)
+            {
+                if (Account.Instance.SendCommand(exchangeCommand)) return;
+                _window.ShowError("Invalid command");
+            }
+            InvalidDataFlag = false;
         }
         
         private void ExchangeEventHandler(object sender, ServiceEventArgs<Exchange> e)
@@ -51,7 +59,7 @@ namespace Presentation
             }
             else
             {
-                _window.ShowError(e.Message);
+                _kernel.Get<DialogWindowPresenter>().SendMessage(e.Message);
             }
         }
 
@@ -65,6 +73,12 @@ namespace Presentation
             _kernel.Get<AboutWindowPresenter>().Run();
         }
 
+        private void QuitHandler()
+        {
+            _window.Close();
+            _kernel.Get<LoginWindowPresenter>().Run();
+        }
+
         private void ViewingTodayExchangeRateHandler(object sender, ServiceEventArgs<CurrencyExchange> e)
         {
             if (e.Status)
@@ -73,8 +87,14 @@ namespace Presentation
             }
             else
             {
-                _window.ShowError(e.Message);
+                _kernel.Get<DialogWindowPresenter>().SendMessage(e.Message);
             }
+        }
+
+        private void InvalidData()
+        {
+            InvalidDataFlag = true;
+            _kernel.Get<DialogWindowPresenter>().SendMessage("Invalid data.");
         }
 
         public void RefreshTodayRate()

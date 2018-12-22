@@ -9,6 +9,7 @@
     <property name="type_hint">dialog</property>
     <property name="skip_pager_hint">True</property>
     <property name="deletable">False</property>
+    <signal name="destroy" handler="ClickedCloseButton" swapped="no"/>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -32,7 +33,7 @@
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
                 <property name="always_show_image">True</property>
-                <signal name="clicked" handler="ClickedOkButton" swapped="no"/>
+                <signal name="clicked" handler="ClickedCloseButton" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -74,7 +75,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel">
+              <object class="GtkLabel" id="MessageLabel">
                 <property name="name">Message</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -88,6 +89,7 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
+                <property name="width">2</property>
               </packing>
             </child>
             <child>

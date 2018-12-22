@@ -1,25 +1,69 @@
 ﻿using Gtk;
 using System;
+using DataSourceAccess;
 using Presentation.WindowInterfaces;
+using Action = System.Action;
 
 namespace BSUTPApplication.GraphicalUserInterface
 {
-    /// <summary>
-    /// Class Login
-    /// 
-    /// </summary>
     public class AdminWindow : IAdminWindow,IDisposable
     {
         private bool disposed = false;
-        [Builder.Object] private TextBuffer Log;
-        [Builder.Object] private ComboBoxText ContributedСurrency;
-        [Builder.Object] private ComboBoxText TargetCurrency;
-        [Builder.Object] private Entry PurchaseRate;
-        [Builder.Object] private Entry SellingRate;
+        [Builder.Object] private ComboBoxText ContributedCurrencyComboBoxText;
+        [Builder.Object] private ComboBoxText TargetCurrencyComboBoxText;
+        [Builder.Object] private Entry RateEntry;
         [Builder.Object] private Window _window;
         
         private Builder GuiBuilder;
         
+        public Currency ContributedCurrency
+        {
+            get
+            {
+                if (Enum.TryParse<Currency>(ContributedCurrencyComboBoxText.ActiveText,out var value))
+                {
+                    return value;
+                }
+                InvalidData?.Invoke();
+                return 0;
+            }
+        }
+
+        public Currency TargetCurrency
+        {
+            get
+            {
+                if (TargetCurrencyComboBoxText.ActiveText == ContributedCurrencyComboBoxText.ActiveText)
+                {
+                    InvalidData?.Invoke();
+                    return 0;
+                }
+                if (Enum.TryParse<Currency>(TargetCurrencyComboBoxText.ActiveText,out var value))
+                {
+                    return value;
+                }
+                InvalidData?.Invoke();
+                return 0;
+            }
+        }
+
+        public decimal Rate
+        {
+            get
+            {
+                if (decimal.TryParse(RateEntry.Text,out var value))
+                {
+                    return value;
+                }
+                InvalidData?.Invoke();
+                return 0;
+            }
+        }
+        public event Action CallAboutWindow;
+        public event Action UpdateRate;
+        public event Action Quit;
+        public event Action InvalidData;
+
         public AdminWindow()
         {
             Application.Init();
@@ -32,44 +76,25 @@ namespace BSUTPApplication.GraphicalUserInterface
 
         protected void ClickedApplyButton(object sender, EventArgs a)
         {
-            //TODO    
+            UpdateRate?.Invoke();
         }
-        
-        protected void ClickedClearButton(object sender, EventArgs a)
-        {
-            //TODO
-        }
-        
-        protected void ClickedRefreshButton(object sender, EventArgs a)
-        {
-            //TODO
-        }
-        
-        protected void ClickedCloseButton(object sender, EventArgs a)
-        {
-            Application.Quit();
-        }
-        
+
         protected void ClickedAboutButton(object sender, EventArgs a)
         {
-            //TODO
-        }
-        
-        protected void ExitButton(object sender, EventArgs a)
-        {
-            Application.Quit();
+            CallAboutWindow?.Invoke();
         }
         
         protected void ClickedQuitButton(object sender, EventArgs a)
         {
-            //TODO
+            Quit?.Invoke();
         }
         
-        protected void ActivatePurchaseButton(object sender, EventArgs a)
+        protected void ClickedCloseButton(object sender, EventArgs a)
         {
-            //TODO
+            Close();
+            Application.Quit();
         }
-
+        
         public void Dispose(bool disposing)
         {
             if(!this.disposed)

@@ -2,7 +2,7 @@ using Presentation.WindowInterfaces;
 
 namespace BSUTPApplication.GraphicalUserInterface
 {
-    public class HistoryWindow : IDialogWindow
+    public class HistoryWindow 
     {
         public void Show()
         {

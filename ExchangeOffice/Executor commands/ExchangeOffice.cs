@@ -7,30 +7,19 @@ namespace ExchangeOffice
 {
     public class ExchangeOffice : ExecutorCommands
     {
-        private StandardKernel _kernel; // создать отдельные исполнители для различных команд( скорее всего отдельные исполнители для разных окон, но пока хз).
+        private StandardKernel _kernel;
 
         public ExchangeOffice()
         {
-            _kernel = new StandardKernel(); // попробывать раздавать кернелы через встроенные функции нинджекта, а не передовать в конструктор.(или как-то так)
-            _kernel.Bind<IRepository<DataSourceAccess.Account>>().To<SQLiteAccountRepository>(); // возможно попробывать заюхать паттерн фасад.
-            _kernel.Bind<IRepository<DataSourceAccess.Customer>>().To<SQLiteCustomerRepository>();
-            _kernel.Bind<IRepository<DataSourceAccess.CurrencyExchange>>().To<SQLiteCurrencyExchangeRepository>();
-            _kernel.Bind<IRepository<Date>>().To<SQLiteDateRepository>();
-            _kernel.Bind<IExchangeService>().To<ExchangeService>().InSingletonScope();
-            _kernel.Bind<ILoginService>().To<LoginService>().InSingletonScope();
-            _kernel.Bind<IViewExchangeRateService>().To<ViewExchangeRateService>().InSingletonScope();
-            _kernel.Bind<UnitOfWork>().ToSelf().InSingletonScope();
-            _kernel.Bind<CurrencyRatePage>().ToSelf().InSingletonScope();
+            var registrations = new NinjectRegistrations();
+            _kernel = new StandardKernel(registrations);
         }
         internal override void CallEvent<T>(ServiceEventArgs<T> e, Action<object,ServiceEventArgs<T>> handler)
         {
             if (handler != null && e!=null)
                 handler(this, e);
         }
-
-       public Action<object,ServiceEventArgs<DataSourceAccess.Account>> LoginEvent;
-       public Action<object,ServiceEventArgs<Exchange>> ExchangeEvent;
-       public Action<object, ServiceEventArgs<CurrencyExchange>> CurrencyRateEvent;
+        
        internal override void Exchange(string name, Currency TargetCurrency, Currency ContributedCurrency, decimal amount)
        {
            var service = _kernel.Get<IExchangeService>();
@@ -38,13 +27,13 @@ namespace ExchangeOffice
            service.TargetCurrency = TargetCurrency;
            service.ContributedCurrency = ContributedCurrency;
            service.ContributedAmount = amount;
-           CallEvent(service.Invoke(),base.ExchangeEvent);
+           CallEvent(service.Invoke(),ExchangeEvent);
        }
        
        internal override void GetCurrencyRate()
        {
            var service = _kernel.Get<IViewExchangeRateService>();
-           CallEvent(service.Invoke(),base.CurrencyRateEvent);
+           CallEvent(service.Invoke(),CurrencyRateEvent);
        }
 
        internal override void ViewingHistory(int customerID)
@@ -58,18 +47,16 @@ namespace ExchangeOffice
            service.Login = login;
            service.Password = password;
            service.AdminFlag = adminFlag;
-           CallEvent(service.Invoke(),base.LoginEvent);
+           CallEvent(service.Invoke(),LoginEvent);
        }
 
-       internal override void CurrencyExchangeUpdate(Currency TargetCurrency, Currency ContributedCurrency, decimal newPurchaseRate,
-           decimal newSaleRate)
+       internal override void CurrencyExchangeUpdate(Currency TargetCurrency, Currency ContributedCurrency, decimal Rate)
        {
-           throw new NotImplementedException();
-       }
-
-       internal override void GetLog()
-       {
-           throw new NotImplementedException();
+           var service = _kernel.Get<ICurrencyExchangeUpdateService>();
+           service.Rate = Rate;
+           service.TargetCurrency = TargetCurrency;
+           service.ContributedCurrency = ContributedCurrency;
+           CallEvent(service.Invoke(),UpdateRateEvent);
        }
     }
 }

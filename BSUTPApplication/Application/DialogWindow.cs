@@ -1,6 +1,7 @@
 ﻿using Gtk;
 using System;
 using Presentation.WindowInterfaces;
+using Action = System.Action;
 
 namespace BSUTPApplication.GraphicalUserInterface
 {
@@ -10,49 +11,53 @@ namespace BSUTPApplication.GraphicalUserInterface
     /// </summary>
     public class DialogWindow : IDialogWindow
     {
-        [Builder.Object] private Dialog dialogWindow;
+        private bool disposed;
+        [Builder.Object] private Dialog _window;
+        [Builder.Object] private Label MessageLabel;
         private Builder GuiBuilder;
         
         public DialogWindow()
         {
-            Gtk.Application.Init();
-            GuiBuilder = new Builder();
-            try
+            Application.Init();
+            using (GuiBuilder = new Builder())
             {
-                GuiBuilder.AddFromFile("./Presentation/GuiGlade/DialogWindow.glade");
-                GuiBuilder.Autoconnect(this);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
+                GuiBuilder.AddFromFile("./BSUTPApplication/GuiGlade/DialogWindow.glade");
+                GuiBuilder.Autoconnect(this);   
             }
         }
         
-        public void OpenWindow()
+        public string Message
         {
-            dialogWindow.Visible = true;
+            get => MessageLabel.Text;
+            set => MessageLabel.Text = value;
+            
         }
-        
-        protected void ClickedOkButton(object sender, EventArgs a)
+        protected void ClickedCloseButton(object sender, EventArgs a)
         {
-            dialogWindow.Visible = false;
-        }
-        
-        protected void ExitButton(object sender, EventArgs a)
-        {
-            GuiBuilder.AddFromFile(
-                "./GUI/DialogWindow.glade");
-            GuiBuilder.Autoconnect(this);
+            _window.Visible = false;
+            Dispose();
         }
 
-        public void Show()
+        public void Dispose(bool disposing)
         {
-            throw new NotImplementedException();
+            if(!disposed)
+            {
+                if(disposing)
+                {
+                    _window.Visible = false;
+                }
+            }
+            disposed = true;
         }
-
-        public void Close()
+ 
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+        
+        public void Show() =>  _window.Visible = true;
+        public void Close() => Dispose();
+        public event Action OKButtonClick;
     }
 }
