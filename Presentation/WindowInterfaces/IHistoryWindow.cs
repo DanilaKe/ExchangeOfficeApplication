@@ -9,6 +9,7 @@ namespace Presentation.WindowInterfaces
         string Date { get; set; }
         string Rate { get; set; }
         string Customer { get; set; }
+        string History { set; }
         event Action RefreshEvent;
     }
 }

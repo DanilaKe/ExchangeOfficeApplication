@@ -53,7 +53,7 @@ namespace BSUTPApplication.GraphicalUserInterface
 
         public string Date
         {
-            get =>  DateComboBoxText.ActiveText;
+            get => DateComboBoxText.ActiveText;
             set => DateComboBoxText.AppendText(value);
         }
         public string Rate
@@ -72,7 +72,24 @@ namespace BSUTPApplication.GraphicalUserInterface
         {
             get=> CustomerComboBoxText.ActiveText;
             set => CustomerComboBoxText.AppendText(value);
+        }
+
+        public string History
+        {
+            get => HistoryTextBuffer.Text;
+            set
+            {
+                if (value == null)
+                {
+                    HistoryTextBuffer.Text = "Not date.";
+                }
+                else
+                {
+                    HistoryTextBuffer.Text = value;
+                }
             }
+        }
+
         private void UpdateButtonClicked(object sender, EventArgs a) => RefreshEvent?.Invoke();
         public event Action RefreshEvent;
     }

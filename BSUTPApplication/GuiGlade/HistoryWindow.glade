@@ -139,15 +139,6 @@
             <child>
               <placeholder/>
             </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -167,7 +158,10 @@
                   <object class="GtkTextView">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="editable">False</property>
+                    <property name="cursor_visible">False</property>
                     <property name="buffer">HistoryTextBuffer</property>
+                    <property name="accepts_tab">False</property>
                   </object>
                 </child>
               </object>

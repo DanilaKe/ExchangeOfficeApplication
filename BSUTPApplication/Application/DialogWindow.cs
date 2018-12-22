@@ -11,7 +11,7 @@ namespace BSUTPApplication.GraphicalUserInterface
     /// </summary>
     public class DialogWindow : IDialogWindow
     {
-        private bool disposed;
+        private bool disposed =false;
         [Builder.Object] private Dialog _window;
         [Builder.Object] private Label MessageLabel;
         private Builder GuiBuilder;
