@@ -9,7 +9,8 @@ namespace Presentation.WindowInterfaces
         Currency TargetCurrency { get; }
         
         decimal Rate { get; }
-        
+        string AdminName { set; }
+
         event Action CallAboutWindow;
         event Action UpdateRate;
         event Action Quit;

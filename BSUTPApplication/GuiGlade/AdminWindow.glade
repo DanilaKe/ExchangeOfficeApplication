@@ -133,7 +133,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="CashierNameLable">
+          <object class="GtkLabel" id="AdminNameLable">
             <property name="name">AdminLable</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>

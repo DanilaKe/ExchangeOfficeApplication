@@ -8,14 +8,25 @@ namespace BSUTPApplication.GraphicalUserInterface
 {
     public class AdminWindow : IAdminWindow,IDisposable
     {
+        
+        private Builder GuiBuilder;
         private bool disposed = false;
         [Builder.Object] private ComboBoxText ContributedCurrencyComboBoxText;
         [Builder.Object] private ComboBoxText TargetCurrencyComboBoxText;
         [Builder.Object] private Entry RateEntry;
         [Builder.Object] private Window _window;
-        
-        private Builder GuiBuilder;
-        
+        [Builder.Object] private Label AdminNameLable;
+
+        public event Action CallAboutWindow;
+        public event Action UpdateRate;
+        public event Action Quit;
+        public event Action InvalidData;
+
+        public string AdminName
+        {
+            get => AdminNameLable.Text;
+            set => AdminNameLable.Text = value;
+        }
         public Currency ContributedCurrency
         {
             get
@@ -59,10 +70,6 @@ namespace BSUTPApplication.GraphicalUserInterface
                 return 0;
             }
         }
-        public event Action CallAboutWindow;
-        public event Action UpdateRate;
-        public event Action Quit;
-        public event Action InvalidData;
 
         public AdminWindow()
         {
@@ -76,26 +83,10 @@ namespace BSUTPApplication.GraphicalUserInterface
             InitCurrencies();
         }
 
-        protected void ClickedApplyButton(object sender, EventArgs a)
-        {
-            UpdateRate?.Invoke();
-        }
-
-        protected void ClickedAboutButton(object sender, EventArgs a)
-        {
-            CallAboutWindow?.Invoke();
-        }
-        
-        protected void ClickedQuitButton(object sender, EventArgs a)
-        {
-            Quit?.Invoke();
-        }
-        
-        protected void ClickedCloseButton(object sender, EventArgs a)
-        {
-            Close();
-            Application.Quit();
-        }
+        protected void ClickedApplyButton(object sender, EventArgs a) => UpdateRate?.Invoke();
+        protected void ClickedAboutButton(object sender, EventArgs a) => CallAboutWindow?.Invoke();
+        protected void ClickedQuitButton(object sender, EventArgs a) => Quit?.Invoke();
+        protected void ClickedCloseButton(object sender, EventArgs a) => Application.Quit();
         
         public void Dispose(bool disposing)
         {

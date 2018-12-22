@@ -17,8 +17,10 @@ namespace BSUTPApplication
             Bind<IAboutWindow>().To<AboutWindow>();
             Bind<ILoginWindow>().To<LoginWindow>();
             Bind<IDialogWindow>().To<DialogWindow>();
+            Bind<IHistoryWindow>().To<HistoryWindow>();
             Bind<ICashierWindow>().To<CashierWindow>();
             Bind<AboutWindowPresenter>().ToSelf();
+            Bind<HistoryWindowPresenter>().ToSelf();
             Bind<AdminWindowPresenter>().ToSelf();
             Bind<LoginWindowPresenter>().ToSelf();
             Bind<DialogWindowPresenter>().ToSelf();

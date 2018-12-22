@@ -25,13 +25,21 @@ namespace ExchangeOffice.Service
                 DateId = _kernel.Get<UnitOfWork>().Dates.GetList().Last().DateId,
                 Rate = Rate
             };
+            var newCurrencyExchangeReversed = new CurrencyExchange()
+            {
+                ContributedCurrency = TargetCurrency,
+                TargetCurrency = ContributedCurrency,
+                DateId = _kernel.Get<UnitOfWork>().Dates.GetList().Last().DateId,
+                Rate = decimal.Round(1/Rate,4)
+            };
             _kernel.Get<UnitOfWork>().CurrencyExchanges.Create(newCurrencyExchange);
+            _kernel.Get<UnitOfWork>().CurrencyExchanges.Create(newCurrencyExchangeReversed);
             _kernel.Get<UnitOfWork>().Save();
             return new ServiceEventArgs<CurrencyExchange>()
             {
                 Status = true,
                 Message = "Successful.",
-                Result = new List<CurrencyExchange>(){newCurrencyExchange}
+                Result = new List<CurrencyExchange>(){newCurrencyExchange, newCurrencyExchangeReversed}
             };
         }
     }

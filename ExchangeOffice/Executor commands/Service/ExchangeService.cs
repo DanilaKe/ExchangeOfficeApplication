@@ -36,7 +36,9 @@ namespace ExchangeOffice.Service
                     CurrencyExchangeId = rate.CurrencyExchangeId,
                     IssuedAmount = IssuedAmount,
                     CustomerId = customer.CustomerId,
-                    DateId = GetDate()
+                    Customer = customer,
+                    Date = GetDate(), 
+                    DateId = GetDate().DateId
                 });
                 _kernel.Get<UnitOfWork>().Save();
                 e = new ServiceEventArgs<Exchange>()
@@ -77,7 +79,7 @@ namespace ExchangeOffice.Service
                     x.TargetCurrency == (Currency) 3).Rate;
         }
 
-        private int GetDate()
+        private Date GetDate()
         {
             var db = _kernel.Get<UnitOfWork>().Dates;
             bool newday;
@@ -96,7 +98,7 @@ namespace ExchangeOffice.Service
                 UpdateDailyLimit();
             }
 
-            return db.GetList().Last().DateId;
+            return db.GetList().Last();
         }
 
         private void UpdateDailyLimit()

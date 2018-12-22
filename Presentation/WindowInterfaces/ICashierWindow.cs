@@ -10,16 +10,16 @@ namespace Presentation.WindowInterfaces
         string Name { get;}
         Currency ContributedCurrency { get; }
         Currency TargetCurrency { get; }
-        decimal ContributedAmount { get;  }
-        void ShowError(string message);
-        string ExchangeResult { get; set; }
-        string CashierName { get; set; }
-        string TodayCourse { get; set; }
+        decimal ContributedAmount { get; }
+        string ExchangeResult { set; }
+        string CashierName { set; }
+        string TodayCourse { set; }
 
         event Action Exchange;
         event Action InvalidData;
         event Action CallAboutWindow;
         event Action RefreshExchangeRate;
         event Action Quit;
+        event Action CallHistoryWindow;
     }
 }

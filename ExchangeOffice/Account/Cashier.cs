@@ -8,7 +8,7 @@
         }
         public override bool SendCommand(Command command)
         {
-            if (command is ExchangeCommand || command is ViewingTodayRateCommand)
+            if (command is ExchangeCommand || command is ViewingTodayRateCommand || command is ViewingHistoryCommand)
             {
                 command.Execute();
                 return true;

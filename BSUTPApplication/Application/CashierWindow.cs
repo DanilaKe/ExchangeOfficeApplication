@@ -18,7 +18,6 @@ namespace BSUTPApplication.GraphicalUserInterface
         private bool disposed;
         private readonly IKernel _kernel;
         private readonly Builder GuiBuilder;
-        
         [Builder.Object] private TextBuffer TodayСourseTextBuffer;
         [Builder.Object] private TextBuffer ExchangeResultTextBuffer;
         [Builder.Object] private Entry NameEntry;
@@ -29,6 +28,13 @@ namespace BSUTPApplication.GraphicalUserInterface
         [Builder.Object] private Window Window;
         [Builder.Object] private CheckButton PrintFlagCheckButton;
 
+        public event Action Exchange;
+        public event Action CallAboutWindow;
+        public event Action RefreshExchangeRate;
+        public event Action Quit;
+        public event Action CallHistoryWindow;
+
+        public event Action InvalidData;
         public string TodayCourse
         {
             get => TodayСourseTextBuffer.Text;
@@ -92,18 +98,6 @@ namespace BSUTPApplication.GraphicalUserInterface
                 return 0;
             }
         }
-            
-        public void ShowError(string message)
-        {
-            Console.WriteLine("111");
-        }
-
-        public event Action Exchange;
-        public event Action CallAboutWindow;
-        public event Action RefreshExchangeRate;
-        public event Action Quit;
-
-        public event Action InvalidData;
 
         public CashierWindow(IKernel kernel)
         {
@@ -118,69 +112,17 @@ namespace BSUTPApplication.GraphicalUserInterface
             InitCurrencies();
         }
 
-        private void ClickedApplyButton(object sender, EventArgs a)
-        {
-            Exchange?.Invoke();   
-        }
+        private void ClickedApplyButton(object sender, EventArgs a) => Exchange?.Invoke();   
+        private void ClickedRefreshButton(object sender, EventArgs a) => RefreshExchangeRate?.Invoke();
+        private void ClickedCloseButton(object sender, EventArgs a) => Application.Quit();
+        private void ClickedAboutButton(object sender, EventArgs a) => CallAboutWindow?.Invoke();
+        private void ClickedQuitButton(object sender, EventArgs a) => Quit?.Invoke();
 
+        private void ClickedHistoryButton(object sender, EventArgs a) => CallHistoryWindow?.Invoke();
         private void ClickedClearButton(object sender, EventArgs a)
         {
             NameEntry.Text = string.Empty;
             ContributedAmountEntry.Text = string.Empty;
-        }
-
-        private void ClickedRefreshButton(object sender, EventArgs a)
-        {
-            RefreshExchangeRate?.Invoke();
-        }
-
-        private void ClickedCloseButton(object sender, EventArgs a)
-        {
-            Close();
-            Application.Quit();
-        }
-
-        private void ClickedAboutButton(object sender, EventArgs a)
-        {
-            CallAboutWindow?.Invoke();
-        }
-
-        private void ExitButton(object sender, EventArgs a)
-        {
-            Application.Quit();
-        }
-
-        private void ClickedQuitButton(object sender, EventArgs a)
-        {
-            Quit?.Invoke();
-        }
-
-        private void ActivatePurchaseButton(object sender, EventArgs a)
-        {
-            //TODO
-        }
-
-        private void ClickedCloseHistoryButton(object sender, EventArgs a)
-        {
-            //TODO
-        }
-
-        private void ClickedHistoryButton(object sender, EventArgs a)
-        {
-            //TODO
-        }
-
-        private void ClickedSearchButton(object sender, EventArgs a)
-        {
-            //TODO
-        }
-
-        private void CloseHistoryButton(object sender, EventArgs a)
-        {
-        }
-
-        private void CloseHistory(object sender, EventArgs a)
-        {
         }
 
         private void InitCurrencies()
@@ -189,8 +131,7 @@ namespace BSUTPApplication.GraphicalUserInterface
             {
                 ContributedСurrencyComboBoxText.AppendText(i);
                 TargetCurrencyComboBoxText.AppendText(i);
-            }
-                
+            }           
         }
         
         public void Dispose(bool disposing)

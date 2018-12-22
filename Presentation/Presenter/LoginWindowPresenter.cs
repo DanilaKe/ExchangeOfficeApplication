@@ -36,6 +36,7 @@ namespace Presentation
                 if (_window.AdminFlag)
                 {
                     var newWindow =_kernel.Get<AdminWindowPresenter>();
+                    newWindow.SetAdminName(e.Result.Last().Login);
                     newWindow.Run();
                 }
                 else

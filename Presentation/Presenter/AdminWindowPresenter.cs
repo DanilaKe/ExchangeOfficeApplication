@@ -1,3 +1,4 @@
+using System.Text;
 using DataSourceAccess;
 using ExchangeOffice;
 using Ninject;
@@ -50,13 +51,22 @@ namespace Presentation
         
         private void UpdatedRateHandler(object sender, ServiceEventArgs<CurrencyExchange> e)
         {
-            _kernel.Get<DialogWindowPresenter>().SendMessage(e.Message);
+            var Result = new StringBuilder();
+            Result.Append($"{e.Result[0]?.ContributedCurrency} - {e.Result[0]?.TargetCurrency} : {e.Result[0]?.Rate}\n");
+            Result.Append($"{e.Result[1]?.ContributedCurrency} - {e.Result[1]?.TargetCurrency} : {e.Result[1]?.Rate}\n");
+            Result.Append(e.Message);
+            _kernel.Get<DialogWindowPresenter>().SendMessage(Result.ToString());
         }
         
         private void InvalidData()
         {
             InvalidDataFlag = true;
             _kernel.Get<DialogWindowPresenter>().SendMessage("Invalid data.");
+        }
+        
+        public void SetAdminName(string name)
+        {
+            _window.AdminName = name;
         }
         
         public void Run()

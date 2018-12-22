@@ -31,6 +31,7 @@ namespace Presentation
             _window.Quit += QuitHandler;
             _window.InvalidData += InvalidData;
             _window.RefreshExchangeRate += RefreshTodayRate;
+            _window.CallHistoryWindow += CallingHistoryWindow;
             _executorCommands.ExchangeEvent = ExchangeEventHandler;
             _executorCommands.CurrencyRateEvent = ViewingTodayExchangeRateHandler;
         }
@@ -41,7 +42,7 @@ namespace Presentation
             if (!InvalidDataFlag)
             {
                 if (Account.Instance.SendCommand(exchangeCommand)) return;
-                _window.ShowError("Invalid command");
+                _kernel.Get<DialogWindowPresenter>().SendMessage("Invalid command.");
             }
             InvalidDataFlag = false;
         }
@@ -71,6 +72,11 @@ namespace Presentation
         private void CallingAboutWindow()
         {
             _kernel.Get<AboutWindowPresenter>().Run();
+        }
+        
+        private void CallingHistoryWindow()
+        {
+            _kernel.Get<HistoryWindowPresenter>().Run();
         }
 
         private void QuitHandler()

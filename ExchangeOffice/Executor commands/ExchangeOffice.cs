@@ -36,9 +36,10 @@ namespace ExchangeOffice
            CallEvent(service.Invoke(),CurrencyRateEvent);
        }
 
-       internal override void ViewingHistory(int customerID)
+       internal override void ViewingHistory()
        {
-           throw new NotImplementedException();
+           var service = _kernel.Get<IHistoryService>();
+           CallEvent(service.Invoke(),HistoryEvent);
        }
 
        internal override void Login(string login, string password,bool adminFlag)

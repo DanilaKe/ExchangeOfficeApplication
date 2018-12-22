@@ -16,6 +16,8 @@ namespace BSUTPApplication.GraphicalUserInterface
         [Builder.Object] private Label MessageLabel;
         private Builder GuiBuilder;
         
+        public event Action OKButtonClick;
+        
         public DialogWindow()
         {
             Application.Init();
@@ -58,6 +60,5 @@ namespace BSUTPApplication.GraphicalUserInterface
         
         public void Show() =>  _window.Visible = true;
         public void Close() => Dispose();
-        public event Action OKButtonClick;
     }
 }
