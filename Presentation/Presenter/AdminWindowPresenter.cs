@@ -19,6 +19,7 @@ namespace Presentation
             _executorCommands = executorCommands;
 
             _window.Quit += QuitHandler;
+            _window.InvalidData += InvalidData;
             _window.CallAboutWindow += CallingAboutWindow;
             _window.UpdateRate += () => UpdateRate(_window.ContributedCurrency, _window.TargetCurrency, _window.Rate);
             _executorCommands.UpdateRateEvent = UpdatedRateHandler;
@@ -31,6 +32,7 @@ namespace Presentation
             if (!InvalidDataFlag)
             {
                 if (Account.Instance.SendCommand(updateCommand)) return;
+                _kernel.Get<DialogWindowPresenter>().SendMessage("Invalid command.");
             }
             InvalidDataFlag = false;
         }

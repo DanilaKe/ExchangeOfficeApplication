@@ -15,6 +15,7 @@ namespace ExchangeOffice
             Bind<IExchangeService>().To<ExchangeService>().InSingletonScope();
             Bind<ILoginService>().To<LoginService>().InSingletonScope();
             Bind<IViewExchangeRateService>().To<ViewExchangeRateService>().InSingletonScope();
+            Bind<ICurrencyExchangeUpdateService>().To<CurrencyExchangeUpdateService>().InSingletonScope();
             Bind<UnitOfWork>().ToSelf().InSingletonScope();
             Bind<CurrencyRatePage>().ToSelf().InSingletonScope();
         }

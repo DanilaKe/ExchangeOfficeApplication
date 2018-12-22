@@ -18,7 +18,7 @@ namespace ExchangeOffice
 
         internal override void Execute()
         {
-            
+            _executorCommands.CurrencyExchangeUpdate(TargetCurrency,ContributedCurrency,Rate);
         }
     }
 }

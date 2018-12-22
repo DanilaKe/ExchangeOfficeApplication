@@ -51,7 +51,7 @@ namespace BSUTPApplication.GraphicalUserInterface
         {
             get
             {
-                if (decimal.TryParse(RateEntry.Text,out var value))
+                if (decimal.TryParse(RateEntry.Text.Replace(".",","),out var value))
                 {
                     return value;
                 }
@@ -72,6 +72,8 @@ namespace BSUTPApplication.GraphicalUserInterface
                 GuiBuilder.AddFromFile("./BSUTPApplication/GuiGlade/AdminWindow.glade");
                 GuiBuilder.Autoconnect(this);   
             }
+            
+            InitCurrencies();
         }
 
         protected void ClickedApplyButton(object sender, EventArgs a)
@@ -112,6 +114,16 @@ namespace BSUTPApplication.GraphicalUserInterface
             _window.Close();
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+        
+        private void InitCurrencies()
+        {
+            foreach (var i in Enum.GetNames(typeof(Currency)))
+            {
+                ContributedCurrencyComboBoxText.AppendText(i);
+                TargetCurrencyComboBoxText.AppendText(i);
+            }
+                
         }
         
         public void Show() => _window.Visible = true;

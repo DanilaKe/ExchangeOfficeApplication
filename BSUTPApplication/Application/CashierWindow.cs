@@ -84,7 +84,7 @@ namespace BSUTPApplication.GraphicalUserInterface
         {
             get
             {
-                if (decimal.TryParse(ContributedAmountEntry.Text,out var value))
+                if (decimal.TryParse(ContributedAmountEntry.Text.Replace(".",","),out var value))
                 {
                     return value;
                 }
