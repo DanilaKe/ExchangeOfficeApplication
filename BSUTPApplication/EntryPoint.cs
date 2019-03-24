@@ -4,16 +4,8 @@ using Presentation;
 
 namespace BSUTPApplication
 {
-    /// <summary>
-    /// Class EntryPoint
-    /// 
-    /// </summary>
     internal static class EntryPoint
     {
-        /// <summary>
-        /// Method Main.
-        /// Entry point.
-        /// </summary>
         private static void Main()
         {
             var registrations = new NinjectRegistrations();
